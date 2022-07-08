@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Home</title>
+</head>
+<body>
+
+<section>
+
+        <div class="banner d-flex justify-content-center align-items-center" id="home">
+            <div class="text-center">
+                <h1 class="font-weight-bold mb-2"> Doctors Care </h1>
+                <p class="mb-3"> Start Getting Care from Your Virtual Doctors. They serves the best to keep you healthy.</p>
+
+                <form th:action="@{/patient-signup}">
+                    <button class="btn btn-outline-success btn-lg" type="submit">Get Started</button>
+                </form>
+            </div>
+        </div>
+
+<!--    cta -->
+    <div class="cta">
+        <div class="container text-center">
+                <h3 class="h3 mb-2">In an emergency? Need help now?</h3>
+                <p> take appintment</p>
+                <a class="cta-btn" href="#appointment">Make an Appointment</a>
+        </div>
+    </div>
+
+<!--    about section -->
+
+    <div id="about" class="about mb-5">
+        <div class="container" data-aos="fade-up">
+
+            <div class="title text-center m-5">
+                <h2>About Us</h2>
+                <p>The most worthy pleasure as if pleasures of the body were to be taken.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <img src="https://www.scnsoft.com/healthcare/virtual-hospital/virtual-gospital_cover-upd.svg" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-6 pt-4 pt-lg-0 content" data-aos="fade-left">
+                    <h3 class="mb-2">We Connect Your Health with Quality Doctors...</h3>
+                    <h5 class="mt-3">
+                        Our medical details:
+                    </h5>
+                    <ul>
+                        <li><i class="bi bi-check-circle"></i> We provide medical service over online for 24/7 </li>
+                        <li><i class="bi bi-check-circle"></i> We store your prescription, so no need to worry about losing prescription anymore.</li>
+                        <li><i class="bi bi-check-circle"></i> With a virtual doctor, you can be confident that you’re using a secure system and server. Your information will always be kept safe and secure. As always, everything you discuss with your doctor online is confidential.</li>
+                    </ul>
+                    <i>
+"Stay Home, Stay Safe"                    </i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--    For Testimonial-->
+    <!-- ======= Testimonials Section ======= -->
+
+
+        <div id="testimonials" class="testimonials ">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2 class="mt-3 pt-5 text-center">Some Testimonials</h2>
+                <p class="px-5">
+                Doctors Care is not only online health care center. But also a great service which ensures each customer to have the best quality of service from us. Here are some testimonials about us.
+                </p>
+            </div>
+
+            <div class="testimonials-slider swiper mt-5" data-aos="fade-up" data-aos-delay="100">
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide">
+                        <div class="testimonial-item">
+                            <p>
+                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                From the beginner of the day and till now, doctor care is providing the best services to their patients. So that they can have better treatment from their home. I am so lucky that I have so many experienced doctors involved in our platform who works hard day and night for their patients. I can ensure you that you will have best online treatment ever from Doctors Care.
+                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                            </p>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgZ5qfjNLHvQHUWunBcvusqn1k7l-kUUGn-Q&usqp=CAU" class="testimonial-img" alt="">
+                            <h3>Md. Rakibul Hasan</h3>
+                            <h4>Ceo &amp; Founder</h4>
+                        </div>
+                    </div><!-- End testimonial item -->
+
+                    <div class="swiper-slide mt-4">
+                        <div class="testimonial-item">
+                            <p>
+                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                Each of the pages in this site was made in such a way so that the patients may have not a single problem from getting better treatment from the doctors. I am happy to be involved within this project. In the future, the people of our country will get benefit from this application. Which will improve our peoples physical and mental health both. Rest of the things will be decided by you.
+                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                            </p>
+                            <img th:src="@{/images/orunSynny.png}" class="testimonial-img" alt="">
+                            <h3>Md. Orun Sunny</h3>
+                            <h4>Co-Founder & Front-end Designer</h4>
+                        </div>
+                    </div><!-- End testimonial item -->
+
+                    <div class="swiper-slide mt-4">
+                        <div class="testimonial-item">
+                            <p>
+                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                From the beginning to this day, I have been working with this platform and I have seen many patients got better treatment from us. In the future, we are hoping to grow more and spread our healthcare.
+                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                            </p>
+                            <img src="https://assets.roar.media/assets/hmv3RF1AibXTd8AO_DSC_6666-%283%29.JPG?w=200" class="testimonial-img" alt="">
+                            <h3>Dr. Ismail Hossain</h3>
+                            <h4>Senior Doctor of DoctorsCare</h4>
+                        </div>
+                    </div><!-- End testimonial item -->
+
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+
+        </div>
+    </div><!-- End Testimonials Section -->
+
+
+
+    <!-- Contact Section -->
+    <!-- ======= Contact Section ======= -->
+    <div id="contact" class="contact bg-light pt-5 pb-5">
+        <div class="container">
+
+            <div class="section-title text-center">
+                <h2>Contact Us</h2>
+                <p>If you need any further help or want to report about our service. You can follow these contact information to reach us. Have a nice day!</p>
+            </div>
+
+        </div>
+
+
+
+        <div class="container">
+
+            <div class="row mt-5">
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="info-box">
+                                <i class="bx bx-map"></i>
+                                <h3>Our Address</h3>
+                                <p>Mirpur - 11, Dhaka, Dhaka 1212</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-box mt-4">
+                                <i class="bx bx-envelope"></i>
+                                <h3>Email Us</h3>
+                                <p>info@doctorscare.com<br>contact@doctorscare.com</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-box mt-4">
+                                <i class="bx bx-phone-call"></i>
+                                <h3>Call Us</h3>
+                                <p>+880123456789<br>+6678 25241</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+            </div>
+
+        </div>
+    </div><!-- End Contact Section -->
+
+    </main><!-- End #main -->
+
+</section>
+
+</body>
+</html>

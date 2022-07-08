@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en" th:replace="patient/bases/base4::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Chat Room </title>
+
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!--    <link rel="stylesheet" th:href="@{/style.css}">-->
+
+
+</head>
+<body>
+<section>
+
+
+<!--    <p id="receiverName" hidden>test-Name:</p>-->
+    <div id="chat-room">
+
+
+        <div class="container-fluid">
+
+            <div class="row">
+
+
+                <div class="col-md-9 offset-md-2">
+
+
+                    <div class="card mt-3">
+                        <div class="card-header">
+
+                            <h3 id="name-title"></h3>
+
+                        </div>
+                        <div class="card-body">
+
+                            <div class="input-group">
+                                <input type="text"
+                                       placeholder="Receiver Email"
+                                       id="receiverEmail"
+                                       class="form-control px-4 mx-5"
+                                >
+                                <input type="text"
+                                       placeholder="Enter your message "
+                                       id="message-value"
+                                       autofocus
+                                       class="form-control mx-2"
+
+                                >
+
+
+
+                                <div class="input-group-append">
+
+                                    <button class="btn btn-dark" id="send-btn">Send</button>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="table-responsive mt-3">
+
+                                <table id="message-container-table">
+
+
+                                </table>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"
+            integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"
+            integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script th:inline="javascript">
+        var stompClient = null
+
+        function sendMessage() {
+
+            let jsonOb = {
+                receiverName: $("#receiverEmail").val(),
+                message: $("#message-value").val()
+            }
+
+            stompClient.send("/app/private-message", {}, JSON.stringify(jsonOb));
+        }
+
+
+        function connect() {
+            console.log('connecting')
+            let socket = new SockJS("/ws")
+
+            stompClient = Stomp.over(socket)
+
+            stompClient.connect({}, function (frame) {
+
+                console.log("Connected : " + frame)
+
+                let senderName = [[${senderEmail}]];
+                console.log('sendername = ' + senderName)
+                //subscribe
+                stompClient.subscribe("/user/"+senderName+"/private", function (response) {
+
+                    showMessage(JSON.parse(response.body))
+
+                })
+
+
+            })
+
+        }
+
+
+        function showMessage(message) {
+
+            $("#message-container-table").prepend(`<tr><td><b>sending to ${message.receiverName} :</b> ${message.message}</td></tr>`)
+
+        }
+
+        jQuery(document).ready(function ($) {
+
+
+            let name = $("#senderEmail").val()
+            console.log(name)
+            localStorage.setItem("name", name)
+            connect();
+// All your code using $
+
+            $("#send-btn").click(() => {
+                console.log('sent...')
+                sendMessage()
+                const firstNameInput = document.getElementById('message-value');
+                firstNameInput.value = ''
+            })
+
+
+            const input = document.getElementById("message-value");
+
+// Execute a function when the user presses a key on the keyboard
+            input.addEventListener("keypress", function (event) {
+                // If the user presses the "Enter" key on the keyboard
+                if (event.key === "Enter") {
+                    // Cancel the default action, if needed
+                    // event.preventDefault();
+                    // Trigger the button element with a click
+                    document.getElementById("send-btn").click();
+                }
+            });
+
+
+        });
+    </script>
+</section>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en"  xlms:th="http://thymeleaf.org" xmlns:xlms="http://www.w3.org/1999/xhtml"  th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+     <div class="container ">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="my-card mt-4 mb-3 rounded-3"  >
+
+                    <div th:if="${successMsgType == 'alert-success'}" th:classappend="${successMsgType}" th:text="${successMsg}" class="alert"></div>
+
+                    <h2 class="text-center mb-4"> Doctor Signup !</h2>
+                    <hr>
+                    <h4 class="text-center mb-3"> Basic Info </h4>
+                    <form th:action="@{/process-doctor-signup}" method="post" th:object="${user}">
+                        <!--                        name-->
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input name="name" th:value="${user.name}" required placeholder="Enter here" type="text" class="form-control">
+                        </div>
+                        <!--                        DOB-->
+                        <div class="mb-3">
+                            <label class="form-label">Date Of Birth</label>
+                            <input name="DOB" th:value="${user.DOB}" required placeholder="Enter here" type="date" class="form-control">
+                        </div>
+                        <!--                        email -->
+                        <div class="mb-3">
+                            <label class="form-label">Email address</label>
+                            <input name="email" th:value="${user.email}" placeholder="Enter here" type="email" class="form-control"
+                                   th:classappend="${(emailError == 'yes')?'is-invalid':''}">
+                            <div th:if="${emailError == 'yes'}" th:text="${emailErrorMsg}" class="invalid-feedback"></div>
+                        </div>
+                        <!--                        password -->
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input name="password" th:value="${user.password}" placeholder="Enter here" type="password" class="form-control"
+                                   th:classappend="${(passError == 'yes')?'is-invalid':''}">
+                            <div th:if="${passError == 'yes'}" th:text="${passErrorMsg}" class="invalid-feedback">
+                            </div>
+                        </div>
+                        <!--                        Phone Number-->
+                        <div class="mb-3">
+                            <label class="form-label">Phone Number</label>
+                            <input name="phone" th:value="${user.phone}" required minlength="11" maxlength="11" placeholder="Enter here" type="text" class="form-control">
+                        </div>
+                        <!--                        Current Address-->
+                        <div class="mb-3">
+                            <label class="form-label">Current Address</label>
+                            <input name="address" th:value="${user.address}" required placeholder="Enter here" type="text" class="form-control">
+                        </div>
+                        <!--                        about -->
+                        <div class="form-group mb-3">
+                            <label class="form-label">About</label>
+                            <textarea required placeholder="Enter something about yourself" name="about" cols="30" rows="5" class="form-control" th:text="${user.about}"></textarea>
+                        </div>
+                        <!--                        Upload Image -->
+                        <div class="form-group mb-5">
+                            <label class="form-label"> Upload Your Image </label>
+                            <input type="file" class="form-select" required>
+                        </div>
+
+<!--                        DOCTOR TYPE INFOS -->
+                        <hr>
+                        <h4 class="text-center mb-3"> Important Info </h4>
+
+                        <!--                        NID Number -->
+                        <div class="mb-3">
+                            <label class="form-label">NID Card Number</label>
+                            <input name="nid" th:value="${user.nid}" minlength="9" maxlength="15" placeholder="Ex: 123 456 7890" type="number" class="form-control">
+                        </div>
+                        <!--                        Specialist At -->
+                        <div class="mb-3">
+                            <label class="form-label"> Specialist at </label>
+                            <select name="doctortype" th:value="${user.doctortype}" class="form-select" aria-label="Default select example">
+                                <option selected disabled>(select one)</option>
+                                <option value="pediatrics">Pediatrics</option>
+                                <option value="Skin">Skin</option>
+
+                                <option value="Medicine">Medicine</option>
+                                <option value="Covid Support">Covid Support</option>
+
+                                <option value="Mental Health">Mental Health</option>
+                                <option value="Urology">Urology</option>
+
+                                <option value="Eye">Eye</option>
+                                <option value="Cardiology">Cardiology</option>
+                            </select>
+                        </div>
+<!--                        Degrees -->
+                        <div class="mb-3">
+                            <label class="form-label">Degrees</label>
+                            <input name="degrees" th:value="${user.degrees}" placeholder="Ex: Mbbs, FCPS, Surgeon" type="text" class="form-control">
+                        </div>
+                        <!--                        College Name -->
+                        <div class="mb-3">
+                            <label class="form-label">Medical College Name</label>
+                            <input name="medicalcollege" th:value="${user.medicalcollege}" placeholder="Ex: Rajshahi Medical College" type="text" class="form-control">
+                        </div>
+
+                        <!--                        Appointment Fee -->
+                        <div class="mb-5">
+                            <label class="form-label">Appointment Fee (TK)</label>
+                            <input name="appointmentfee" th:value="${user.appointmentfee}" placeholder="Ex: 100" type="number" min="0" max="10000" class="form-control">
+                        </div>
+
+                        <!--                        END OF BASIC INFO-->
+<!--                        check term-->
+                             <div class="form-group form-check text-center mt-3 mb-3">
+                                 <label class="form-check-label">  <input type="checkbox" class="form-check-input" required> Agree <a th:href="@{/terms-and-conditions}" target="_blank">Terms and Conditions</a></label>
+                            </div>
+                        <!--                        buttons -->
+                        <div class="container text-center d-grid gap-2">
+                            <button type="submit" class="btn btn-outline-success btn-block mb-1">Submit</button>
+                            <button type="reset" class="btn btn-outline-dark btn-block mb-2">Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

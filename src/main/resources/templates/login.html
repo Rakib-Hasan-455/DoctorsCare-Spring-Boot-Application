@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"  th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+
+    <title>Title</title>
+</head>
+<body>
+    <section>
+        <div class="container">
+            <div class="row ">
+                <div class="col-md-6 offset-md-3">
+                    <div class="my-card mt-4 mb-3 p-5 rounded-3" >
+                        <h2 class="text-center mb-3">Please sign in!</h2>
+
+                        <form class="form-signin" method="post" th:action="@{/do_login}">
+                <div th:if="${param.error}" class="alert alert-danger"> Invalid Username or Password</div>
+                <div th:if="${param.logout}" class="alert alert-success"> You have been Logged Out</div>
+
+                            <div class="m-4">
+                    <label for="username" class="form-label">User Email</label>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="User Email" required autofocus>
+                            </div>
+                            <div class="m-4">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                            </div>
+                            <div class="container text-center mt-4">
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

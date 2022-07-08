@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en"  th:replace="doctor/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+    <div class="text-center"><h1> Home </h1></div>
+        <p> This is user dashboard </p>
+        <p> User Name: <span th:text="${user.name}"></span></p>
+        <p> User Email: <span th:text="${user.email}"></span></p>
+        <h4> <a href="/logout"> Log-Out </a> </h4>
+
+</section>
+</body>
+</html>

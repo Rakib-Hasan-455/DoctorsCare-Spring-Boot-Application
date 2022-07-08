@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="patient/bases/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/CSS/patient/appoint-doctor-type.css}">
+
+</head>
+<body>
+<section>
+    <h2 class="text-center mt-3"> Specialist Types </h2>
+    <h4 class="card-title text-center px-5 mt-3 mb-4"> Please select your desired specialist</h4>
+    <div class="cards-list">
+
+        <a th:href="@{/patient/doctors-list/Pediatrics}">
+        <div class="card 1">
+            <div class="card_image">
+                <img src="https://i.pinimg.com/originals/51/d7/e7/51d7e77c36a68ee327dcb68337222b1e.gif" /> </div>
+            <div class="card_title title-white">
+                <p>Pediatrics</p>
+            </div>
+        </div>
+        </a>
+
+        <a th:href="@{/patient/doctors-list/Skin}">
+        <div class="card 1">
+            <div class="card_image">
+                <img src="https://i.pinimg.com/originals/45/fb/0f/45fb0f7697b7cb9d3e7f147267d60d1f.gif" /> </div>
+            <div class="card_title title-white">
+                <p>Skin</p>
+            </div>
+        </div>
+        </a>
+
+        <a th:href="@{/patient/doctors-list/Medicine}">
+        <div class="card 1">
+            <div class="card_image">
+                <img src="https://cdn.dribbble.com/users/2146370/screenshots/4432324/doctor.gif" /> </div>
+            <div class="card_title title-white">
+                <p>Medicine</p>
+            </div>
+        </div>
+        </a>
+
+        <a th:href="@{/patient/doctors-list/Covid Support}">
+        <div class="card 1">
+            <div class="card_image">
+                <img src="https://cdn.dribbble.com/users/720555/screenshots/3323480/bulbytherapy.gif" /> </div>
+            <div class="card_title title-white">
+                <p>Covid Support</p>
+            </div>
+        </div>
+        </a>
+
+        <a th:href="@{/patient/doctors-list/Mental Health}">
+        <div class="card 1">
+            <div class="card_image">
+                <img src="https://cdn.dribbble.com/users/381118/screenshots/3536836/meditation.gif" /> </div>
+            <div class="card_title title-white">
+                <p>Mental Health</p>
+            </div>
+        </div>
+        </a>
+
+        <a th:href="@{/patient/doctors-list/Urology}">
+        <div class="card 1">
+            <div class="card_image">
+                <img src="https://itaintmagic.riken.jp/wp-content/uploads/explanatory-ai-with-ultrasound-800.gif" /> </div>
+            <div class="card_title title-white">
+                <p>Urology</p>
+            </div>
+        </div>
+        </a>
+
+        <a th:href="@{/patient/doctors-list/Eye}">
+        <div class="card 1">
+            <div class="card_image">
+                <img src="https://c.tenor.com/u93sm_LSweoAAAAi/this-is2020-2020vision.gif" /> </div>
+            <div class="card_title title-white">
+                <p>Eye</p>
+            </div>
+        </div>
+        </a>
+
+        <a th:href="@{/patient/doctors-list/Cardiology}">
+        <div class="card 1">
+            <div class="card_image">
+                <img src="https://getmegiddy.com/sites/default/files/2021-02/Giddy_3d_P_Hero.gif" /> </div>
+            <div class="card_title title-white">
+                <p>Cardiology</p>
+            </div>
+        </div>
+        </a>
+    </div>
+</section>
+</body>
+</html>

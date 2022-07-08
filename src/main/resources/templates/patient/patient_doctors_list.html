@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="patient/bases/base2::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+
+
+    <div class="container mt-3 text-center" th:if="${not #lists.isEmpty(userList)}">
+
+    <h2 class="text-center"> <span th:text="${doctorType}"></span> Doctor </h2>
+    <h4 class="card-title text-center px-5 mt-3 mb-4"> Please select your desired Doctor To Get Appointment</h4>
+    </div>
+
+    <div class="cards-list">
+
+        <div class="container mt-5 mt-5 text-center" th:if="${#lists.isEmpty(userList)}">
+            <h2 style="color: lightcoral"> Currently No Doctor is Available for This Type!</h2>
+        </div>
+
+        <div th:each="userList: ${userList}">
+
+        <a th:href="@{'/patient/appoint-doctor/'+${userList.id}}" >
+            <div class="card 1" >
+                <div class="card_image">
+                    <img src="https://i.pinimg.com/originals/51/d7/e7/51d7e77c36a68ee327dcb68337222b1e.gif" /> </div>
+                <div class="card_title title-white">
+                    <span th:text="${userList.name}"></span>
+                    <h5>  Appoinement Fee: <span th:text="${userList.getDoctorsAdditionalInfo().appointmentfee}"></span> tk </h5>
+                    <h6> <span th:text="${userList.getDoctorsAdditionalInfo().degrees}"></span> </h6>
+                    <h6>  <span th:text="${userList.getDoctorsAdditionalInfo().medicalcollege}"></span> </h6>
+
+                </div>
+
+            </div>
+        </a>
+
+        </div>
+
+    </div>
+</section>
+</body>
+</html>

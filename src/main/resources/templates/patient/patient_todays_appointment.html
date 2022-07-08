@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="patient/bases/base4::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+    <h3 class="text-center mb-3 mt-2"> Todays Appointments </h3>
+    <table class="table mt-5">
+        <thead>
+        <tr>
+            <th scope="col">Appointment Date</th>
+            <th scope="col">Appointment Time</th>
+            <th scope="col">Doctor ID</th>
+            <th scope="col">Doctor Fee</th>
+<!--            <th scope="col">Handle</th>-->
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="appointments : ${appointDoctorList}">
+            <th th:text="${appointments.appointmentDate}"></th>
+            <th th:text="${appointments.appointmentTime}"></th>
+            <td th:text="${appointments.doctorID}"></td>
+            <td th:text="${appointments.doctorFee}"></td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+</body>
+</html>
