@@ -1,7 +1,5 @@
 package com.example.doctorscarespringbootapplication.entity;
 
-import com.example.doctorscarespringbootapplication.entity.User;
-
 import javax.persistence.*;
 
 @Entity

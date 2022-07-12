@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" th:replace="patient/bases/base5::layout(~{::section})">
+<html lang="en" th:replace="doctor/bases/base5::layout(~{::section})">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -18,9 +18,8 @@
 </head>
 <body>
 <section>
-
-    <div th:if="${noDoctorAppointment == 'true'}" class="container text-center mt-5 pt-5">
-        <h2 style="color: lightcoral"> Please take an appointment to meet doctor!</h2>
+    <div th:if="${noDoctorAppointment == 'true'}" class="container text-center mt-5 pt-5 px-5">
+        <h2 style="color: lightcoral"> Sorry, currently you dont have any appointment to meet patient!</h2>
     </div>
 
     <div th:if="${noDoctorAppointment != 'true'}">
@@ -29,8 +28,6 @@
             <span id="time"> --:-- </span>
             Minutes left </h1>
     </div>
-
-
     <div class="container d-none" id="messengerclass">
         <div class="chat">
             <div class="card">
@@ -38,20 +35,17 @@
                     <div class="d-flex bd-highlight">
                         <div class="img_cont">
                             <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                                 class="rounded-circle user_img" alt="Profile logo">
+                                 class="rounded-circle user_img">
                             <span class="online_icon"></span>
                         </div>
                         <div class="user_info">
-                            <span th:text="${doctorName}"></span>
+                            <span th:text="${patientName}"></span>
                         </div>
-
                     </div>
-
                 </div>
+
                 <div class="card-body msg_card_body" id="msg_card_body">
-
-<!--                Messages  -->
-
+<!--                    Messages-->
                 </div>
 
                 <div class="card-footer">
@@ -70,25 +64,32 @@
         </div>
 
         <div class="container mt-3 text-center">
-            <form th:action="@{/patient/view-single-prescription}" method="post" target="_blank">
-                <input name="appointmentID" type="hidden" th:value="${appointmentID}">
-            <button class="btn btn-lg btn-success" type="submit">View Prescriptions</button>
+            <form th:action="@{/doctor/give-prescription}" method="post" target="_blank">
+            <input type="hidden" th:value="${appointmentID}" th:name="appointmentID">
+<!--                <button class="btn btn-lg btn-info rounded-pill border-dark">Give Prescriptions</button>-->
+                <button class="btn btn-lg btn-success">Give Prescription</button>
             </form>
         </div>
-
     </div>
     </div>
 
+<style>
+
+</style>
+
+
+<!--    Javascript Part -->
     <script th:inline="javascript">
-
         var stompClient = null
 
         function sendMessage() {
+
             let jsonOb = {
-                senderName: [[${senderEmail}]],
-                receiverName: [[${receiverEmail}]],
+                senderName: [[${senderEmailDoctor}]],
+                receiverName: [[${receiverEmailDoctor}]],
                 message: $("#message-value").val()
             }
+
             stompClient.send("/app/private-message", {}, JSON.stringify(jsonOb));
         }
 
@@ -96,32 +97,42 @@
         function connect() {
             console.log('connecting')
             let socket = new SockJS("/ws")
+
             stompClient = Stomp.over(socket)
+
             stompClient.connect({}, function (frame) {
+
                 console.log("Connected : " + frame)
-                let senderName = [[${senderEmail}]];
+
+                let senderName = [[${senderEmailDoctor}]];
                 console.log('sendername = ' + senderName)
                 //subscribe
-                stompClient.subscribe("/user/" + senderName + "/private", function (response) {
+                stompClient.subscribe("/user/"+senderName+"/private", function (response) {
+
                     showMessage(JSON.parse(response.body))
+
                 })
+
+
             })
+
         }
 
         function showMessage(message) {
             // $("#message-container-table").prepend(`<tr><td><b style="color: lightcoral"> ${message.senderName} :</b> ${message.message}</td></tr>`)
-            const currentTime = new Date().toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})
+            const currentTime = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
             $("#msg_card_body").append(`
 <div class="d-flex justify-content-start mb-4">
                         <div class="img_cont_msg">
                             <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                                 class="rounded-circle user_img_msg" alt="profile">
+                                 class="rounded-circle user_img_msg">
                         </div>
                         <div class="msg_cotainer">
                                 ${message.message}
                             <span class="msg_time">${currentTime}</span>
                         </div>
-                    </div>`)
+                    </div>`
+            )
             let divScroll = document.getElementById("msg_card_body");
 
             var shouldScroll = divScroll.scrollTop + divScroll.clientHeight === divScroll.scrollHeight;
@@ -137,10 +148,10 @@
             // console.log(myName)
             console.log(myMessage)
             /*$("#message-container-table").append(`
-        <tr align="left"><td><b style="color: green"> ${myName} :</b> ${myMessage}</td>
-        </tr>
-        `)*/
-            const currentTime = new Date().toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})
+<tr align="left"><td><b style="color: green"> ${myName} :</b> ${myMessage}</td>
+</tr>
+`)*/
+            const currentTime = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
 
 
             $("#msg_card_body").append(`
@@ -165,6 +176,7 @@
             }
         }
 
+
         function scrollToBottom() {
             let divScroll = document.getElementById("msg_card_body");
             divScroll.scrollTop = divScroll.scrollHeight;
@@ -173,6 +185,7 @@
 
         var secondsRemaining;
         var intervalHandle;
+
 
 
         function tick() {
@@ -220,13 +233,8 @@
         }
 
 
-
-
-
         jQuery(document).ready(function ($) {
-            // var minutes = [[${appointCountdownTime}]];
             var minutes = 0;
-
             if (minutes != 0) {
                 var element1 = document.getElementById("container");
                 element1.classList.remove("d-none");
@@ -238,6 +246,7 @@
                 element.classList.add("mt-5");
                 connect();
             }
+
 
             $("#send-btn").click(() => {
                 console.log('sent...')
@@ -261,6 +270,8 @@
             });
 
         });
+
+
     </script>
     <!-- ✅ Load the moment library ✅ -->
     <script
@@ -277,5 +288,6 @@
             integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </section>
+
 </body>
 </html>

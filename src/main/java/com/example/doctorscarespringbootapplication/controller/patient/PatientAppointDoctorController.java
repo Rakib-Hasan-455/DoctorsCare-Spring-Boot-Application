@@ -15,8 +15,6 @@ import java.security.Principal;
 import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -41,7 +39,6 @@ public class PatientAppointDoctorController {
         System.out.println(userList);
         model.addAttribute("userList", userList);
         model.addAttribute("doctorType", doctortype);
-        updateDoctorsScheduleAfter4PM();
         return "patient/patient_doctors_list";
     }
 
@@ -50,7 +47,7 @@ public class PatientAppointDoctorController {
         model.addAttribute("title", "Appoint Doctor");
         addCommonData(model, principal);
         User userList = this.userRepository.findById(doctorID);
-        System.out.println("UserList from appoint Doctor" +userList);
+        System.out.println("UserList from appoint Doctor" + userList);
 
         updateAvailableTime(model, userList);
 
@@ -87,32 +84,32 @@ public class PatientAppointDoctorController {
         System.out.println(doctorID);
         System.out.println(appointTime);
         System.out.println(userList);
-        if (appointTime.toString().equals("10:00:00")){
+        if (appointTime.toString().equals("10:00:00")) {
             userList.getDoctorsSchedule().set_10_00(false);
         }
-        if (appointTime.toString().equals("10:30:00")){
+        if (appointTime.toString().equals("10:30:00")) {
             userList.getDoctorsSchedule().set_10_30(false);
         }
-        if (appointTime.toString().equals("11:00:00")){
+        if (appointTime.toString().equals("11:00:00")) {
             userList.getDoctorsSchedule().set_11_00(false);
         }
-        if (appointTime.toString().equals("11:30:00")){
+        if (appointTime.toString().equals("11:30:00")) {
             userList.getDoctorsSchedule().set_11_30(false);
         }
-        if (appointTime.toString().equals("12:00:00")){
+        if (appointTime.toString().equals("12:00:00")) {
             userList.getDoctorsSchedule().set_12_00(false);
         }
-        if (appointTime.toString().equals("14:00:00")){
+        if (appointTime.toString().equals("14:00:00")) {
             userList.getDoctorsSchedule().set_2_00(false);
         }
-        if (appointTime.toString().equals("14:30:00")){
+        if (appointTime.toString().equals("14:30:00")) {
             userList.getDoctorsSchedule().set_2_30(false);
         }
-        if (appointTime.toString().equals("15:00:00")){
+        if (appointTime.toString().equals("15:00:00")) {
             userList.getDoctorsSchedule().set_3_00(false);
         }
         System.out.println(appointTime.toString());
-        if (appointTime.toString().equals("15:30:00")){
+        if (appointTime.toString().equals("15:30:00")) {
             System.out.println("Set 3_30 called ");
             userList.getDoctorsSchedule().set_3_30(false);
         }
@@ -132,10 +129,10 @@ public class PatientAppointDoctorController {
         System.out.println(time);
 
         model.addAttribute("currentTime", time);
-        if (hour >= 9 ) {
+        if (hour >= 9) {
             userList.getDoctorsSchedule().set_10_00(false);
         }
-        if (hour >= 10 ) {
+        if (hour >= 10) {
             userList.getDoctorsSchedule().set_10_30(false);
             userList.getDoctorsSchedule().set_11_00(false);
         }
@@ -159,35 +156,11 @@ public class PatientAppointDoctorController {
 
     }
 
-    private void updateDoctorsScheduleAfter4PM() {
-
-        DateTimeFormatter dtfHour = DateTimeFormatter.ofPattern("HH");
-        LocalDateTime now = LocalDateTime.now();
-        int hour = Integer.parseInt(dtfHour.format(now));
-        System.out.println(hour);
-        if (hour >= 16) {
-            List<User> userList = this.userRepository.findByRole("ROLE_DOCTOR");
-            System.out.println(userList);
-            for (User user : userList) {
-                user.getDoctorsSchedule().set_10_00(true);
-                user.getDoctorsSchedule().set_10_30(true);
-                user.getDoctorsSchedule().set_11_00(true);
-                user.getDoctorsSchedule().set_11_30(true);
-                user.getDoctorsSchedule().set_12_00(true);
-                user.getDoctorsSchedule().set_2_00(true);
-                user.getDoctorsSchedule().set_2_30(true);
-                user.getDoctorsSchedule().set_3_00(true);
-                user.getDoctorsSchedule().set_3_30(true);
-                this.userRepository.save(user);
-            }
-        }
-
-    }
 
     @ModelAttribute
     public void addCommonData(Model model, Principal principal) {
         String userEmail = principal.getName();
-        System.out.println("Email = "+userEmail);
+        System.out.println("Email = " + userEmail);
         User user = this.userRepository.getUserByEmailNative(userEmail);
         System.out.println(user);
         model.addAttribute("user", user);

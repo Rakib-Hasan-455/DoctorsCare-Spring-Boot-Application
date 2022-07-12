@@ -1,149 +1,79 @@
-<!doctype html>
-<html lang="en" th:replace="patient/bases/base5::layout(~{::section})">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <title>Chat Room </title>
 
 
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <!--    <link rel="stylesheet" th:href="@{/style.css}">-->
+var stompClient = null
+
+function sendMessage() {
+
+    let jsonOb = {
+        senderName: [[${senderEmail}]],
+        receiverName: [[${receiverEmail}]],
+        message: $("#message-value").val()
+    }
+
+    stompClient.send("/app/private-message", {}, JSON.stringify(jsonOb));
+}
 
 
-</head>
-<body>
-<section>
+function connect() {
+    console.log('connecting')
+    let socket = new SockJS("/ws")
 
-    <div th:if="${noDoctorAppointment == 'true'}" class="container text-center mt-5 pt-5">
-        <h2 style="color: lightcoral"> Please take an appointment to meet doctor!</h2>
-    </div>
+    stompClient = Stomp.over(socket)
 
-    <div th:if="${noDoctorAppointment != 'true'}">
-    <div id="container" class="text-center mt-5 pt-5 d-none">
-        <h1> 🕖 Appointment Countdown: <br>
-            <span id="time"> --:-- </span>
-            Minutes left </h1>
-    </div>
+    stompClient.connect({}, function (frame) {
 
+        console.log("Connected : " + frame)
 
-    <div class="container d-none" id="messengerclass">
-        <div class="chat">
-            <div class="card">
-                <div class="card-header msg_head">
-                    <div class="d-flex bd-highlight">
-                        <div class="img_cont">
-                            <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                                 class="rounded-circle user_img" alt="Profile logo">
-                            <span class="online_icon"></span>
-                        </div>
-                        <div class="user_info">
-                            <span th:text="${doctorName}"></span>
-                        </div>
+        let senderName = [[${senderEmail}]];
+        console.log('sendername = ' + senderName)
+        //subscribe
+        stompClient.subscribe("/user/" + senderName + "/private", function (response) {
 
-                    </div>
+            showMessage(JSON.parse(response.body))
 
-                </div>
-                <div class="card-body msg_card_body" id="msg_card_body">
-
-<!--                Messages  -->
-
-                </div>
-
-                <div class="card-footer">
-                    <div class="input-group">
-                        <div class="input-group-append">
-                            <span class="input-group-text attach_btn"><i class='bx bx-chat'></i></span>
-                        </div>
-                        <input type="text" id="message-value" name="" class="form-control type_msg"
-                               placeholder="Type your message...">
-                        <div class="input-group-append">
-                            <span class="input-group-text send_btn" id="send-btn"><i class="fas fa-location-arrow"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container mt-3 text-center">
-            <form th:action="@{/patient/view-single-prescription}" method="post" target="_blank">
-                <input name="appointmentID" type="hidden" th:value="${appointmentID}">
-            <button class="btn btn-lg btn-success" type="submit">View Prescriptions</button>
-            </form>
-        </div>
-
-    </div>
-    </div>
-
-    <script th:inline="javascript">
-
-        var stompClient = null
-
-        function sendMessage() {
-            let jsonOb = {
-                senderName: [[${senderEmail}]],
-                receiverName: [[${receiverEmail}]],
-                message: $("#message-value").val()
-            }
-            stompClient.send("/app/private-message", {}, JSON.stringify(jsonOb));
-        }
+        })
 
 
-        function connect() {
-            console.log('connecting')
-            let socket = new SockJS("/ws")
-            stompClient = Stomp.over(socket)
-            stompClient.connect({}, function (frame) {
-                console.log("Connected : " + frame)
-                let senderName = [[${senderEmail}]];
-                console.log('sendername = ' + senderName)
-                //subscribe
-                stompClient.subscribe("/user/" + senderName + "/private", function (response) {
-                    showMessage(JSON.parse(response.body))
-                })
-            })
-        }
+    })
 
-        function showMessage(message) {
-            // $("#message-container-table").prepend(`<tr><td><b style="color: lightcoral"> ${message.senderName} :</b> ${message.message}</td></tr>`)
-            const currentTime = new Date().toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})
-            $("#msg_card_body").append(`
+}
+
+function showMessage(message) {
+    // $("#message-container-table").prepend(`<tr><td><b style="color: lightcoral"> ${message.senderName} :</b> ${message.message}</td></tr>`)
+    const currentTime = new Date().toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})
+    $("#msg_card_body").append(`
 <div class="d-flex justify-content-start mb-4">
                         <div class="img_cont_msg">
                             <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                                 class="rounded-circle user_img_msg" alt="profile">
+                                 class="rounded-circle user_img_msg">
                         </div>
                         <div class="msg_cotainer">
                                 ${message.message}
                             <span class="msg_time">${currentTime}</span>
                         </div>
                     </div>`)
-            let divScroll = document.getElementById("msg_card_body");
+    let divScroll = document.getElementById("msg_card_body");
 
-            var shouldScroll = divScroll.scrollTop + divScroll.clientHeight === divScroll.scrollHeight;
+    var shouldScroll = divScroll.scrollTop + divScroll.clientHeight === divScroll.scrollHeight;
 
-            if (!shouldScroll) {
-                scrollToBottom();
-            }
-        }
+    if (!shouldScroll) {
+        scrollToBottom();
+    }
+}
 
-        function showMyMessage() {
-            // let myName = [[${senderEmail}]];
-            let myMessage = document.getElementById('message-value').value;
-            // console.log(myName)
-            console.log(myMessage)
-            /*$("#message-container-table").append(`
-        <tr align="left"><td><b style="color: green"> ${myName} :</b> ${myMessage}</td>
-        </tr>
-        `)*/
-            const currentTime = new Date().toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})
+function showMyMessage() {
+    // let myName = [[${senderEmail}]];
+    let myMessage = document.getElementById('message-value').value;
+    // console.log(myName)
+    console.log(myMessage)
+    /*$("#message-container-table").append(`
+<tr align="left"><td><b style="color: green"> ${myName} :</b> ${myMessage}</td>
+</tr>
+`)*/
+    const currentTime = new Date().toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})
 
 
-            $("#msg_card_body").append(`
+    $("#msg_card_body").append(`
 <div class = "d-flex justify-content-end mb-4" >
                 <div class = "msg_cotainer_send" >
                 ${myMessage}
@@ -156,126 +86,107 @@
             </div>
 </div>
 `)
-            let divScroll = document.getElementById("msg_card_body");
+    let divScroll = document.getElementById("msg_card_body");
 
-            var shouldScroll = divScroll.scrollTop + divScroll.clientHeight === divScroll.scrollHeight;
+    var shouldScroll = divScroll.scrollTop + divScroll.clientHeight === divScroll.scrollHeight;
 
-            if (!shouldScroll) {
-                scrollToBottom();
-            }
-        }
-
-        function scrollToBottom() {
-            let divScroll = document.getElementById("msg_card_body");
-            divScroll.scrollTop = divScroll.scrollHeight;
-        }
+    if (!shouldScroll) {
+        scrollToBottom();
+    }
+}
 
 
-        var secondsRemaining;
-        var intervalHandle;
+var secondsRemaining;
+var intervalHandle;
 
 
-        function tick() {
-            // grab the h1
-            var timeDisplay = document.getElementById("time");
-            // turn the seconds into mm:ss
-            var min = Math.floor(secondsRemaining / 60);
-            var sec = secondsRemaining - (min * 60);
-            //add a leading zero (as a string value) if seconds less than 10
-            if (sec < 10) {
-                sec = "0" + sec;
-            }
-            // concatenate with colon
-            var message = min.toString() + ":" + sec;
-            // now change the display
-            timeDisplay.innerHTML = message;
-            // stop is down to zero
-            if (secondsRemaining === 0) {
-                var element = document.getElementById("messengerclass");
-                element.classList.remove("d-none");
-                element.classList.add("mt-5");
+function tick() {
+    // grab the h1
+    var timeDisplay = document.getElementById("time");
+    // turn the seconds into mm:ss
+    var min = Math.floor(secondsRemaining / 60);
+    var sec = secondsRemaining - (min * 60);
+    //add a leading zero (as a string value) if seconds less than 10
+    if (sec < 10) {
+        sec = "0" + sec;
+    }
+    // concatenate with colon
+    var message = min.toString() + ":" + sec;
+    // now change the display
+    timeDisplay.innerHTML = message;
+    // stop is down to zero
+    if (secondsRemaining === 0) {
+        var element = document.getElementById("messengerclass");
+        element.classList.remove("d-none");
+        element.classList.add("mt-5");
 
-                var element1 = document.getElementById("container");
-                element1.classList.add("d-none");
+        var element1 = document.getElementById("container");
+        element1.classList.add("d-none");
 
-                clearInterval(intervalHandle);
-            }
-            //subtract from seconds remaining
-            secondsRemaining--;
-        }
-
-
-        function startCountdown(minutes) {
-            // get countents of the "minutes" text box
-            // check if not a number
-            if (isNaN(minutes)) {
-                alert("Please enter a number");
-                return; // stops function if true
-            }
-            // how many seconds
-            secondsRemaining = minutes * 60;
-            //every second, call the "tick" function
-            // have to make it into a variable so that you can stop the interval later!!!
-            intervalHandle = setInterval(tick, 1000);
-        }
+        clearInterval(intervalHandle);
+    }
+    //subtract from seconds remaining
+    secondsRemaining--;
+}
 
 
+function startCountdown(minutes) {
+    // get countents of the "minutes" text box
+    // check if not a number
+    if (isNaN(minutes)) {
+        alert("Please enter a number");
+        return; // stops function if true
+    }
+    // how many seconds
+    secondsRemaining = minutes * 60;
+    //every second, call the "tick" function
+    // have to make it into a variable so that you can stop the interval later!!!
+    intervalHandle = setInterval(tick, 1000);
+}
 
 
+function scrollToBottom() {
+    let divScroll = document.getElementById("msg_card_body");
+    divScroll.scrollTop = divScroll.scrollHeight;
+}
 
-        jQuery(document).ready(function ($) {
-            // var minutes = [[${appointCountdownTime}]];
-            var minutes = 0;
 
-            if (minutes != 0) {
-                var element1 = document.getElementById("container");
-                element1.classList.remove("d-none");
-                startCountdown(minutes);
-                connect();
-            } else {
-                var element = document.getElementById("messengerclass");
-                element.classList.remove("d-none");
-                element.classList.add("mt-5");
-                connect();
-            }
+jQuery(document).ready(function ($) {
+    var minutes = 0.05;
 
-            $("#send-btn").click(() => {
-                console.log('sent...')
-                sendMessage()
-                showMyMessage()
-                const firstNameInput = document.getElementById('message-value');
-                firstNameInput.value = ''
-            })
+    if (minutes != 0) {
+        var element1 = document.getElementById("container");
+        element1.classList.remove("d-none");
+        startCountdown(minutes);
+        connect();
+    } else {
+        var element = document.getElementById("messengerclass");
+        element.classList.remove("d-none");
+        element.classList.add("mt-5");
+        connect();
+    }
 
-            const input = document.getElementById("message-value");
+    $("#send-btn").click(() => {
+        console.log('sent...')
+        sendMessage()
+        showMyMessage()
+        const firstNameInput = document.getElementById('message-value');
+        firstNameInput.value = ''
+    })
+
+    const input = document.getElementById("message-value");
 
 // Execute a function when the user presses a key on the keyboard
-            input.addEventListener("keypress", function (event) {
-                // If the user presses the "Enter" key on the keyboard
-                if (event.key === "Enter") {
-                    // Cancel the default action, if needed
-                    // event.preventDefault();
-                    // Trigger the button element with a click
-                    document.getElementById("send-btn").click();
-                }
-            });
+    input.addEventListener("keypress", function (event) {
+        // If the user presses the "Enter" key on the keyboard
+        if (event.key === "Enter") {
+            // Cancel the default action, if needed
+            // event.preventDefault();
+            // Trigger the button element with a click
+            document.getElementById("send-btn").click();
+        }
+    });
 
-        });
-    </script>
-    <!-- ✅ Load the moment library ✅ -->
-    <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
-            integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-    ></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"
-            integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"
-            integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-</section>
-</body>
-</html>
+});
+
+

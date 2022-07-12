@@ -1,7 +1,6 @@
 package com.example.doctorscarespringbootapplication.dto;
 
 import java.sql.Time;
-import java.util.Date;
 
 public class AppointDoctorDTO {
     private Time appointmentTime;

@@ -1,4 +1,4 @@
-package com.example.doctorscarespringbootapplication.ssl.commerz;
+package com.example.doctorscarespringbootapplication.commerz;
 
 import com.example.doctorscarespringbootapplication.ssl.commerz.Utility.ParameterBuilder;
 import com.example.doctorscarespringbootapplication.ssl.commerz.Utility.Util;
@@ -172,8 +172,8 @@ public class SSLCommerz {
      * @throws IOException
      * @throws NoSuchAlgorithmException
      */
-    public boolean orderValidate(String merchantTrnxnId, String merchantTrnxnAmount, String merchantTrnxnCurrency,
-                                 Map<String, String> requestParameters) throws IOException, NoSuchAlgorithmException {
+    boolean orderValidate(String merchantTrnxnId, String merchantTrnxnAmount, String merchantTrnxnCurrency,
+                          Map<String, String> requestParameters) throws IOException, NoSuchAlgorithmException {
         boolean hash_verified = this.ipnHashVerify(requestParameters);
         if (hash_verified) {
 

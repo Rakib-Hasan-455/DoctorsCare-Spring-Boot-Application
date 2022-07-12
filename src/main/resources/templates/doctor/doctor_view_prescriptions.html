@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="patient/bases/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+
+    <div th:if="${noPrescription == 'true'}" class="container text-center mt-5 pt-5">
+        <h2 style="color: lightcoral" class="mx-5 px-5 mt-3"> Sorry, you don't have any prescriptions! Please get an appointment to have prescriptions.</h2>
+    </div>
+
+    <div th:if="${noPrescription != 'true'}">
+        <h3 class="text-center mb-3 mt-3"> <u>My Prescriptions</u> </h3>
+        <table class="table mt-5">
+            <thead>
+            <tr>
+                <th class="text-center" scope="col">Appoint ID</th>
+                <th class="text-center" scope="col">Date</th>
+                <th class="text-center" scope="col">Time</th>
+                <th class="text-center" scope="col">Dr.  ID</th>
+                <th class="text-center" scope="col">Symptoms</th>
+                <th class="text-center" scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="prescription : ${prescriptionList}">
+                <td class="text-center" th:text="${prescription.getAppointDoctor().getId()}"></td>
+                <td class="text-center" th:text="${prescription.getAppointDoctor().getAppointmentDate()}"></td>
+                <td class="text-center" th:text="${prescription.getAppointDoctor().getAppointmentTime()}"></td>
+                <td class="text-center" th:text="${prescription.getAppointDoctor().getDoctorID()}"></td>
+                <td class="text-center" th:text="${prescription.getSymptoms()}"></td>
+                <td class="text-center">
+                    <form method="post" th:action="@{/doctor/view-single-prescription}" target="_blank">
+                        <input th:name="appointmentID"  type="hidden" th:value="${prescription.getAppointDoctor().getId()}">
+                        <button type="submit" class="btn btn-sm btn-primary">View</button>
+                    </form>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div></section>
+</body>
+</html>

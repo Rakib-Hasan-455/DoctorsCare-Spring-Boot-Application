@@ -21,6 +21,9 @@ public class AppointDoctor {
 
     private String appointmentDate;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "appointDoctor")
+    private Prescription prescription;
+
     public AppointDoctor(int id, String patientID, String doctorID, String doctorFee, Time appointmentTime, String appointmentDate) {
         this.id = id;
         this.patientID = patientID;
@@ -36,6 +39,16 @@ public class AppointDoctor {
         this.doctorFee = doctorFee;
         this.appointmentTime = appointmentTime;
         this.appointmentDate = appointmentDate;
+    }
+
+    public AppointDoctor(int id, String patientID, String doctorID, String doctorFee, Time appointmentTime, String appointmentDate, Prescription prescription) {
+        this.id = id;
+        this.patientID = patientID;
+        this.doctorID = doctorID;
+        this.doctorFee = doctorFee;
+        this.appointmentTime = appointmentTime;
+        this.appointmentDate = appointmentDate;
+        this.prescription = prescription;
     }
 
     public AppointDoctor() {
@@ -87,6 +100,14 @@ public class AppointDoctor {
 
     public void setAppointmentDate(String appointmentDate) {
         this.appointmentDate = appointmentDate;
+    }
+
+    public Prescription getPrescription() {
+        return prescription;
+    }
+
+    public void setPrescription(Prescription prescription) {
+        this.prescription = prescription;
     }
 
     @Override

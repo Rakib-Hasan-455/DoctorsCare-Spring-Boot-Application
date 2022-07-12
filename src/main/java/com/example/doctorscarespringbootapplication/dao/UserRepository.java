@@ -1,6 +1,5 @@
 package com.example.doctorscarespringbootapplication.dao;
 
-import com.example.doctorscarespringbootapplication.entity.DoctorsAdditionalInfo;
 import com.example.doctorscarespringbootapplication.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

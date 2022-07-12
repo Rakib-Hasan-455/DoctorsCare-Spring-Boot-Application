@@ -5,8 +5,17 @@
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" th:href="@{/CSS/patient/patientstyle.css}">
-    <link rel="stylesheet" th:href="@{/CSS/patient/doctors-list.css}">
+    <link th:href="@{/CSS/patient/meetDoctor.css}" rel="stylesheet">
+
 
     <link th:href="@{/images/doctorsCare.png}" rel="icon">
 
@@ -38,40 +47,33 @@
     </div>
 </nav>
 
-<!-- Sidebar -->
-<div class="sidebar mt-2">
+<!-- Sidebar --><div class="sidebar mt-2">
     <ul class="nav-list">
 
         <li>
-            <a th:href="@{/patient/index}">
+            <a th:href="@{/doctor/index}">
                 <i class='bx bx-grid-alt'></i>
                 <span class="links_name">Home</span>
             </a>
             <span class="tooltip">Home </span>
         </li>
         <li>
-            <a th:href="@{/patient/appoint-doctor-type}">
-            <i class='bx bx-cart-alt'></i>
-            <span class="links_name">Appoint Doctor</span>
-        </a>
-        <span class="tooltip">Appoint Doctor</span>
-        </li>
-        <li>
-            <a th:href="@{/patient/todays-appointment}">
+            <a th:href="@{/doctor/todays-appointment}">
                 <i class='bx bx-caret-right-circle'></i>
                 <span class="links_name">Todays Appoinements</span>
             </a>
             <span class="tooltip">Todays Appointments</span>
         </li>
         <li>
-            <a th:href="@{/patient/meet-doctor}">
+            <a th:href="@{/doctor/meet-patient}">
                 <i class='bx bx-chat'></i>
-                <span class="links_name">Meet Doctor</span>
+                <span class="links_name">Meet Patient</span>
             </a>
-            <span class="tooltip">Meet Doctor</span>
+            <span class="tooltip">Meet Patient</span>
         </li>
+
         <li>
-            <a th:href="@{/patient/view-prescriptions}">
+            <a th:href="@{/doctor/view-prescriptions}">
                 <i class='bx bx-pie-chart-alt-2'></i>
                 <span class="links_name">Prescriptions</span>
             </a>
@@ -106,7 +108,7 @@
     <div th:replace="${content}"></div>
 </div>
 
-<footer class="text-center text-white" style="background-color: #f1f1f1;">
+<footer class="text-center text-white " style="background-color: #f1f1f1;">
     <!-- Grid container -->
     <div class="container pt-4">
         <!-- Section: Social media -->
@@ -120,14 +122,6 @@
             ><i class="fab fa-facebook-f"></i
             ></a>
 
-            <!-- Twitter -->
-            <a
-                    class="btn btn-link btn-floating btn-lg text-dark m-1"
-                    href="#!"
-                    role="button"
-                    data-mdb-ripple-color="dark"
-            ><i class="fab fa-twitter"></i
-            ></a>
 
             <!-- Google -->
             <a

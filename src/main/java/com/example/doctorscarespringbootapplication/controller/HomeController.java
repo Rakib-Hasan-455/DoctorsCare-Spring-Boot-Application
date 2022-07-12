@@ -1,6 +1,7 @@
 package com.example.doctorscarespringbootapplication.controller;
 
 import com.example.doctorscarespringbootapplication.dao.AppointDoctorRepository;
+import com.example.doctorscarespringbootapplication.dao.PrescriptionRepository;
 import com.example.doctorscarespringbootapplication.dao.UserRepository;
 import com.example.doctorscarespringbootapplication.dto.DoctorSignup;
 import com.example.doctorscarespringbootapplication.entity.DoctorsAdditionalInfo;
@@ -19,9 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -34,13 +32,14 @@ public class HomeController {
     @Autowired
     private AppointDoctorRepository appointDoctorRepository;
 
+    @Autowired
+    private PrescriptionRepository prescriptionRepository;
+
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("title", "Home | Doctors Care");
         return "index.html";
     }
-
-
 
 
     @GetMapping("/terms-and-conditions")
@@ -161,5 +160,8 @@ public class HomeController {
         System.out.println("Dummy was called");
         return "dummy";
     }
+
+
+
 
 }

@@ -1,8 +1,5 @@
 package com.example.doctorscarespringbootapplication.entity;
 
-import net.bytebuddy.implementation.bind.annotation.Default;
-import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.*;
 
 @Entity

@@ -1,10 +1,15 @@
 package com.example.doctorscarespringbootapplication.configuration.websocket;
 
 public class MessageModel {
+
+    private String senderName;
     private String receiverName;
     private String message;
 
-    public MessageModel(String receiverName, String message) {
+
+
+    public MessageModel(String senderName, String receiverName, String message) {
+        this.senderName = senderName;
         this.receiverName = receiverName;
         this.message = message;
     }
@@ -28,6 +33,12 @@ public class MessageModel {
         this.message = message;
     }
 
+    public String getSenderName() {
+        return senderName;
+    }
 
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
 }
 

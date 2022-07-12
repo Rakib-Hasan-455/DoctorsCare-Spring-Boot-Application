@@ -1,7 +1,6 @@
 package com.example.doctorscarespringbootapplication.dao;
 
 import com.example.doctorscarespringbootapplication.entity.AppointDoctor;
-import com.example.doctorscarespringbootapplication.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.sql.Time;
@@ -13,4 +12,5 @@ public interface AppointDoctorRepository extends JpaRepository<AppointDoctor, In
 
     List<AppointDoctor> findAllByAppointmentDateAndDoctorIDAndAppointmentTimeGreaterThanOrderByAppointmentTimeAsc(String appointmentDate, String doctorID, Time currentTime);
 
+    AppointDoctor findById(int id);
 }

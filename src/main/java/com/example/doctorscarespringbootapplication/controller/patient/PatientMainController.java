@@ -1,37 +1,39 @@
 package com.example.doctorscarespringbootapplication.controller.patient;
 
-import com.example.doctorscarespringbootapplication.dao.AdditionalDoctorsRepository;
 import com.example.doctorscarespringbootapplication.dao.AppointDoctorRepository;
+import com.example.doctorscarespringbootapplication.dao.PrescriptionRepository;
 import com.example.doctorscarespringbootapplication.dao.UserRepository;
 import com.example.doctorscarespringbootapplication.entity.AppointDoctor;
-import com.example.doctorscarespringbootapplication.entity.DoctorsAdditionalInfo;
+import com.example.doctorscarespringbootapplication.entity.Prescription;
 import com.example.doctorscarespringbootapplication.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 
 @Controller
 @RequestMapping("/patient")
 public class PatientMainController {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private AdditionalDoctorsRepository additionalDoctorsRepository;
+    private final AppointDoctorRepository appointDoctorRepository;
 
-    @Autowired
-    private AppointDoctorRepository appointDoctorRepository;
+    private final PrescriptionRepository prescriptionRepository;
+
+    public PatientMainController(UserRepository userRepository, AppointDoctorRepository appointDoctorRepository, PrescriptionRepository prescriptionRepository) {
+        this.userRepository = userRepository;
+        this.appointDoctorRepository = appointDoctorRepository;
+        this.prescriptionRepository = prescriptionRepository;
+    }
 
     @GetMapping("/index")
     public String patientHome(Model model, Principal principal) {
@@ -48,39 +50,114 @@ public class PatientMainController {
     }
 
     @GetMapping("/meet-doctor")
-    public String patientMeetDoctor(Model model, Principal principal) {
+    public String patientMeetDoctor(Model model, Principal principal) throws ParseException {
         model.addAttribute("title", "Meet Doctor");
         model.addAttribute("senderEmail", principal.getName());
-        addCommonData(model, principal);
-        return "patient/patient_meet_doctor";
-    }
-
-    @GetMapping("/todays-appointment")
-    public String patientTodaysAppointment(Model model, Principal principal) {
-        model.addAttribute("title", "Todays Appointment");
 
         DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime now = LocalDateTime.now();
-        String todaysDate = dtfDate.format(now);
+        String todayDate = dtfDate.format(now);
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalDateTime localDateTime = LocalDateTime.now();
         LocalDateTime value = localDateTime.minus(30, ChronoUnit.MINUTES);
         Time currentTimeMinus30 = Time.valueOf(dateTimeFormatter.format(value));
 
-        System.out.println(currentTimeMinus30.toString());
-        List<AppointDoctor> appointDoctorList = this.appointDoctorRepository.findAllByAppointmentDateAndPatientIDAndAppointmentTimeGreaterThanOrderByAppointmentTimeAsc(todaysDate, principal.getName(), currentTimeMinus30);
-        model.addAttribute("appointDoctorList", appointDoctorList);
+        List<AppointDoctor> appointDoctorList = this.appointDoctorRepository.findAllByAppointmentDateAndPatientIDAndAppointmentTimeGreaterThanOrderByAppointmentTimeAsc(todayDate, principal.getName(), currentTimeMinus30);
+        if (appointDoctorList.size() != 0) {
+            AppointDoctor appointDoctor = appointDoctorList.get(0);
+            User user = userRepository.findById(Integer.parseInt(appointDoctor.getDoctorID()));
+            System.out.println("Meet Doctor: "+user.getEmail());
+            model.addAttribute("doctorName", user.getName());
+            model.addAttribute("receiverEmail", user.getEmail());
+            model.addAttribute("appointmentID", appointDoctor.getId());
+            appointmentCountDown(model, dateTimeFormatter, localDateTime, appointDoctor);
+
+        } else {
+            model.addAttribute("noDoctorAppointment", "true");
+        }
+
+
         addCommonData(model, principal);
-        return "patient/patient_todays_appointment";
+        return "patient/patient_meet_doctor";
     }
+
+    @GetMapping("/todays-appointment")
+    public String patientTodayAppointment(Model model, Principal principal) {
+        model.addAttribute("title", "Today's Appointment");
+
+        DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        String todayDate = dtfDate.format(now);
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDateTime value = localDateTime.minus(30, ChronoUnit.MINUTES);
+        Time currentTimeMinus30 = Time.valueOf(dateTimeFormatter.format(value));
+
+        List<AppointDoctor> appointDoctorList = appointDoctorRepository.findAllByAppointmentDateAndPatientIDAndAppointmentTimeGreaterThanOrderByAppointmentTimeAsc(todayDate, principal.getName(), currentTimeMinus30);
+
+        if (appointDoctorList.size() != 0) {
+            model.addAttribute("appointDoctorList", appointDoctorList);
+        } else {
+            model.addAttribute("noDoctorAppointment", "true");
+        }
+        addCommonData(model, principal);
+
+        return "patient/patient_today's_appointment";
+    }
+
+
+    @GetMapping("/view-prescriptions")
+    public String viewPrescriptions(Model model, Principal principal) {
+        model.addAttribute("title", "View Prescriptions");
+        List<Prescription> prescriptionList = prescriptionRepository.findByAppointDoctorPatientIDOrderByIdDesc(principal.getName());
+        if (prescriptionList.size() == 0) {
+            model.addAttribute("noPrescription", "true");
+        }
+        model.addAttribute("prescriptionList", prescriptionList);
+        addCommonData(model, principal);
+        return "patient/patient_view_prescriptions";
+    }
+
+    @PostMapping("/view-single-prescription")
+    public String viewSinglePrescription(@RequestParam String appointmentID, Model model, Principal principal) {
+        model.addAttribute("title", "Single Prescription");
+        model.addAttribute("appointmentID", appointmentID);
+        System.out.println(appointmentID + " came...");
+
+        AppointDoctor appointDoctor = appointDoctorRepository.findById(Integer.parseInt(appointmentID));
+        User doctorUser = userRepository.findById(Integer.parseInt(appointDoctor.getDoctorID()));
+        model.addAttribute("appointDoctor", appointDoctor);
+        model.addAttribute("doctorUser", doctorUser);
+
+        addCommonData(model, principal);
+        return "patient/patient_view_single_prescription";
+    }
+
+
+    public static void appointmentCountDown(Model model, DateTimeFormatter dateTimeFormatter, LocalDateTime localDateTime, AppointDoctor appointDoctor) throws ParseException {
+        String currentTime = dateTimeFormatter.format(localDateTime);
+        Time appointmentTime = appointDoctor.getAppointmentTime();
+        String appointmentTimeStr = appointmentTime.toString();
+
+        System.out.println("Current Time "+currentTime);
+        System.out.println("Appointment Time "+appointmentTimeStr);
+
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        Date date1 = format.parse(currentTime);
+        Date date2 = format.parse(appointmentTimeStr);
+        long difference = date2.getTime() - date1.getTime();
+        long countDownTime = (difference/1000)/60;
+        model.addAttribute("appointCountdownTime", countDownTime);
+    }
+
 
     @ModelAttribute
     public void addCommonData(Model model, Principal principal) {
         String userEmail = principal.getName();
         System.out.println("Email = "+userEmail);
-        User user = this.userRepository.getUserByEmailNative(userEmail);
-        System.out.println(user);
+        User user = userRepository.getUserByEmailNative(userEmail);
         model.addAttribute("user", user);
     }
 }

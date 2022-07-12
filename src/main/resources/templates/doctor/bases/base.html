@@ -3,11 +3,8 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
-
     <link rel="stylesheet" th:href="@{/CSS/patient/patientstyle.css}">
-    <link rel="stylesheet" th:href="@{/CSS/patient/doctors-list.css}">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
     <link th:href="@{/images/doctorsCare.png}" rel="icon">
 
     <meta charset="UTF-8">
@@ -17,7 +14,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-nav fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand px-4" href="#"><i class='bx bx-plus-medical' width="30" height="24"></i>  Doctors Care</a>
+        <a class="navbar-brand" href="#">Smart Contact Manager</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -26,12 +23,14 @@
                 <li class="nav-item">
                     <a class="nav-link">  <!--th:href="@{/about}"--> Notification</a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link"  th:text="${user.name}"></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/logout}">Logout</a>
                 </li>
+
             </ul>
 
         </div>
@@ -43,35 +42,29 @@
     <ul class="nav-list">
 
         <li>
-            <a th:href="@{/patient/index}">
+            <a th:href="@{/user/index}">
                 <i class='bx bx-grid-alt'></i>
                 <span class="links_name">Home</span>
             </a>
             <span class="tooltip">Home </span>
         </li>
         <li>
-            <a th:href="@{/patient/appoint-doctor-type}">
-            <i class='bx bx-cart-alt'></i>
-            <span class="links_name">Appoint Doctor</span>
-        </a>
-        <span class="tooltip">Appoint Doctor</span>
-        </li>
-        <li>
-            <a th:href="@{/patient/todays-appointment}">
+            <a th:href="@{/doctor/todays-appointment}">
                 <i class='bx bx-caret-right-circle'></i>
                 <span class="links_name">Todays Appoinements</span>
             </a>
             <span class="tooltip">Todays Appointments</span>
         </li>
         <li>
-            <a th:href="@{/patient/meet-doctor}">
+            <a th:href="@{/doctor/meet-patient}">
                 <i class='bx bx-chat'></i>
-                <span class="links_name">Meet Doctor</span>
+                <span class="links_name">Meet Patient</span>
             </a>
-            <span class="tooltip">Meet Doctor</span>
+            <span class="tooltip">Meet Patient</span>
         </li>
+
         <li>
-            <a th:href="@{/patient/view-prescriptions}">
+            <a th:href="@{/doctor/view-prescriptions}">
                 <i class='bx bx-pie-chart-alt-2'></i>
                 <span class="links_name">Prescriptions</span>
             </a>
@@ -105,6 +98,7 @@
 <div class="content mt-5">
     <div th:replace="${content}"></div>
 </div>
+
 
 <footer class="text-center text-white" style="background-color: #f1f1f1;">
     <!-- Grid container -->
