@@ -67,7 +67,6 @@ public class PatientMainController {
         if (appointDoctorList.size() != 0) {
             AppointDoctor appointDoctor = appointDoctorList.get(0);
             User user = userRepository.findById(Integer.parseInt(appointDoctor.getDoctorID()));
-            System.out.println("Meet Doctor: "+user.getEmail());
             model.addAttribute("doctorName", user.getName());
             model.addAttribute("receiverEmail", user.getEmail());
             model.addAttribute("appointmentID", appointDoctor.getId());
@@ -124,7 +123,6 @@ public class PatientMainController {
     public String viewSinglePrescription(@RequestParam String appointmentID, Model model, Principal principal) {
         model.addAttribute("title", "Single Prescription");
         model.addAttribute("appointmentID", appointmentID);
-        System.out.println(appointmentID + " came...");
 
         AppointDoctor appointDoctor = appointDoctorRepository.findById(Integer.parseInt(appointmentID));
         User doctorUser = userRepository.findById(Integer.parseInt(appointDoctor.getDoctorID()));
@@ -141,8 +139,6 @@ public class PatientMainController {
         Time appointmentTime = appointDoctor.getAppointmentTime();
         String appointmentTimeStr = appointmentTime.toString();
 
-        System.out.println("Current Time "+currentTime);
-        System.out.println("Appointment Time "+appointmentTimeStr);
 
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         Date date1 = format.parse(currentTime);
@@ -156,7 +152,6 @@ public class PatientMainController {
     @ModelAttribute
     public void addCommonData(Model model, Principal principal) {
         String userEmail = principal.getName();
-        System.out.println("Email = "+userEmail);
         User user = userRepository.getUserByEmailNative(userEmail);
         model.addAttribute("user", user);
     }

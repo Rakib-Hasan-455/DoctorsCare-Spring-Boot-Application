@@ -109,7 +109,6 @@ public class SSLCommerz {
     }
 
     private String sendPost(Map<String, String> postData) throws IOException {
-        System.out.println(this.sslczURL + this.submitURL);
         String response = SSLCommerz.post(this.sslczURL + this.submitURL, postData);
         return response;
     }

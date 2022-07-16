@@ -30,7 +30,6 @@ public class DoctorPrescription {
     public String givePrescription(@RequestParam String appointmentID, Model model, Principal principal) {
         model.addAttribute("title", "Give Prescription");
         model.addAttribute("appointmentID", appointmentID);
-        System.out.println("Give prescription appointid = " + appointmentID);
         if (!appointmentID.equals("")) {
             AppointDoctor appointDoctor = appointDoctorRepository.getById(Integer.parseInt(appointmentID));
             User patientUser = userRepository.getUserByEmailNative(appointDoctor.getPatientID());
@@ -76,7 +75,6 @@ public class DoctorPrescription {
     @ModelAttribute
     public void addCommonData(Model model, Principal principal) {
         String userEmail = principal.getName();
-        System.out.println("Email = "+userEmail);
         User user = this.userRepository.getUserByEmailNative(userEmail);
         model.addAttribute("user", user);
     }

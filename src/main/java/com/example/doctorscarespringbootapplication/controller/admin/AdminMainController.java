@@ -28,7 +28,6 @@ public class AdminMainController {
     @ModelAttribute
     public void addCommonData(Model model, Principal principal) {
         String userEmail = principal.getName();
-        System.out.println("Email = "+userEmail);
         User user = this.userRepository.getUserByEmailNative(userEmail);
         model.addAttribute("user", user);
     }

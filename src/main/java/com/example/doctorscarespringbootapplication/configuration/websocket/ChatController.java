@@ -14,9 +14,7 @@ public class ChatController {
 
     @MessageMapping("/private-message")
     public MessageModel recMessage(@Payload MessageModel message){
-        System.out.println(message.getReceiverName() + " " + message.getMessage());
         simpMessagingTemplate.convertAndSendToUser(message.getReceiverName(),"/private",message);
-        System.out.println(message.toString());
         return message;
     }
 }

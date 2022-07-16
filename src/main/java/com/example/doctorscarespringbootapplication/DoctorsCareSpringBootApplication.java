@@ -40,7 +40,6 @@ public class DoctorsCareSpringBootApplication {
         int hour = Integer.parseInt(dtfHour.format(now));
         if (hour >= 16) {
             List<User> userList = userRepository.findByRole("ROLE_DOCTOR");
-            System.out.println(userList);
             for (User user : userList) {
                 user.getDoctorsSchedule().set_10_00(true);
                 user.getDoctorsSchedule().set_10_30(true);

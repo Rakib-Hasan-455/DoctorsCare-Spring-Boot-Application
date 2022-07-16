@@ -33,10 +33,8 @@ public class PatientAppointDoctorController {
     @GetMapping("/doctors-list/{doctortype}")
     public String patientDoctorsList(@PathVariable String doctortype, Model model, Principal principal) {
         model.addAttribute("title", "Patient Dashboard");
-        System.out.println(doctortype);
         addCommonData(model, principal);
         List<User> userList = this.userRepository.findByDoctorsAdditionalInfoDoctortype(doctortype);
-        System.out.println(userList);
         model.addAttribute("userList", userList);
         model.addAttribute("doctorType", doctortype);
         return "patient/patient_doctors_list";
@@ -47,7 +45,6 @@ public class PatientAppointDoctorController {
         model.addAttribute("title", "Appoint Doctor");
         addCommonData(model, principal);
         User userList = this.userRepository.findById(doctorID);
-        System.out.println("UserList from appoint Doctor" + userList);
 
         updateAvailableTime(model, userList);
 
@@ -58,7 +55,6 @@ public class PatientAppointDoctorController {
     @PostMapping("/appoint-doctor/success")
     public String patientAppointDoctorSuccess(@ModelAttribute AppointDoctorDTO appointDoctorDTO, Principal principal, Model model) {
         model.addAttribute("title", "Appoint Doctor Successful");
-        System.out.println("Success Method");
         String patientID = principal.getName(); // Patient_ID
         String doctorID = appointDoctorDTO.getDoctorID(); // Doctor_ID
         String doctorFee = appointDoctorDTO.getDoctorFee(); // Doctor_Fee
@@ -80,10 +76,7 @@ public class PatientAppointDoctorController {
     private void updateDoctorsAvailableTimeDB(String doctorID, Time appointTime) {
         User userList = this.userRepository.findById(Integer.parseInt(doctorID));
 
-        System.out.println("Update doctors available time db");
-        System.out.println(doctorID);
-        System.out.println(appointTime);
-        System.out.println(userList);
+
         if (appointTime.toString().equals("10:00:00")) {
             userList.getDoctorsSchedule().set_10_00(false);
         }
@@ -108,12 +101,9 @@ public class PatientAppointDoctorController {
         if (appointTime.toString().equals("15:00:00")) {
             userList.getDoctorsSchedule().set_3_00(false);
         }
-        System.out.println(appointTime.toString());
         if (appointTime.toString().equals("15:30:00")) {
-            System.out.println("Set 3_30 called ");
             userList.getDoctorsSchedule().set_3_30(false);
         }
-        System.out.println(userList);
         userRepository.save(userList);
 
     }
@@ -126,7 +116,6 @@ public class PatientAppointDoctorController {
         int hour = Integer.parseInt(dtfHour.format(now));
         int minutes = Integer.parseInt(dtfMinutes.format(now));
         String time = hour + ":" + minutes;
-        System.out.println(time);
 
         model.addAttribute("currentTime", time);
         if (hour >= 9) {
@@ -160,9 +149,7 @@ public class PatientAppointDoctorController {
     @ModelAttribute
     public void addCommonData(Model model, Principal principal) {
         String userEmail = principal.getName();
-        System.out.println("Email = " + userEmail);
         User user = this.userRepository.getUserByEmailNative(userEmail);
-        System.out.println(user);
         model.addAttribute("user", user);
     }
 }

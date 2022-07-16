@@ -62,14 +62,11 @@ public class HomeController {
         user.setImageURL("default.jpg");
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        System.out.println(user);
         if (this.userRepository.getUserByEmailNative(user.getEmail()) != null) {
-            System.out.println("User Already Registered With this Email");
             bindingResult.rejectValue("email", "error.user", "An account already exists for this email.");
         }
 
         if (bindingResult.hasErrors()) {
-//            System.out.println(bindingResult);
             model.addAttribute("title", "Patient | Patient Signup");
             return "patient_signup";
         }
@@ -103,12 +100,9 @@ public class HomeController {
         doctorsSchedule.setUser(user);
         model.addAttribute("user", doctorSignup);
         if (this.userRepository.getUserByEmailNative(user.getEmail()) != null) {
-            System.out.println("User Already Registered With this Email");
             bindingResult.rejectValue("email", "error.user", "An account already exists with this email.");
         }
-        System.out.println(bindingResult);
         if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult);
             if (bindingResult.getFieldError("email") != null) {
                 String emailError = Objects.requireNonNull(bindingResult.getFieldError("email")).getDefaultMessage() + "\n";
                 model.addAttribute("emailError", "yes");
@@ -142,8 +136,6 @@ public class HomeController {
         Map<String, String>  transactionMap = ParameterBuilder.constructRequestParameters();
         SSLCommerz sslCommerz = new SSLCommerz("abc62bdc6438f3c5", "abc62bdc6438f3c5@ssl", true);
         String url = sslCommerz.initiateTransaction(transactionMap, false);
-//        System.out.println("The url: " + url);
-//        System.out.println("after previous url");
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl(url);
         return redirectView;
@@ -152,7 +144,6 @@ public class HomeController {
     @GetMapping("/test-payment-success")
 
     public String payTestSuccess() {
-        System.out.println("Dummy was called");
         return "dummy";
     }
 

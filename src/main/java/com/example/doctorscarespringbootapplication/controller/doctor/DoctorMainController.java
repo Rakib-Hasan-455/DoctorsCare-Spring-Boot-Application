@@ -58,8 +58,6 @@ public class DoctorMainController {
         List<AppointDoctor> appointDoctorList = this.appointDoctorRepository.findAllByAppointmentDateAndDoctorIDAndAppointmentTimeGreaterThanOrderByAppointmentTimeAsc(todaysDate, doctorsID, currentTimeMinus30);
         if (appointDoctorList.size() != 0) {
             AppointDoctor appointDoctor = appointDoctorList.get(0);
-            System.out.println("Meet Patient Email: "+appointDoctor.getPatientID());
-
             model.addAttribute("senderEmailDoctor", principal.getName());
             model.addAttribute("receiverEmailDoctor", appointDoctor.getPatientID());
             model.addAttribute("appointmentID", appointDoctor.getId());
@@ -121,7 +119,6 @@ public class DoctorMainController {
     public String viewSinglePrescription(@RequestParam String appointmentID, Model model, Principal principal) {
         model.addAttribute("title", "Single Prescription");
         model.addAttribute("appointmentID", appointmentID);
-        System.out.println(appointmentID+ " appointment ID came...");
         AppointDoctor appointDoctor = appointDoctorRepository.findById(Integer.parseInt(appointmentID));
         User patientUser = userRepository.getUserByEmailNative(appointDoctor.getPatientID());
         model.addAttribute("appointDoctor", appointDoctor);
@@ -134,7 +131,6 @@ public class DoctorMainController {
     @ModelAttribute
     public void addCommonData(Model model, Principal principal) {
         String userEmail = principal.getName();
-        System.out.println("Email = "+userEmail);
         User user = this.userRepository.getUserByEmailNative(userEmail);
         model.addAttribute("user", user);
     }

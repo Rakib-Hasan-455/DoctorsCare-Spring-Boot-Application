@@ -26,11 +26,9 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
 
 
-        System.out.println(customUserDetails.getUsername());
 
         User user = this.userRepository.getUserByEmailNative(customUserDetails.getUsername());
 
-        System.out.println(user.getRole());
 
 
         String redirectURL = request.getContextPath();
