@@ -98,14 +98,9 @@ public class HomeController {
         DoctorsAdditionalInfo doctorsAdditionalInfo = new DoctorsAdditionalInfo(doctorSignup.getNid(), doctorSignup.getDoctortype(), doctorSignup.getDegrees(), doctorSignup.getMedicalcollege(), doctorSignup.getAppointmentfee());
         user.setDoctorsAdditionalInfo(doctorsAdditionalInfo);
         doctorsAdditionalInfo.setUser(user);
-//        System.out.println(doctorSignup);
         DoctorsSchedule doctorsSchedule = new DoctorsSchedule(true, true, true, true, true, true, true, true, true);
         user.setDoctorsSchedule(doctorsSchedule);
         doctorsSchedule.setUser(user);
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        System.out.println(user);
-//        System.out.println(doctorsAdditionalInfo);
-//        System.out.println(doctorsSchedule);
         model.addAttribute("user", doctorSignup);
         if (this.userRepository.getUserByEmailNative(user.getEmail()) != null) {
             System.out.println("User Already Registered With this Email");

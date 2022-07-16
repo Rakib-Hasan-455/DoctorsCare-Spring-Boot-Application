@@ -1,238 +1,257 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="doctor/bases/base7::layout(~{::section})"  xmlns="http://www.w3.org/1999/html" >
-  <head>
+<html lang="en" th:replace="doctor/bases/base7::layout(~{::section})" xmlns="http://www.w3.org/1999/html">
+<head>
 
     <title>Posting page</title>
-  </head>
-  <body class="bg-gray postion-relative">
-    <!-- ================= Appbar ================= -->
-    <section>
+</head>
+<body class="bg-gray postion-relative">
+<!-- ================= Appbar ================= -->
+<section>
     <div class="container-fluid main-container">
-    <div class="row align-items-center">
-    <!-- create post -->
+        <div class="row align-items-center">
+            <!-- create post -->
             <div class="bg-white p-3 mt-3 rounded border shadow">
-              <!-- avatar -->
-              <div class="d-flex mt-3" type="button">
-                <div class="p-1">
-                  <img
-                    src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                    alt="avatar"
-                    class="rounded-circle me-2"
-                    style="width: 38px; height: 38px; object-fit: cover"
-                  />
-                </div>
-                <input 
-                  type="text"
-                  class="form-control rounded-pill border-0 bg-gray pointer"
-                  disabled
-                  placeholder="What's on your mind?"
-                  data-bs-toggle="modal"
-                  data-bs-target="#createModal"
-                />
-              </div>
-
-              
-              <!-- create modal -->
-              <div
-                class="modal fade mt-3"
-                id="createModal"
-                tabindex="-1"
-                aria-labelledby="createModalLabel"
-                aria-hidden="true"
-                data-bs-backdrop="false"
-              >
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                  <div class="modal-content">
-                    <!-- head -->
-                    <div class="modal-header align-items-center">
-                      <h5
-                        class="text-dark text-center w-100 m-0"
-                        id="exampleModalLabel"
-                      >
-                        Create Post
-                      </h5>
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      ></button>
-                    </div>
-                    <!-- body -->
-                    <div class="modal-body">
-                      <div class="my-1 p-1">
-                        <div class="d-flex flex-column">
-                          <!-- name -->
-                          <div class="d-flex align-items-center mb-3">
-                            <div class="p-2">
-                              <img
+                <!-- avatar -->
+                <div class="d-flex mt-3" type="button">
+                    <div class="p-1">
+                        <img
                                 src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                                alt="from fb"
-                                class="rounded-circle"
-                                style="
+                                alt="avatar"
+                                class="rounded-circle me-2"
+                                style="width: 38px; height: 38px; object-fit: cover"
+                        />
+                    </div>
+                    <input
+                            type="text"
+                            class="form-control rounded-pill border-0 bg-gray pointer"
+                            disabled
+                            placeholder="What's on your mind?"
+                            data-bs-toggle="modal"
+                            data-bs-target="#createModal"
+                            id="showModal"
+                    />
+                </div>
+
+
+                <!-- create modal -->
+                <div
+                        class="modal fade mt-3"
+                        id="createModal"
+                        tabindex="-1"
+                        aria-labelledby="createModalLabel"
+                        aria-hidden="true"
+                        data-bs-backdrop="false"
+                >
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content ">
+                            <form th:action="@{/doctor/do-post-homepage}" method="post">
+                                <!-- head -->
+                                <div class="modal-header align-items-center">
+                                    <h5
+                                            class="text-dark text-center w-100 m-0"
+                                            id="exampleModalLabel"
+                                    >
+                                        Create Post
+                                    </h5>
+                                    <button
+                                            type="button"
+                                            class="btn-close"
+                                            data-bs-dismiss="modal"
+                                            aria-label="Close"
+                                    ></button>
+                                </div>
+                                <!-- body -->
+                                <div class="modal-body">
+                                    <div class="my-1 p-1">
+                                        <div class="d-flex flex-column">
+                                            <!-- name -->
+                                            <div class="d-flex align-items-center mb-3">
+                                                <div class="p-2">
+                                                    <img
+                                                            src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                                            alt="from fb"
+                                                            class="rounded-circle"
+                                                            style="
                                   width: 38px;
                                   height: 38px;
                                   object-fit: cover;
                                 "
-                              />
-                            </div>
-                            <div>
-                              <p class="m-0 fw-bold">John</p>
-                               
-                            </div>
-                          </div>
-                          <!-- text -->                          
-                          <div>
-                            <textarea id="textareaa"
-                              cols="30"
-                              rows="5"
-                              class="form-control border-0"
-                              placeholder="Write Post"
-                            ></textarea>
-                          </div>
-                          <div class="mb-2 mt-4">
-                            <label for="formFileSm" class="form-label">Upload Cover Photo</label>
-                            <input class="form-control" id="formFileSm" type="file">
-                          </div>
-                          
-                        </div>
-                      </div>
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <p class="m-0 fw-bold" th:text="${user.getName()}"></p>
 
-                      <!-- end -->
+                                                </div>
+                                            </div>
+                                            <!-- text -->
+                                            <!--                          inputs -->
+                                            <input name="doctorID" th:value="${user.getId()}" hidden>
+                                            <input name="doctorName" th:value="${user.getName()}" hidden>
+
+                                            <div>
+                            <textarea id="textareaa"
+                                      name="postContent"
+                                      cols="20"
+                                      rows="5"
+                                      class="form-control border-0"
+                                      placeholder="Write Post"
+                                      minlength="10"
+                                      maxlength="5000"
+                            ></textarea>
+                                            </div>
+                                            <div class="mb-2 mt-4">
+                                                <label for="formFileSm" class="form-label">Upload Cover Photo</label>
+                                                <input class="form-control" id="formFileSm" type="file">
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- end -->
+                                </div>
+                                <!-- footer -->
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        Post
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <!-- footer -->
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary w-100">
-                        Post
-                      </button>
-                    </div>
-                  </div>
                 </div>
-              </div>
-              <hr class="mt-4"/>   
-              
-              
-            <!-- posts -->
-            <!-- p 1 -->
-            <div class="bg-white p-4 rounded shadow mt-3">
-              <!-- author -->
-              <div class="d-flex justify-content-between">
-                <!-- avatar -->
-                <div class="d-flex">
-                  <img
-                    src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                    alt="avatar"
-                    class="rounded-circle me-2"
-                    style="width: 38px; height: 38px; object-fit: cover"
-                  />
-                  <div>
-                    <p class="m-0 fw-bold">John</p>
-                    <span class="text-muted fs-7">July 17 at 1:23 pm</span>
-                  </div>
-                </div>
-                <!-- edit -->
-                <i
-                  class="fas fa-ellipsis-h"
-                  type="button"
-                  id="post1Menu"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                ></i>
-                <!-- edit menu -->
-                <ul
-                  class="dropdown-menu border-0 shadow"
-                  aria-labelledby="post1Menu"
-                >
-                  <li class="d-flex align-items-center">
-                    <a
-                      class="
+                <hr class="mt-4"/>
+
+
+                <!-- posts -->
+                <!-- p 1 -->
+                <div th:each="post : ${postsList}">
+                    <div class="bg-white p-4 rounded shadow mt-3">
+                        <!-- author -->
+                        <div class="d-flex justify-content-between">
+                            <!-- avatar -->
+                            <div class="d-flex">
+                                <img
+                                        src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                        alt="avatar"
+                                        class="rounded-circle me-2"
+                                        style="width: 38px; height: 38px; object-fit: cover"
+                                />
+                                <div>
+                                    <p class="m-0 fw-bold"><span th:text="${post.getDoctorName()}"></span></p>
+                                    <span class="text-muted fs-7"><span th:text="${post.getPostDate()}"></span> at <span
+                                            th:text="${post.getPostTime()}"></span></span>
+                                </div>
+                            </div>
+                            <!-- edit -->
+                            <i
+                                    class="fas fa-ellipsis-h"
+                                    type="button"
+                                    id="post1Menu"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                            ></i>
+                            <!-- edit menu -->
+                            <ul
+                                    class="dropdown-menu border-0 shadow"
+                                    aria-labelledby="post1Menu"
+                            >
+                                <li class="d-flex align-items-center">
+                                    <a class="
                         dropdown-item
                         d-flex
                         justify-content-around
                         align-items-center
                         fs-7
                       "
-                      href="#"
-                    >
-                      Edit Post</a
-                    >
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <a
-                      class="
+                                            href="#"
+                                    ><i class='bx bx-edit'></i>
+                                        Edit Post</a>
+                                </li>
+                                <li class="d-flex align-items-center">
+                                    <a
+                                            class="
                         dropdown-item
                         d-flex
                         justify-content-around
                         align-items-center
                         fs-7
                       "
-                      href="#"
-                    >
-                      Delete Post</a
-                    >
-                  </li>
-                </ul>
-              </div>
-              <!-- post content -->
-              <div class="mt-3">
-                <!-- content -->
-                <div>
-                  <p>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Quae fuga incidunt consequatur tenetur doloremque officia
-                    corrupti provident tempore vitae labore?
-                  </p>
-                  <img
-                    src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                    alt="post image"
-                    class="img-fluid rounded" 
-                  />
-                  
-                </div>
-                <!-- likes & comments -->
-                <div class="post__comment mt-3 position-relative">
-                  <!-- likes -->
-                  <div
-                    class="
+                                            href="#"
+                                    ><i class='bx bx-trash'></i> Cut Post</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- post content -->
+                        <div class="mt-3">
+                            <!-- content -->
+                            <div>
+                                <p th:utext="${post.getPostContent()}">
+                                </p>
+                                <img
+                                        src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                        alt="post image"
+                                        class="img-fluid rounded"
+                                />
+
+                            </div>
+                            <!-- likes & comments -->
+                            <div class="post__comment mt-3 position-relative">
+                                <!-- likes -->
+                                <div class="
                       d-flex
                       align-items-center
                       top-0
                       start-0
-                      position-absolute
-                    "
-                    style="height: 50px; z-index: 5"
-                  >
-                    <div class="me-2">
-                      <i class="text-primary fas fa-thumbs-up"></i>
-                    </div>
-                    <p class="m-0 text-muted fs-7">11 people liked this</p>
-                  </div>
-                  <!-- comments start-->
-                  <div class="accordion" id="accordionExample">
-                    <div class="accordion-item border-0">
-                      <!-- comment collapse -->
-                      <h2 class="accordion-header" id="headingTwo">
-                        <div
-                          class="
+                      position-absolute                    "
+                                     style="height: 50px; z-index: 5"
+                                >
+                                    <div class="me-2">
+                                        <i class="text-primary fas fa-thumbs-up"></i>
+                                    </div>
+                                    <p class="m-0 text-muted fs-7"><span th:id="'likedCount-'+${post.getId()}" th:text="${#lists.size(post.getLikesList())}"></span> liked this</p>
+                                </div>
+                                <!-- comments start-->
+                                <div class="accordion" id="accordionExample">
+                                    <div class="accordion-item border-0">
+                                        <!-- comment collapse -->
+                                        <h2 class="accordion-header" id="headingTwo">
+                                            <div
+                                                    class="
                             accordion-button
                             collapsed
                             pointer
                             d-flex
                             justify-content-end
                           "
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapsePost1"
-                          aria-expanded="false"
-                          aria-controls="collapsePost1"
-                        >
-                          <p class="m-0">2 Comments</p>
-                        </div>
-                      </h2>
-                      <hr />
-                      <!-- comment & like bar -->
-                      <div class="d-flex justify-content-around">
-                        <div
-                          class="
+                                                    data-bs-toggle="collapse"
+                                                    th:data-bs-target="'#collapsePost-'+${post.getId()}"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapsePost1"
+                                            >
+                                                <p class="m-0">2 Comments</p>
+                                            </div>
+                                        </h2>
+                                        <hr/>
+                                        <!-- comment & like bar -->
+                                        <div class="d-flex justify-content-around">
+                                            <div th:id="'process-like-btn-'+${post.getId()}"
+          th:onclick="'javascript:sendParam(\'' + ${post.getId()} + '\', \'likedCount-' + ${post.getId()} + '\', \'process-like-btn-' + ${post.getId()} + '\');'"
+                                                 class="
+                            dropdown-item
+                            rounded
+                            d-flex
+                            justify-content-center
+                            align-items-center
+                            pointer
+                            text-muted
+                            p-1
+                          ">
+<!--                                                <input th:value="${post.getId()}" name="postId" id="postId" hidden>-->
+                                                <input th:value="${user.getId()}" name="likerId" id="likerId" hidden>
+                                                <i class="fas fa-thumbs-up me-3"></i>
+                                                <p class="m-0">Like</p>
+                                            </div>
+                                            <div class="
                             dropdown-item
                             rounded
                             d-flex
@@ -242,193 +261,144 @@
                             text-muted
                             p-1
                           "
-                        >
-                          <i class="fas fa-thumbs-up me-3"></i>
-                          <p class="m-0">Like</p>
-                        </div>
-                        <div
-                          class="
-                            dropdown-item
-                            rounded
-                            d-flex
-                            justify-content-center
-                            align-items-center
-                            pointer
-                            text-muted
-                            p-1
-                          "
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapsePost1"
-                          aria-expanded="false"
-                          aria-controls="collapsePost1"
-                        >
-                          <i class="fas fa-comment-alt me-3"></i>
-                          <p class="m-0">Comment</p>
-                        </div>
-                      </div>
-                      <!-- comment expand -->
-                      <div
-                        id="collapsePost1"
-                        class="accordion-collapse collapse"
-                        aria-labelledby="headingTwo"
-                        data-bs-parent="#accordionExample"
-                      >
-                        <hr />
-                        <div class="accordion-body">
-                          <!-- comment 1 -->
-                          <div class="d-flex align-items-center my-1">
-                            <!-- avatar -->
-                            <img
-                              src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                              alt="avatar"
-                              class="rounded-circle me-2"
-                              style="
-                                width: 38px;
-                                height: 38px;
-                                object-fit: cover;
-                              "
-                            />
-                            <!-- comment text -->
-                            <div class="p-3 rounded comment__input w-100">
-                              <!-- comment menu of author -->
-                              <div class="d-flex justify-content-end">
-                                <!-- icon -->
-                                <i
-                                  class="fas fa-ellipsis-h text-blue pointer"
-                                  id="post1CommentMenuButton"
-                                  data-bs-toggle="dropdown"
-                                  aria-expanded="false"
-                                ></i>
-                                <!-- menu -->
-                                <ul
-                                  class="dropdown-menu border-0 shadow"
-                                  aria-labelledby="post1CommentMenuButton"
-                                >
-                                  <li class="d-flex align-items-center">
-                                    <a
-                                      class="
-                                        dropdown-item
-                                        d-flex
-                                        justify-content-around
-                                        align-items-center
-                                        fs-7
-                                      "
-                                      href="#"
-                                    >
-                                      Edit Comment</a
-                                    >
-                                  </li>
-                                  <li class="d-flex align-items-center">
-                                    <a
-                                      class="
-                                        dropdown-item
-                                        d-flex
-                                        justify-content-around
-                                        align-items-center
-                                        fs-7
-                                      "
-                                      href="#"
-                                    >
-                                      Delete Comment</a
-                                    >
-                                  </li>
-                                </ul>
-                              </div>
-                              <p class="fw-bold m-0">John</p>
-                              <p class="m-0 fs-7 bg-gray p-2 rounded">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit.
-                              </p>
-                            </div>
-                          </div>
-                          <!-- comment 2 -->
-                          <div class="d-flex align-items-center my-1">
-                            <!-- avatar -->
-                            <img
-                              src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                              alt="avatar"
-                              class="rounded-circle me-2"
-                              style="
-                                width: 38px;
-                                height: 38px;
-                                object-fit: cover;
-                              "
-                            />
-                            <!-- comment text -->
-                            <div class="p-3 rounded comment__input w-100">
-                              <p class="fw-bold m-0">Jerry</p>
-                              <p class="m-0 fs-7 bg-gray p-2 rounded">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit.
-                              </p>
-                            </div>
-                          </div>
-                          <!-- create comment -->
-                          <form class="d-flex my-1">
-                            <!-- avatar -->
-                            <div>
-                              <img
-                                src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                                alt="avatar"
-                                class="rounded-circle me-2"
-                                style="
+                                                 data-bs-toggle="collapse"
+                                                 th:data-bs-target="'#collapsePost-'+${post.getId()}"
+                                                 aria-expanded="false"
+                                                 aria-controls="collapsePost1"
+                                            >
+                                                <i class="fas fa-comment-alt me-3"></i>
+                                                <p class="m-0">Comment</p>
+                                            </div>
+                                        </div>
+                                        <!-- comment expand -->
+                                        <div
+                                                th:id="'collapsePost-'+${post.getId()}"
+                                                class="accordion-collapse collapse"
+                                                aria-labelledby="headingTwo"
+                                                data-bs-parent="#accordionExample"
+                                        >
+                                            <hr/>
+                                            <div class="accordion-body">
+                                                <!-- create comment -->
+                                                <form class="d-flex my-2">
+                                                    <!-- avatar -->
+                                                    <div>
+                                                        <img
+                                                                src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                                                alt="avatar"
+                                                                class="rounded-circle me-2"
+                                                                style="
                                   width: 38px;
                                   height: 38px;
                                   object-fit: cover;
                                 "
-                              />
+                                                        />
+                                                    </div>
+                                                    <!-- input -->
+                                                    <input
+                                                            type="text"
+                                                            class="form-control border-0 rounded-pill bg-gray"
+                                                            placeholder="Write a comment"
+                                                    />
+                                                </form>
+                                                <!-- comment 1 -->
+                                                <div class="d-flex align-items-center my-1">
+                                                    <!-- avatar -->
+                                                    <img
+                                                            src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                                            alt="avatar"
+                                                            class="rounded-circle me-2"
+                                                            style="
+                                width: 38px;
+                                height: 38px;
+                                object-fit: cover;
+                              "
+                                                    />
+                                                    <!-- comment text -->
+                                                    <div class="p-3 rounded comment__input w-100">
+                                                        <p class="fw-bold m-0">John</p>
+                                                        <p class="m-0 fs-7 bg-gray p-2 rounded">
+                                                            Lorem ipsum dolor sit amet, consectetur
+                                                            adipiscing elit.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <!-- comment 2 -->
+
+
+
+                                                <!-- end -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end -->
                             </div>
-                            <!-- input -->
-                            <input
-                              type="text"
-                              class="form-control border-0 rounded-pill bg-gray"
-                              placeholder="Write a comment"
-                            />
-                          </form>
-                          <!-- end -->
                         </div>
-                      </div>
                     </div>
-                  </div>
-                  <!-- end -->
                 </div>
-              </div>
+
+                <!-- p 2 -->
+
             </div>
-
-
-            <!-- p 2 -->
-         
-          </div>
         </div>
-  </div>
-        
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" 
-        crossorigin="anonymous">
-      </script>
 
+    </div>
     <script>
-      // popover
-      var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-      var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-        return new bootstrap.Popover(popoverTriggerEl);
-      });
+        function sendParam(postId, likeCntId, likeBtnId) {
+            console.log(postId + ' <- post id .. ' + likeCntId + ' <- like count id' + likeBtnId + ' <- like btn id')
+            $.a_jquery_function(postId, likeCntId, likeBtnId);
+        }
+
+        $(document).ready(
+            function () {
+                // SUBMIT FORM
+                // need postId, likeCountID
+                    // ajaxPost();
+                $.a_jquery_function  = function ajaxPost(postId, likeCntId, likeBtnId) {
+                    // PREPARE FORM DATA
+                    var formData = {
+                        postId: postId,
+                        likerId: $('#likerId').val()
+                    }
+
+                    console.log(formData.postId + " " + formData.likerId)
+
+                    // DO POST
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json",
+                        url: "process-like",
+                        data: JSON.stringify(formData),
+                        dataType: 'json',
+                        success: function (result) {
+                            if (result.status == "success") {
+                                console.log(result.data);
+                                var resultData = result.data;
+                                $("#" + likeCntId).html(result.data);
+                                console.log(resultData.includes('You'))
+                                if (resultData.includes('You')) {
+                                    $("#"+likeBtnId).addClass("bg-opacity-10 bg-info rounded-pill");
+                                } else {
+                                    $("#"+likeBtnId).removeClass("bg-opacity-10 bg-info rounded-pill");
+                                }
+
+                            } else {
+                                $("#"+likeCntId).html("<strong>Error!</strong>");
+                            }
+                            console.log(result);
+                        },
+                        error: function (e) {
+                            alert("Error!")
+                            console.log("ERROR: ", e);
+                        }
+                    });
+
+                }
+
+            })
     </script>
-      <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-      <script>
-        tinymce.init({
-          selector: '#textareaa',
-          height: 300,
-          branding: false,
-          elementpath: false,
-          content_style: "body { line-height: 0.75; }",
-          statusbar: false,
-          init_instance_callback : function(editor) {
-            var freeTiny = document.querySelector('.tox .tox-notification--in');
-            freeTiny.style.display = 'none';
-          }
-        });
-      </script>
-  </section>
-  </body>
+
+</section>
+</body>
 </html>
