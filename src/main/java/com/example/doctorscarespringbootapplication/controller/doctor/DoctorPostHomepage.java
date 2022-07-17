@@ -1,5 +1,6 @@
 package com.example.doctorscarespringbootapplication.controller.doctor;
 
+import com.example.doctorscarespringbootapplication.controller.patient.PatientDoctorsTIps;
 import com.example.doctorscarespringbootapplication.dao.*;
 import com.example.doctorscarespringbootapplication.dto.*;
 import com.example.doctorscarespringbootapplication.entity.*;
@@ -11,13 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.security.Principal;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import static com.example.doctorscarespringbootapplication.controller.patient.PatientDoctorsTIps.*;
 
 @Controller
 @RequestMapping("/doctor")
@@ -40,6 +42,7 @@ public class DoctorPostHomepage {
 
     @GetMapping("/post-homepage")
     public String postHomepage(Model model, Principal principal) {
+        model.addAttribute("title", "Doctor Tips Homepage");
         List<Posts> postsList = postsRepository.findAll();
         model.addAttribute("postsList", postsList);
         addCommonData(model, principal);
@@ -68,31 +71,18 @@ public class DoctorPostHomepage {
     @PostMapping("/process-like")
     @Transactional
     public ResponseEntity<Object> doLikePost(@RequestBody LikesDTO likesDTO, Model model, Principal principal) {
-        String likesCountByUser = likesRepository.countAllByLikerIdAndPostsId(likesDTO.getLikerId(), Integer.parseInt(likesDTO.getPostId()));
-        if (likesCountByUser.equals("0")) {
-            Posts posts = postsRepository.findById(Integer.parseInt(likesDTO.getPostId()));
-            List<Likes> likesList = likesRepository.findByPostsId(Integer.parseInt(likesDTO.getPostId()));
-            likesList.add(new Likes(posts, likesDTO.getLikerId()));
-            posts.setLikesList(likesList);
-            postsRepository.save(posts);
-            String likesCount = likesRepository.countAllByPostsId(Integer.parseInt(likesDTO.getPostId()));
-            if (Integer.parseInt(likesCount) > 1) {
-                ServiceResponse<String> response = new ServiceResponse<String>("success", "You and " + (Integer.parseInt(likesCount) - 1) + " people");
-                return new ResponseEntity<Object>(response, HttpStatus.OK);
-            }
-                ServiceResponse<String> response = new ServiceResponse<String>("success", "You");
-                return new ResponseEntity<Object>(response, HttpStatus.OK);
-        }
-        likesRepository.deleteByLikerIdAndPostsId(likesDTO.getLikerId(), Integer.parseInt(likesDTO.getPostId()));
-        ServiceResponse<String> response = new ServiceResponse<String>("success", "0 people");
-        return new ResponseEntity<Object>(response, HttpStatus.OK);
+        return getObjectResponseEntityLike(likesDTO, likesRepository, postsRepository);
     }
 
     @PostMapping("/process-comment")
     @Transactional
     public ResponseEntity<Object> doCommentPost(@RequestBody CommentsDTO commentsDTO, Model model, Principal principal) {
+        return getObjectResponseEntityComment(commentsDTO, postsRepository, this.commentsRepository);
+    }
+
+    public static ResponseEntity<Object> getObjectResponseEntityComment(@RequestBody CommentsDTO commentsDTO, PostsRepository postsRepository, CommentsRepository commentsRepository) {
         Posts posts = postsRepository.findById(Integer.parseInt(commentsDTO.getPostId()));
-        List<Comments> commentsList = this.commentsRepository.findByPostsId(Integer.parseInt(commentsDTO.getPostId()));
+        List<Comments> commentsList = commentsRepository.findByPostsId(Integer.parseInt(commentsDTO.getPostId()));
         commentsList.add(new Comments(commentsDTO.getCommenterId(), commentsDTO.getCommenterName(), commentsDTO.getCommenterImage(), commentsDTO.getComment(), posts));
         posts.setCommentsList(commentsList);
         postsRepository.save(posts);
@@ -102,20 +92,7 @@ public class DoctorPostHomepage {
 
     @PostMapping("/process-savepost")
     public ResponseEntity<Object> doSavePost(@RequestBody SavedPostsDTO savedPostsDTO, Model model, Principal principal) {
-         Posts posts = postsRepository.findById(Integer.parseInt(savedPostsDTO.getPostId()));
-         SavedPosts savedPosts = null;
-        savedPosts = savedPostsRepository.findByPostsIdAndSaverId(Integer.parseInt(savedPostsDTO.getPostId()), savedPostsDTO.getSaverId());
-        if (savedPosts == null) {
-            SavedPosts savedPosts1 = new SavedPosts();
-            savedPosts1.setSaverId(savedPostsDTO.getSaverId());
-            savedPosts1.setPosts(posts);
-            posts.setSavedPostsList(savedPosts1);
-            postsRepository.save(posts);
-            ServiceResponse<String> response = new ServiceResponse<String>("success", "Post Saved");
-            return new ResponseEntity<Object>(response, HttpStatus.OK);
-        }
-        ServiceResponse<String> response = new ServiceResponse<String>("Success Already Saved", "Already Saved");
-        return new ResponseEntity<Object>(response, HttpStatus.OK);
+        return getObjectResponseEntitySavePost(savedPostsDTO, postsRepository, savedPostsRepository);
     }
 
     @PostMapping("/process-deletepost")
@@ -124,6 +101,12 @@ public class DoctorPostHomepage {
         postsRepository.deleteById(Integer.parseInt(deletePostDTO.getPostId()));
         ServiceResponse<String> response = new ServiceResponse<String>("success", "Post Deleted Successfully!");
         return new ResponseEntity<Object>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/process-unsavepost")
+    @Transactional
+    public ResponseEntity<Object> doUnsavePost(@RequestBody UnsavePostDTO unsavePostDTO, Model model, Principal principal) {
+        return getObjectResponseEntityUnsavePost(unsavePostDTO, savedPostsRepository);
     }
 
     @PostMapping("/edit-post")
@@ -136,6 +119,7 @@ public class DoctorPostHomepage {
 
     @PostMapping("/process-save-editedpost")
     public String saveEditedPost(@RequestParam("postId") String postId, @RequestParam("postContent") String postContent, Model model, Principal principal) {
+        model.addAttribute("title", "Doctor Tips Homepage");
         Posts post = postsRepository.findById(Integer.parseInt(postId));
         post.setPostContent(postContent);
         postsRepository.save(post);
@@ -144,6 +128,12 @@ public class DoctorPostHomepage {
         model.addAttribute("postsList", postsList);
         addCommonData(model, principal);
         return "doctor/doctor_post_homepage";
+    }
+
+    @GetMapping("/saved-tips-posts")
+    public String savedTipsPosts(Model model, Principal principal) {
+        patientSavedTips(model, principal, this.userRepository, savedPostsRepository);
+        return "doctor/doctor_saved_tips";
     }
 
     @ModelAttribute

@@ -10,7 +10,7 @@ public class SavedPosts {
 
     private String saverId;
 
-    @OneToOne
+    @ManyToOne
     private Posts posts;
 
     public SavedPosts() {

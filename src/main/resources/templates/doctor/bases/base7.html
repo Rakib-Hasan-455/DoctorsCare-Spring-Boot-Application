@@ -5,7 +5,6 @@
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/CSS/doctor/doctorstyle.css}">
-<!--    <link th:href="@{/CSS/doctor/givePrescription.css}" rel="stylesheet">-->
     <link th:href="@{/CSS/doctor/postHomepage.css}" rel="stylesheet">
 
     <link th:href="@{/images/doctorsCare.png}" rel="icon">
@@ -89,7 +88,7 @@
             <span class="tooltip">Doctor Tips</span>
         </li>
         <li>
-            <a href="#">
+            <a th:href="@{/doctor/saved-tips-posts}">
                 <i class='bx bx-heart'></i>
                 <span class="links_name">Saved Tips</span>
             </a>

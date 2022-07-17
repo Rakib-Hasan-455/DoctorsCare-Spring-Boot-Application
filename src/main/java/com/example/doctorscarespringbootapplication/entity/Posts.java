@@ -27,8 +27,8 @@ public class Posts {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "posts")
     private List<Comments> commentsList;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "posts")
-    private SavedPosts savedPostsList;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "posts")
+    private List<SavedPosts> savedPostsList;
 
     @Column(length = 5000)
     private String postContent;
@@ -57,11 +57,11 @@ public class Posts {
     }
 
 
-    public SavedPosts getSavedPostsList() {
+    public List<SavedPosts> getSavedPostsList() {
         return savedPostsList;
     }
 
-    public void setSavedPostsList(SavedPosts savedPostsList) {
+    public void setSavedPostsList(List<SavedPosts> savedPostsList) {
         this.savedPostsList = savedPostsList;
     }
 
