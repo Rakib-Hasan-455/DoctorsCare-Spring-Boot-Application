@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="admin/bases/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+    <div th:if="${noDoctorAppointment == 'true'}" class="container text-center mt-5 pt-5">
+        <h2 style="color: lightcoral"> Today you don't have any appointments!</h2>
+    </div>
+
+    <div th:if="${noDoctorAppointment != 'true'}">
+        <h3 class="text-center mb-3 mt-3"> <u>Appointment Logs</u> </h3>
+        <table class="table mt-5">
+            <thead>
+            <tr>
+                <th class="text-center"  scope="col">Appointment ID</th>
+                <th class="text-center"  scope="col">Appointment Date</th>
+                <th  class="text-center" scope="col">Appointment Time</th>
+                <th class="text-center"  scope="col">Patient Email</th>
+                <th class="text-center"  scope="col">Doctor Fee</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="appointments : ${appointDoctorList}">
+                <td class="text-center" th:text="${appointments.id}"></td>
+                <td class="text-center" th:text="${appointments.appointmentDate}"></td>
+                <td class="text-center"  th:text="${appointments.appointmentTime}"></td>
+                <td class="text-center"  th:text="${appointments.patientID}"></td>
+                <td class="text-center"  th:text="${appointments.doctorFee}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+</body>
+</html>

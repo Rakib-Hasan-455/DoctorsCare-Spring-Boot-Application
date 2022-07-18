@@ -1,12 +1,15 @@
 package com.example.doctorscarespringbootapplication;
 
+import com.example.doctorscarespringbootapplication.configuration.EmailSenderServiceJava;
 import com.example.doctorscarespringbootapplication.dao.UserRepository;
 import com.example.doctorscarespringbootapplication.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -21,9 +24,18 @@ public class DoctorsCareSpringBootApplication {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EmailSenderServiceJava senderService;
     public static void main(String[] args) {
         SpringApplication.run(DoctorsCareSpringBootApplication.class, args);
     }
+
+    /*@EventListener(ApplicationEvent.class)
+    public void sendMail() {
+        senderService.sendEmail("hasanrakib455@gmail.com",
+                "Test Subject abc",
+                "Test Body abc");
+     }*/
 
 /*
      Every day at 4 PM it will reset doctors_schedule entity..

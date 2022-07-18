@@ -12,5 +12,6 @@ public interface AppointDoctorRepository extends JpaRepository<AppointDoctor, In
 
     List<AppointDoctor> findAllByAppointmentDateAndDoctorIDAndAppointmentTimeGreaterThanOrderByAppointmentTimeAsc(String appointmentDate, String doctorID, Time currentTime);
 
+    List<AppointDoctor> findAllByOrderByIdDesc();
     AppointDoctor findById(int id);
 }

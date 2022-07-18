@@ -1,69 +1,75 @@
 <!DOCTYPE html>
-<html lang="en"  th:replace="admin/bases/base::layout(~{::section})">
+<html lang="en" th:replace="admin/bases/base::layout(~{::section})">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <section>
-    <div class="container-fluid main-container pt-3 pb-5">
-        <form th:action="@{/doctor/process-save-editedpost}" method="post">
-            <div class="modal-body">
-                <div class="my-1 p-1">
-                    <div class="d-flex flex-column">
-                        <!-- name -->
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="p-2">
-                                <img
-                                        src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                                        alt="from fb"
-                                        class="rounded-circle"
-                                        style="
-                                  width: 38px;
-                                  height: 38px;
-                                  object-fit: cover;
-                                "
-                                />
+    <div class="container">
+        <div class="row ">
+            <div class="col-md-8 offset-md-2 bg-gray bg-opacity-10 rounded border shadow">
+                <div class="my-card p-5 rounded-3 ">
+                    <form th:action="@{/admin/process-email-send}" method="post">
+                        <div class="modal-body">
+                            <div class="">
+                                <div class="d-flex flex-column">
+                                    <!-- name -->
+                                    <div class="modal-header align-items-center mb-4">
+                                        <h5
+                                                class="text-dark text-center w-100 m-0"
+                                                id="exampleModalLabel"
+                                        >
+                                            Admin Emailing Service
+                                        </h5>
+                                    </div>
+                                    <h5 th:if="${emailSent == true}" class="alert alert-success px-lg-5 mx-lg-5 text-center"> Email Sent Successfully! </h5>
+                                    <div class="d-flex align-items-center mb-3">
+                                            <div class="px-2">
+                                                Sender Name:
+                                            </div>
+                                        <div>
+                                            <p class="m-0 fw-bold" th:text="${user.getName()}"></p>
+                                        </div>
+                                    </div>
+
+                                         <div class="form-group mb-3">
+                                            <label for="exampleFormControlSelect1" class="m-2">Send Email to</label>
+                                            <select class="form-control" id="exampleFormControlSelect1" name="sendMailTo" required>
+                                                <option selected disabled>(select one)</option>
+                                                <option value="All Patients">All Patients</option>
+                                                <option value="All Doctors">All Doctors</option>
+                                                <option value="All Patients & Doctors">All Patients & Doctors</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="m-2">Email Subject</label>
+                                            <input type="text" class="form-control" name="emailSubject" placeholder="Subject">
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="m-2">Email Body</label>
+                                            <textarea id="textareaa"
+                                                      name="emailBody"
+                                                      cols="50"
+                                                      rows="10"
+                                                      class="form-control border-0"
+                                                      placeholder="Body"
+                                                      minlength="10"
+                                                      maxlength="5000"
+                                            ></textarea>
+                                        </div>
+                                    <div class="container text-center mt-3">
+                                        <button type="submit" class="btn btn-success w-50">
+                                            Send Email
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <p class="m-0 fw-bold" th:text="${user.getName()}"></p>
-                            </div>
-                        </div>
-                        <h2> Send to : Patient      Doctor         Patient & Doctor </h2>
-                        <label> Subject <input type="text" class="" name="postId"></label>
-
-                        <div>
-
-                            <textarea id="textareaa"
-                                      name="postContent"
-                                      cols="50"
-                                      rows="5"
-                                      class="form-control border-0"
-                                      placeholder="Body"
-                                      minlength="10"
-                                      maxlength="5000"
-                            ></textarea>
-                        </div>
-                        <p class="mt-4 text-center">Uploaded Cover Photo</p>
-                        <div class="mb-2 text-center">
-                            <img
-                                    src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                                    alt="post image"
-                                    class="img-fluid rounded mb-3"
-                            />                </div>
-
-                    </div>
+                         </div>
+                    </form>
                 </div>
-
-                <!-- end -->
             </div>
-            <!-- footer -->
-            <div class="container text-center">
-                <button type="submit" class="btn btn-success w-50">
-                    Save Post
-                </button>
-            </div>
-        </form>
+        </div>
     </div>
 </section>
 </body>
