@@ -5,6 +5,9 @@ import com.example.doctorscarespringbootapplication.dao.*;
 import com.example.doctorscarespringbootapplication.dto.*;
 import com.example.doctorscarespringbootapplication.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -40,11 +43,14 @@ public class DoctorPostHomepage {
     @Autowired
     private SavedPostsRepository savedPostsRepository;
 
-    @GetMapping("/post-homepage")
-    public String postHomepage(Model model, Principal principal) {
+    @GetMapping("/post-homepage/{page}")
+    public String postHomepage(@PathVariable("page") Integer page, Model model, Principal principal) {
         model.addAttribute("title", "Doctor Tips Homepage");
-        List<Posts> postsList = postsRepository.findAll();
+        Pageable pageable = PageRequest.of(page-1, 5);
+        Page<Posts> postsList = postsRepository.findAllByOrderByIdDesc(pageable);
         model.addAttribute("postsList", postsList);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", postsList.getTotalPages());
         addCommonData(model, principal);
         return "doctor/doctor_post_homepage";
     }
@@ -63,9 +69,9 @@ public class DoctorPostHomepage {
         posts.setPostTime(postTime);
         posts.setCoverPhoto("Default.jpg");
         postsRepository.save(posts);
-
+        model.addAttribute("posted", true);
         addCommonData(model, principal);
-        return "redirect:/doctor/post-homepage";
+        return "redirect:/doctor/post-homepage/1";
     }
 
     @PostMapping("/process-like")
@@ -127,12 +133,21 @@ public class DoctorPostHomepage {
         List<Posts> postsList = postsRepository.findAll();
         model.addAttribute("postsList", postsList);
         addCommonData(model, principal);
-        return "doctor/doctor_post_homepage";
+        return "redirect:/doctor/post-homepage/1";
     }
 
-    @GetMapping("/saved-tips-posts")
-    public String savedTipsPosts(Model model, Principal principal) {
-        patientSavedTips(model, principal, this.userRepository, savedPostsRepository);
+    @GetMapping("/saved-tips-posts/{page}")
+    public String savedTipsPosts(@PathVariable("page") Integer page, Model model, Principal principal) {
+        model.addAttribute("title", "Doctor Saved Tips");
+        model.addAttribute("postsaved", "true");
+        String userEmail = principal.getName();
+        User user = userRepository.getUserByEmailNative(userEmail);
+        model.addAttribute("user", user);
+        Pageable pageable = PageRequest.of(page-1, 5);
+        Page<SavedPosts> savedPostsList = savedPostsRepository.findBySaverId(user.getId()+"", pageable);
+        model.addAttribute("postsList", savedPostsList);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", savedPostsList.getTotalPages());
         return "doctor/doctor_saved_tips";
     }
 

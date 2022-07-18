@@ -27,12 +27,12 @@
             <tbody>
 
             <tr th:each="prescription : ${prescriptionList}">
-                <td class="text-center" th:text="${prescription.getAppointDoctor().getId()}"></td>
-                <td class="text-center" th:text="${prescription.getAppointDoctor().getAppointmentDate()}"></td>
-                <td class="text-center" th:text="${prescription.getAppointDoctor().getAppointmentTime()}"></td>
-                <td class="text-center" th:text="${prescription.getAppointDoctor().getDoctorID()}"></td>
-                <td class="text-center" th:text="${prescription.getSymptoms()}"></td>
-                <td class="text-center">
+                <td class="text-center p-3" th:text="${prescription.getAppointDoctor().getId()}"></td>
+                <td class="text-center p-3" th:text="${prescription.getAppointDoctor().getAppointmentDate()}"></td>
+                <td class="text-center p-3" th:text="${prescription.getAppointDoctor().getAppointmentTime()}"></td>
+                <td class="text-center p-3" th:text="${prescription.getAppointDoctor().getDoctorID()}"></td>
+                <td class="text-center p-3" th:text="${prescription.getSymptoms()}"></td>
+                <td class="text-center p-3">
                     <form method="post" th:action="@{/doctor/view-single-prescription}" target="_blank">
                         <input th:name="appointmentID"  type="hidden" th:value="${prescription.getAppointDoctor().getId()}">
                         <button type="submit" class="btn btn-sm btn-primary">View</button>
@@ -42,6 +42,29 @@
             </tr>
             </tbody>
         </table>
-    </div></section>
+
+
+        <!--        pagination -->
+        <div class="container justify-content-center d-flex">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li th:if="${currentPage-1 > 0}" class="page-item">
+                        <a class="page-link" th:href="@{'/doctor/view-prescriptions/'+${currentPage-1}}">Previous</a>
+                    </li>
+                    <li th:if="${currentPage-1 > 0}" class="page-item"><a class="page-link" th:href="@{'/doctor/view-prescriptions/'+${currentPage-1}}">
+                        <span th:text="${currentPage-1}"></span>
+                    </a></li>
+                    <li class="page-item active"><span class="page-link" th:text="${currentPage}"><span class="sr-only">(current)</span></span>
+                    </li>
+                    <li th:if="${currentPage < totalPages}"  class="page-item"><a class="page-link" th:href="@{'/doctor/view-prescriptions/'+${currentPage+1}}">
+                        <span th:text="${currentPage+1}"></span>
+                    </a></li>
+                    <li  th:if="${currentPage < totalPages}" class="page-item"> <a class="page-link" th:href="@{'/doctor/view-prescriptions/'+${currentPage+1}}">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+</section>
 </body>
 </html>

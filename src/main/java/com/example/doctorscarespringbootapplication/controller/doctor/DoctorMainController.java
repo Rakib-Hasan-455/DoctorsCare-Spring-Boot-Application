@@ -9,6 +9,9 @@ import com.example.doctorscarespringbootapplication.entity.AppointDoctor;
 import com.example.doctorscarespringbootapplication.entity.Prescription;
 import com.example.doctorscarespringbootapplication.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -101,16 +104,19 @@ public class DoctorMainController {
         return "doctor/doctor_today's_appointment";
     }
 
-    @GetMapping("/view-prescriptions")
-    public String viewPrescriptions(Model model, Principal principal) {
+    @GetMapping("/view-prescriptions/{page}")
+    public String viewPrescriptions(@PathVariable("page") Integer page, Model model, Principal principal) {
         model.addAttribute("title", "View Prescriptions");
+        Pageable pageable = PageRequest.of(page-1, 8);
         User user = this.userRepository.getUserByEmailNative(principal.getName());
-        List<Prescription> prescriptionList = prescriptionRepository
-                .findByAppointDoctorDoctorIDOrderByIdDesc(user.getId()+"");
-        if (prescriptionList.size() == 0) {
+        Page<Prescription> prescriptionList = prescriptionRepository
+                .findByAppointDoctorDoctorIDOrderByIdDesc(user.getId()+"", pageable);
+        if (prescriptionList.getTotalElements() == 0) {
             model.addAttribute("noPrescription", "true");
         }
         model.addAttribute("prescriptionList", prescriptionList);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", prescriptionList.getTotalPages());
         addCommonData(model, principal);
         return "doctor/doctor_view_prescriptions";
     }

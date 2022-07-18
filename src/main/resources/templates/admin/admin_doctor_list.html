@@ -25,12 +25,12 @@
             </thead>
             <tbody>
             <tr th:each="doctor : ${doctorList}">
-                <td class="text-center" th:text="${doctor.id}"></td>
-                <td class="text-center" th:text="${doctor.name}"></td>
-                <td class="text-center"  th:text="${doctor.email}"></td>
-                <td class="text-center"  th:text="${doctor.getDoctorsAdditionalInfo().doctortype}"></td>
-                <td class="text-center"  th:text="${doctor.getDoctorsAdditionalInfo().appointmentfee}"></td>
-                <td class="text-center d-flex justify-content-center gap-3">
+                <td class="text-center p-3" th:text="${doctor.id}"></td>
+                <td class="text-center p-3" th:text="${doctor.name}"></td>
+                <td class="text-center p-3"  th:text="${doctor.email}"></td>
+                <td class="text-center p-3"  th:text="${doctor.getDoctorsAdditionalInfo().doctortype}"></td>
+                <td class="text-center p-3"  th:text="${doctor.getDoctorsAdditionalInfo().appointmentfee}"></td>
+                <td class="text-center d-flex justify-content-center gap-3 p-3">
                     <i class='bx bx-edit'></i>
                     <i class='bx bx-trash'></i>
                 </td>
@@ -42,17 +42,17 @@
             <nav aria-label="...">
                 <ul class="pagination">
                     <li th:if="${currentPage-1 > 0}" class="page-item">
-                        <a class="page-link" th:href="@{'/admin/appointment-logs/'+${currentPage-1}}">Previous</a>
+                        <a class="page-link" th:href="@{'/admin/doctors-list/'+${currentPage-1}}">Previous</a>
                     </li>
-                    <li th:if="${currentPage-1 > 0}" class="page-item"><a class="page-link" th:href="@{'/admin/appointment-logs/'+${currentPage-1}}">
+                    <li th:if="${currentPage-1 > 0}" class="page-item"><a class="page-link" th:href="@{'/admin/doctors-list/'+${currentPage-1}}">
                         <span th:text="${currentPage-1}"></span>
                     </a></li>
                     <li class="page-item active"><span class="page-link" th:text="${currentPage}"><span class="sr-only">(current)</span></span>
                     </li>
-                    <li th:if="${currentPage+1 < totalPages}"  class="page-item"><a class="page-link" th:href="@{'/admin/appointment-logs/'+${currentPage+1}}">
+                    <li th:if="${currentPage < totalPages}"  class="page-item"><a class="page-link" th:href="@{'/admin/doctors-list/'+${currentPage+1}}">
                         <span th:text="${currentPage+1}"></span>
                     </a></li>
-                    <li  th:if="${currentPage+1 < totalPages}" class="page-item"> <a class="page-link" th:href="@{'/admin/appointment-logs/'+${currentPage+1}}">Next</a></li>
+                    <li  th:if="${currentPage < totalPages}" class="page-item"> <a class="page-link" th:href="@{'/admin/doctors-list/'+${currentPage+1}}">Next</a></li>
                 </ul>
             </nav>
         </div>

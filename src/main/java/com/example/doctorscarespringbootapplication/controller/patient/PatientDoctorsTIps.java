@@ -4,6 +4,9 @@ import com.example.doctorscarespringbootapplication.dao.*;
 import com.example.doctorscarespringbootapplication.dto.*;
 import com.example.doctorscarespringbootapplication.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -35,13 +38,35 @@ public class PatientDoctorsTIps {
     @Autowired
     private SavedPostsRepository savedPostsRepository;
 
-    @GetMapping("/post-homepage")
-    public String postHomepage(Model model, Principal principal) {
+    @GetMapping("/post-homepage/{page}")
+    public String postHomepage(@PathVariable("page") Integer page, Model model, Principal principal) {
         model.addAttribute("title", "Doctor Tips Homepage");
-        List<Posts> postsList = postsRepository.findAll();
+        Pageable pageable = PageRequest.of(page-1, 5);
+        Page<Posts> postsList = postsRepository.findAllByOrderByIdDesc(pageable);
         model.addAttribute("postsList", postsList);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", postsList.getTotalPages());
         addCommonData(model, principal);
         return "patient/patient_doctor_tips_homepage";
+    }
+
+    @GetMapping("/saved-tips-posts/{page}")
+    public String savedTipsPosts(@PathVariable("page") Integer page, Model model, Principal principal) {
+        patientSavedTips(page, model, principal, this.userRepository, savedPostsRepository);
+        return "patient/patient_doctor_saved_tips";
+    }
+
+    public static void patientSavedTips(Integer page, Model model, Principal principal, UserRepository userRepository, SavedPostsRepository savedPostsRepository) {
+        model.addAttribute("title", "Patients Saved Tips");
+        model.addAttribute("postsaved", "true");
+        String userEmail = principal.getName();
+        User user = userRepository.getUserByEmailNative(userEmail);
+        model.addAttribute("user", user);
+        Pageable pageable = PageRequest.of(page-1, 5);
+        Page<SavedPosts> savedPostsList = savedPostsRepository.findBySaverId(user.getId()+"", pageable);
+        model.addAttribute("postsList", savedPostsList);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", savedPostsList.getTotalPages());
     }
 
     @PostMapping("/process-like")
@@ -66,22 +91,6 @@ public class PatientDoctorsTIps {
     @Transactional
     public ResponseEntity<Object> doUnsavePost(@RequestBody UnsavePostDTO unsavePostDTO, Model model, Principal principal) {
         return getObjectResponseEntityUnsavePost(unsavePostDTO, savedPostsRepository);
-    }
-
-    @GetMapping("/saved-tips-posts")
-    public String savedTipsPosts(Model model, Principal principal) {
-        patientSavedTips(model, principal, this.userRepository, savedPostsRepository);
-        return "patient/patient_doctor_saved_tips";
-    }
-
-    public static void patientSavedTips(Model model, Principal principal, UserRepository userRepository, SavedPostsRepository savedPostsRepository) {
-        model.addAttribute("title", "Doctor Saved Tips");
-        model.addAttribute("postsaved", "true");
-        String userEmail = principal.getName();
-        User user = userRepository.getUserByEmailNative(userEmail);
-        model.addAttribute("user", user);
-        List<SavedPosts> savedPostsList = savedPostsRepository.findBySaverId(user.getId()+"");
-        model.addAttribute("postsList", savedPostsList);
     }
 
     @ModelAttribute

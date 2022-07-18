@@ -117,7 +117,7 @@
                     </div>
                 </div>
                 <hr class="mt-4"/>
-
+                <p th:if="${posted == true}" class="text-center alert alert-success  alert-dismissible ">Successfully Posted!</p>
                 <p th:if="${postsaved == 'true'}" class="text-center alert alert-success  alert-dismissible ">Post Was Updated!</p>
 
                 <!-- posts -->
@@ -167,7 +167,7 @@
                                         Save Post</div>
                                 </li>
                                <div th:if="${post.getDoctorID() == user.getId()+''}">
-                                <form th:action="@{edit-post}" method="post" id="editPostForm">
+                                <form th:action="@{/doctor/edit-post}" method="post" id="editPostForm">
                                 <li class="d-flex align-items-center">
                                     <input name="postId" th:value="${post.getId()}" hidden>
                                     <div class="
@@ -203,16 +203,13 @@
                         <div class="mt-3">
                             <!-- content -->
                             <div>
-                                <div>
-                                <p>
-                                <span th:utext="${#strings.substring(post.getPostContent(), 0, 100)}"></span>
-                                <span th:id="'dots-'+${post.getId()}">. . .</span>
+                                <div class="mb-2">
+                                <div th:id="'dots-'+${post.getId()}" th:utext="${#strings.substring(post.getPostContent(), 0, 120)+'. . .'}"></div>
                                 <div th:id="'more-'+${post.getId()}" style="display: none">
-                                    <p th:utext="${#strings.substring(post.getPostContent(), 100, #strings.length(post.getPostContent()))}"></p>
+                                    <p th:utext="${post.getPostContent()}"></p>
                                 </div>
-                                </p>
-                                <button th:onclick="'javascript:myReadMoreFunction(\'dots-' + ${post.getId()} + '\', \'more-' + ${post.getId()} + '\', \'myReadMoreBtn-' + ${post.getId()} + '\');'"
-                                        th:id="'myReadMoreBtn-'+${post.getId()}" class="btn btn-primary mb-3">Read more</button>
+                                <div class="fs-6" style="color: #0D6EFD" role="button" th:onclick="'javascript:myReadMoreFunction(\'dots-' + ${post.getId()} + '\', \'more-' + ${post.getId()} + '\', \'myReadMoreBtn-' + ${post.getId()} + '\');'"
+                                        th:id="'myReadMoreBtn-'+${post.getId()}">Read more</div>
                                 <script>
                                     function myReadMoreFunction(dotsId, moreId, myReadMoreBtnId) {
                                         var dots = document.getElementById(dotsId);
@@ -222,10 +219,12 @@
                                         if (dots.style.display === "none") {
                                             dots.style.display = "inline";
                                             btnText.innerHTML = "Read more";
+                                            btnText.style.color = "#0D6EFD"
                                             moreText.style.display = "none";
                                         } else {
                                             dots.style.display = "none";
                                             btnText.innerHTML = "Read less";
+                                            btnText.style.color = "#B72D47"
                                             moreText.style.display = "inline";
                                         }
                                     }
@@ -385,9 +384,28 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
             </div>
         </div>
 
+        <!--        pagination -->
+        <div class="container justify-content-center d-flex pt-3 pb-2">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li th:if="${currentPage-1 > 0}" class="page-item">
+                        <a class="page-link" th:href="@{'/doctor/post-homepage/'+${currentPage-1}}">Previous</a>
+                    </li>
+                    <li th:if="${currentPage-1 > 0}" class="page-item"><a class="page-link" th:href="@{'/doctor/post-homepage/'+${currentPage-1}}">
+                        <span th:text="${currentPage-1}"></span>
+                    </a></li>
+                    <li class="page-item active"><span class="page-link" th:text="${currentPage}"><span class="sr-only">(current)</span></span>
+                    </li>
+                    <li th:if="${currentPage < totalPages}"  class="page-item"><a class="page-link" th:href="@{'/doctor/post-homepage/'+${currentPage+1}}">
+                        <span th:text="${currentPage+1}"></span>
+                    </a></li>
+                    <li  th:if="${currentPage < totalPages}" class="page-item"> <a class="page-link" th:href="@{'/doctor/post-homepage/'+${currentPage+1}}">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+
     </div>
     <script th:inline="javascript">
-
         function validateMe() {
             var totalChar = document.getElementById("textareaa").value;
             if (totalChar.length < 150) {
@@ -439,7 +457,7 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
                     $.ajax({
                         type: "POST",
                         contentType: "application/json",
-                        url: "process-deletepost",
+                        url: "/doctor/process-deletepost",
                         data: JSON.stringify(formData),
                         dataType: 'json',
                         success: function (result) {
@@ -466,7 +484,7 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
                     $.ajax({
                         type: "POST",
                         contentType: "application/json",
-                        url: "process-savepost",
+                        url: "/doctor/process-savepost",
                         data: JSON.stringify(formData),
                         dataType: 'json',
                         success: function (result) {
@@ -498,7 +516,7 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
                     $.ajax({
                         type: "POST",
                         contentType: "application/json",
-                        url: "process-like",
+                        url: "/doctor/process-like",
                         data: JSON.stringify(formData),
                         dataType: 'json',
                         success: function (result) {
@@ -543,7 +561,7 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
                     $.ajax({
                         type: "POST",
                         contentType: "application/json",
-                        url: "process-comment",
+                        url: "/doctor/process-comment",
                         data: JSON.stringify(formData),
                         dataType: 'json',
                         success: function (result) {

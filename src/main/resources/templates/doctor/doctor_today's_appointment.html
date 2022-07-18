@@ -24,10 +24,10 @@
         </thead>
         <tbody>
         <tr th:each="appointments : ${appointDoctorList}">
-            <td class="text-center" th:text="${appointments.appointmentDate}"></td>
-            <td class="text-center"  th:text="${appointments.appointmentTime}"></td>
-            <td class="text-center"  th:text="${appointments.patientID}"></td>
-            <td class="text-center"  th:text="${appointments.doctorFee}"></td>
+            <td class="text-center p-3" th:text="${appointments.appointmentDate}"></td>
+            <td class="text-center p-3"  th:text="${appointments.appointmentTime}"></td>
+            <td class="text-center p-3"  th:text="${appointments.patientID}"></td>
+            <td class="text-center p-3"  th:text="${appointments.doctorFee}"></td>
         </tr>
         </tbody>
     </table>

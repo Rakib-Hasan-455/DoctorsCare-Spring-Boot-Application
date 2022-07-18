@@ -8,167 +8,144 @@
 <section>
     <div class="container-fluid main-container">
         <div class="row align-items-center">
-                <!-- posts -->
-                <!-- p 1 -->
-                <div th:each="post : ${postsList}">
-                    <p th:id="'deletePostLabel-'+${post.getId()}" class="text-center mt-3"></p>
-                    <p class="text-center mt-3" th:id="'savedPost-'+${post.getId()}"></p>
-                    <div class="bg-white p-4 rounded shadow mt-3" th:id="'postIdDiv-'+${post.getId()}">
-                        <!-- author -->
-                        <div class="d-flex justify-content-between">
-                            <!-- avatar -->
-                            <div class="d-flex">
-                                <img
-                                        src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                                        alt="avatar"
-                                        class="rounded-circle me-2"
-                                        style="width: 38px; height: 38px; object-fit: cover"
-                                />
-                                <div>
-                                    <p class="m-0 fw-bold"><span th:text="${post.getDoctorName()}"></span></p>
-                                    <span class="text-muted fs-7"><span th:text="${post.getPostDate()}"></span> at <span
-                                            th:text="${post.getPostTime()}"></span></span>
-                                </div>
-                            </div>
-                            <!-- edit -->
-                            <i
-                                    class="fas fa-ellipsis-h"
-                                    type="button"
-                                    id="post1Menu"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"
-                            ></i>
-                            <!-- edit menu -->
-                            <ul
-                                    class="dropdown-menu border-0 shadow"
-                                    aria-labelledby="post1Menu"
-                            >
-                                <li class="d-flex align-items-center">
-                                    <div class="
-                        dropdown-item
-                        d-flex
-                        justify-content-around
-                        align-items-center
-                        fs-7
-                      " role="button" th:onclick="'javascript:sendSavePostParam(\'' + ${post.getId()} + '\', \'savedPost-'+ ${post.getId()} + '\');'"
-                                    ><i class='bx bx-heart'></i>
-                                        Save Post</div>
-                                </li>
-                                <div th:if="${post.getDoctorID() == user.getId()+''}">
-                                    <form th:action="@{edit-post}" method="post" id="editPostForm">
-                                        <li class="d-flex align-items-center">
-                                            <input name="postId" th:value="${post.getId()}" hidden>
-                                            <div class="
-                        dropdown-item
-                        d-flex
-                        justify-content-around
-                        align-items-center
-                        fs-7
-                      "
-                                                 role="button" th:onclick="'javascript:editPostClicked()'"
-                                            ><i class='bx bx-edit'></i>
-                                                Edit Post
-                                            </div>
-                                        </li>
-                                    </form>
-
-                                    <li class="d-flex align-items-center">
-                                        <div
-                                                class="
-                        dropdown-item
-                        d-flex
-                        justify-content-around
-                        align-items-center
-                        fs-7
-                      "
-                                                role="button"  th:onclick="'javascript:sendDeletePostParam(\'' + ${post.getId()} + '\', \'deletePostLabel-'+ ${post.getId()} + '\', \'postIdDiv-'+${post.getId()}+'\');'"
-                                        ><i class='bx bx-trash'></i> Cut Post</div>
-                                    </li>
-                                </div>
-                            </ul>
-                        </div>
-                        <!-- post content -->
-                        <div class="mt-3">
-                            <!-- content -->
+            <!-- posts -->
+            <!-- p 1 -->
+            <div th:each="post : ${postsList}">
+                <p th:id="'deletePostLabel-'+${post.getId()}" class="text-center mt-3"></p>
+                <p class="text-center mt-3" th:id="'savedPost-'+${post.getId()}"></p>
+                <div class="bg-white p-4 rounded shadow mt-3" th:id="'postIdDiv-'+${post.getId()}">
+                    <!-- author -->
+                    <div class="d-flex justify-content-between">
+                        <!-- avatar -->
+                        <div class="d-flex">
+                            <img
+                                    src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                    alt="avatar"
+                                    class="rounded-circle me-2"
+                                    style="width: 38px; height: 38px; object-fit: cover"
+                            />
                             <div>
-                                <div>
-                                    <p>
-                                        <span th:utext="${#strings.substring(post.getPostContent(), 0, 100)}"></span>
-                                        <span th:id="'dots-'+${post.getId()}">. . .</span>
-                                    <div th:id="'more-'+${post.getId()}" style="display: none">
-                                        <p th:utext="${#strings.substring(post.getPostContent(), 100, #strings.length(post.getPostContent()))}"></p>
-                                    </div>
-                                    </p>
-                                    <button th:onclick="'javascript:myReadMoreFunction(\'dots-' + ${post.getId()} + '\', \'more-' + ${post.getId()} + '\', \'myReadMoreBtn-' + ${post.getId()} + '\');'"
-                                            th:id="'myReadMoreBtn-'+${post.getId()}" class="btn btn-primary mb-3">Read more</button>
-                                    <script>
-                                        function myReadMoreFunction(dotsId, moreId, myReadMoreBtnId) {
-                                            var dots = document.getElementById(dotsId);
-                                            var moreText = document.getElementById(moreId);
-                                            var btnText = document.getElementById(myReadMoreBtnId);
-
-                                            if (dots.style.display === "none") {
-                                                dots.style.display = "inline";
-                                                btnText.innerHTML = "Read more";
-                                                moreText.style.display = "none";
-                                            } else {
-                                                dots.style.display = "none";
-                                                btnText.innerHTML = "Read less";
-                                                moreText.style.display = "inline";
-                                            }
-                                        }
-                                    </script>
-                                </div>
-                                <img
-                                        src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                                        alt="post image"
-                                        class="img-fluid rounded"
-                                />
-
+                                <p class="m-0 fw-bold"><span th:text="${post.getDoctorName()}"></span></p>
+                                <span class="text-muted fs-7"><span th:text="${post.getPostDate()}"></span> at <span
+                                        th:text="${post.getPostTime()}"></span></span>
                             </div>
-                            <!-- likes & comments -->
-                            <div class="post__comment mt-3 position-relative">
-                                <!-- likes -->
+                        </div>
+                        <!-- edit -->
+                        <i
+                                class="fas fa-ellipsis-h"
+                                type="button"
+                                id="post1Menu"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                        ></i>
+                        <!-- edit menu -->
+                        <ul
+                                class="dropdown-menu border-0 shadow"
+                                aria-labelledby="post1Menu"
+                        >
+                            <li class="d-flex align-items-center">
                                 <div class="
+                        dropdown-item
+                        d-flex
+                        justify-content-around
+                        align-items-center
+                        fs-7
+                      " role="button"
+                                     th:onclick="'javascript:sendSavePostParam(\'' + ${post.getId()} + '\', \'savedPost-'+ ${post.getId()} + '\');'"
+                                ><i class='bx bx-heart'></i>
+                                    Save Post
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- post content -->
+                    <div class="mt-3">
+                        <!-- content -->
+                        <div>
+                            <div class="mb-2">
+                                <div th:id="'dots-'+${post.getId()}"
+                                     th:utext="${#strings.substring(post.getPostContent(), 0, 120)+'. . .'}"></div>
+                                <div th:id="'more-'+${post.getId()}" style="display: none">
+                                    <p th:utext="${post.getPostContent()}"></p>
+                                </div>
+                                <div class="fs-6" style="color: #0D6EFD" role="button"
+                                     th:onclick="'javascript:myReadMoreFunction(\'dots-' + ${post.getId()} + '\', \'more-' + ${post.getId()} + '\', \'myReadMoreBtn-' + ${post.getId()} + '\');'"
+                                     th:id="'myReadMoreBtn-'+${post.getId()}">Read more
+                                </div>
+                                <script>
+                                    function myReadMoreFunction(dotsId, moreId, myReadMoreBtnId) {
+                                        var dots = document.getElementById(dotsId);
+                                        var moreText = document.getElementById(moreId);
+                                        var btnText = document.getElementById(myReadMoreBtnId);
+
+                                        if (dots.style.display === "none") {
+                                            dots.style.display = "inline";
+                                            btnText.innerHTML = "Read more";
+                                            btnText.style.color = "#0D6EFD"
+                                            moreText.style.display = "none";
+                                        } else {
+                                            dots.style.display = "none";
+                                            btnText.innerHTML = "Read less";
+                                            btnText.style.color = "#B72D47"
+                                            moreText.style.display = "inline";
+                                        }
+                                    }
+                                </script>
+                            </div>
+                            <img
+                                    src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                    alt="post image"
+                                    class="img-fluid rounded"
+                            />
+
+                        </div>
+                        <!-- likes & comments -->
+                        <div class="post__comment mt-3 position-relative">
+                            <!-- likes -->
+                            <div class="
                       d-flex
                       align-items-center
                       top-0
                       start-0
                       position-absolute                    "
-                                     style="height: 50px; z-index: 5"
-                                >
-                                    <div class="me-2">
-                                        <i class="text-primary fas fa-thumbs-up"></i>
-                                    </div>
-                                    <p class="m-0 text-muted fs-7"><span th:id="'likedCount-'+${post.getId()}" th:text="${#lists.size(post.getLikesList())}"></span> liked this</p>
+                                 style="height: 50px; z-index: 5"
+                            >
+                                <div class="me-2">
+                                    <i class="text-primary fas fa-thumbs-up"></i>
                                 </div>
-                                <!-- comments start-->
-                                <div class="accordion" id="accordionExample">
-                                    <div class="accordion-item border-0">
-                                        <!-- comment collapse -->
-                                        <h2 class="accordion-header" id="headingTwo">
-                                            <div
-                                                    class="
+                                <p class="m-0 text-muted fs-7"><span th:id="'likedCount-'+${post.getId()}"
+                                                                     th:text="${#lists.size(post.getLikesList())}"></span>
+                                    liked this</p>
+                            </div>
+                            <!-- comments start-->
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item border-0">
+                                    <!-- comment collapse -->
+                                    <h2 class="accordion-header" id="headingTwo">
+                                        <div
+                                                class="
                             accordion-button
                             collapsed
                             pointer
                             d-flex
                             justify-content-end
                           "
-                                                    data-bs-toggle="collapse"
-                                                    th:data-bs-target="'#collapsePost-'+${post.getId()}"
-                                                    aria-expanded="false"
-                                                    aria-controls="collapsePost1"
-                                            >
-                                                <p class="m-0"><span th:id="'commentscount-'+${post.getId()}" th:text="${#lists.size(post.getCommentsList())}"></span> Comments</p>
-                                            </div>
-                                        </h2>
-                                        <hr/>
-                                        <!-- comment & like bar -->
-                                        <div class="d-flex justify-content-around">
-                                            <div th:id="'process-like-btn-'+${post.getId()}"
-                                                 th:onclick="'javascript:sendLikeParam(\'' + ${post.getId()} + '\', \'likedCount-' + ${post.getId()} + '\', \'process-like-btn-' + ${post.getId()} + '\');'"
-                                                 class="
+                                                data-bs-toggle="collapse"
+                                                th:data-bs-target="'#collapsePost-'+${post.getId()}"
+                                                aria-expanded="false"
+                                                aria-controls="collapsePost1"
+                                        >
+                                            <p class="m-0"><span th:id="'commentscount-'+${post.getId()}"
+                                                                 th:text="${#lists.size(post.getCommentsList())}"></span>
+                                                Comments</p>
+                                        </div>
+                                    </h2>
+                                    <hr/>
+                                    <!-- comment & like bar -->
+                                    <div class="d-flex justify-content-around">
+                                        <div th:id="'process-like-btn-'+${post.getId()}"
+                                             th:onclick="'javascript:sendLikeParam(\'' + ${post.getId()} + '\', \'likedCount-' + ${post.getId()} + '\', \'process-like-btn-' + ${post.getId()} + '\');'"
+                                             class="
                             dropdown-item
                             rounded
                             d-flex
@@ -178,12 +155,12 @@
                             text-muted
                             p-1
                           ">
-                                                <!--                                                <input th:value="${post.getId()}" name="postId" id="postId" hidden>-->
-                                                <input th:value="${user.getId()}" name="likerId" id="likerId" hidden>
-                                                <i class="fas fa-thumbs-up me-3"></i>
-                                                <p class="m-0">Like</p>
-                                            </div>
-                                            <div class="
+                                            <!--                                                <input th:value="${post.getId()}" name="postId" id="postId" hidden>-->
+                                            <input th:value="${user.getId()}" name="likerId" id="likerId" hidden>
+                                            <i class="fas fa-thumbs-up me-3"></i>
+                                            <p class="m-0">Like</p>
+                                        </div>
+                                        <div class="
                             dropdown-item
                             rounded
                             d-flex
@@ -193,96 +170,110 @@
                             text-muted
                             p-1
                           "
-                                                 data-bs-toggle="collapse"
-                                                 th:data-bs-target="'#collapsePost-'+${post.getId()}"
-                                                 aria-expanded="false"
-                                                 aria-controls="collapsePost1"
-                                            >
-                                                <i class="fas fa-comment-alt me-3"></i>
-                                                <p class="m-0">Comment</p>
-                                            </div>
-                                        </div>
-                                        <!-- comment expand -->
-                                        <div
-                                                th:id="'collapsePost-'+${post.getId()}"
-                                                class="accordion-collapse collapse"
-                                                aria-labelledby="headingTwo"
-                                                data-bs-parent="#accordionExample"
+                                             data-bs-toggle="collapse"
+                                             th:data-bs-target="'#collapsePost-'+${post.getId()}"
+                                             aria-expanded="false"
+                                             aria-controls="collapsePost1"
                                         >
-                                            <hr/>
-                                            <div class="accordion-body">
-                                                <!-- create comment -->
-                                                <div class="d-flex my-2" id="commentForm">
-                                                    <!-- avatar -->
-                                                    <div>
-                                                        <img    src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                                                                alt="avatar"
-                                                                class="rounded-circle me-2"
-                                                                style="width: 38px; height: 38px;  object-fit: cover;                                "
-                                                        />
-                                                    </div>
-                                                    <!-- input -->
-                                                    <input
-                                                            type="text"
-                                                            class="form-control border-0 rounded-pill bg-gray"
-                                                            placeholder="Write a comment"
-                                                            th:id="'comment-input-'+${post.getId()}"
-                                                            th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \'comment-div-'+${post.getId()} + '\', \'comment-input-'+${post.getId()}  + '\', \'commentscount-'+${post.getId()} + '\');'"
+                                            <i class="fas fa-comment-alt me-3"></i>
+                                            <p class="m-0">Comment</p>
+                                        </div>
+                                    </div>
+                                    <!-- comment expand -->
+                                    <div
+                                            th:id="'collapsePost-'+${post.getId()}"
+                                            class="accordion-collapse collapse"
+                                            aria-labelledby="headingTwo"
+                                            data-bs-parent="#accordionExample"
+                                    >
+                                        <hr/>
+                                        <div class="accordion-body">
+                                            <!-- create comment -->
+                                            <div class="d-flex my-2" id="commentForm">
+                                                <!-- avatar -->
+                                                <div>
+                                                    <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                                         alt="avatar"
+                                                         class="rounded-circle me-2"
+                                                         style="width: 38px; height: 38px;  object-fit: cover;                                "
                                                     />
                                                 </div>
-                                                <!-- comment 1 -->
-                                                <div th:id="'comment-div-'+${post.getId()}">
+                                                <!-- input -->
+                                                <input
+                                                        type="text"
+                                                        class="form-control border-0 rounded-pill bg-gray"
+                                                        placeholder="Write a comment"
+                                                        th:id="'comment-input-'+${post.getId()}"
+                                                        th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \'comment-div-'+${post.getId()} + '\', \'comment-input-'+${post.getId()}  + '\', \'commentscount-'+${post.getId()} + '\');'"
+                                                />
+                                            </div>
+                                            <!-- comment 1 -->
+                                            <div th:id="'comment-div-'+${post.getId()}">
 
-                                                    <div class="d-flex align-items-center my-1" th:each="comment : ${post.getCommentsList()}">
-                                                        <!-- avatar -->
-                                                        <img
-                                                                src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                                                                alt="avatar"
-                                                                class="rounded-circle me-2"
-                                                                style="
+                                                <div class="d-flex align-items-center my-1"
+                                                     th:each="comment : ${post.getCommentsList()}">
+                                                    <!-- avatar -->
+                                                    <img
+                                                            src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                                            alt="avatar"
+                                                            class="rounded-circle me-2"
+                                                            style="
                                 width: 38px;
                                 height: 38px;
                                 object-fit: cover;
                               "
-                                                        />
-                                                        <!-- comment text -->
-                                                        <div class="p-3 rounded comment__input w-100">
-                                                            <p class="fw-bold m-0" th:text="${comment.getCommenterName()}"></p>
-                                                            <p class="m-0 fs-7 bg-gray p-2 rounded" th:text="${comment.getComment()}">
+                                                    />
+                                                    <!-- comment text -->
+                                                    <div class="p-3 rounded comment__input w-100">
+                                                        <p class="fw-bold m-0"
+                                                           th:text="${comment.getCommenterName()}"></p>
+                                                        <p class="m-0 fs-7 bg-gray p-2 rounded"
+                                                           th:text="${comment.getComment()}">
 
-                                                            </p>
-                                                        </div>
+                                                        </p>
                                                     </div>
-                                                    <!-- comment 2 -->
-
-
                                                 </div>
-                                                <!-- end -->
+                                                <!-- comment 2 -->
+
+
                                             </div>
+                                            <!-- end -->
                                         </div>
                                     </div>
                                 </div>
-                                <!-- end -->
                             </div>
+                            <!-- end -->
                         </div>
                     </div>
                 </div>
-
-                <!-- p 2 -->
-
             </div>
+
+            <!-- p 2 -->
+        </div>
+
+        <!--        pagination -->
+        <div class="container justify-content-center d-flex pt-3 pb-2">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li th:if="${currentPage-1 > 0}" class="page-item">
+                        <a class="page-link" th:href="@{'/patient/post-homepage/'+${currentPage-1}}">Previous</a>
+                    </li>
+                    <li th:if="${currentPage-1 > 0}" class="page-item"><a class="page-link" th:href="@{'/patient/post-homepage/'+${currentPage-1}}">
+                        <span th:text="${currentPage-1}"></span>
+                    </a></li>
+                    <li class="page-item active"><span class="page-link" th:text="${currentPage}"><span class="sr-only">(current)</span></span>
+                    </li>
+                    <li th:if="${currentPage < totalPages}"  class="page-item"><a class="page-link" th:href="@{'/patient/post-homepage/'+${currentPage+1}}">
+                        <span th:text="${currentPage+1}"></span>
+                    </a></li>
+                    <li  th:if="${currentPage < totalPages}" class="page-item"> <a class="page-link" th:href="@{'/patient/post-homepage/'+${currentPage+1}}">Next</a></li>
+                </ul>
+            </nav>
         </div>
 
     </div>
+
     <script th:inline="javascript">
-
-        function editPostClicked() {
-            document.getElementById("editPostForm").submit()
-        }
-
-        function sendDeletePostParam(postId, deletePostLabelId, postIdDiv) {
-            $.postDeleteAjaxFunction(postId, deletePostLabelId, postIdDiv)
-        }
 
         function sendSavePostParam(postId, savedPostLabelId) {
             $.postSaveAjaxFunction(postId, savedPostLabelId)
@@ -290,11 +281,11 @@
 
         function waitforenterandcomment(postId, addCommentDivId, commentInputFieldId, commentsCountId) {
             if (event.key == 'Enter') {
-                if (+$('#'+commentInputFieldId).val().length != 0) {
+                if (+$('#' + commentInputFieldId).val().length != 0) {
                     $.commentAjaxFunction(postId, addCommentDivId, commentInputFieldId, commentsCountId);
-                    $('#'+commentInputFieldId).removeClass("text-bg-danger bg-opacity-10 text-success");
+                    $('#' + commentInputFieldId).removeClass("text-bg-danger bg-opacity-10 text-success");
                 } else {
-                    $('#'+commentInputFieldId).addClass("text-bg-danger bg-opacity-10 text-success");
+                    $('#' + commentInputFieldId).addClass("text-bg-danger bg-opacity-10 text-success");
                 }
             }
         }
@@ -306,32 +297,6 @@
 
         $(document).ready(
             function () {
-                $.postDeleteAjaxFunction  = function (postId, deletePostLabelId, postIdDiv) {
-                    var formData = {
-                        postId: postId
-                    }
-
-                    $.ajax({
-                        type: "POST",
-                        contentType: "application/json",
-                        url: "process-deletepost",
-                        data: JSON.stringify(formData),
-                        dataType: 'json',
-                        success: function (result) {
-                            if (result.status == "success") {
-                                $("#" + deletePostLabelId).html(result.data).addClass("alert alert-success");
-                                $("#"+postIdDiv).remove()
-                            }
-                            console.log(result);
-                        },
-                        error: function (e) {
-                            $("#" + deletePostLabelId).html("Post is Not Deleted").addClass("alert alert-danger");
-                            console.log("ERROR: ", e);
-                        }
-                    });
-
-                }
-
                 $.postSaveAjaxFunction = function (postId, savedPostLabelId) {
                     var formData = {
                         postId: postId,
@@ -341,7 +306,7 @@
                     $.ajax({
                         type: "POST",
                         contentType: "application/json",
-                        url: "process-savepost",
+                        url: "/patient/process-savepost",
                         data: JSON.stringify(formData),
                         dataType: 'json',
                         success: function (result) {
@@ -360,7 +325,7 @@
 
                 }
 
-                $.likeAjaxFunction  = function ajaxPost(postId, likeCntId, likeBtnId) {
+                $.likeAjaxFunction = function ajaxPost(postId, likeCntId, likeBtnId) {
                     // PREPARE FORM DATA
                     var formData = {
                         postId: postId,
@@ -373,7 +338,7 @@
                     $.ajax({
                         type: "POST",
                         contentType: "application/json",
-                        url: "process-like",
+                        url: "/patient/process-like",
                         data: JSON.stringify(formData),
                         dataType: 'json',
                         success: function (result) {
@@ -383,13 +348,13 @@
                                 $("#" + likeCntId).html(result.data);
                                 console.log(resultData.includes('You'))
                                 if (resultData.includes('You')) {
-                                    $("#"+likeBtnId).addClass("bg-opacity-10 bg-info rounded-pill");
+                                    $("#" + likeBtnId).addClass("bg-opacity-10 bg-info rounded-pill");
                                 } else {
-                                    $("#"+likeBtnId).removeClass("bg-opacity-10 bg-info rounded-pill");
+                                    $("#" + likeBtnId).removeClass("bg-opacity-10 bg-info rounded-pill");
                                 }
 
                             } else {
-                                $("#"+likeCntId).html("<strong>Error!</strong>");
+                                $("#" + likeCntId).html("<strong>Error!</strong>");
                             }
                             console.log(result);
                         },
@@ -407,18 +372,17 @@
                         commenterId: [[${user.getId()}]],
                         commenterName: [[${user.getName()}]],
                         commenterImage: [[${user.getImageURL()}]],
-                        comment: $('#'+commentInputFieldId).val()
+                        comment: $('#' + commentInputFieldId).val()
                     }
 
-                    console.log('Comment: ' +$('#'+commentInputFieldId).val())
+                    console.log('Comment: ' + $('#' + commentInputFieldId).val())
                     document.getElementById(commentInputFieldId).value = ""
-
 
 
                     $.ajax({
                         type: "POST",
                         contentType: "application/json",
-                        url: "process-comment",
+                        url: "/patient/process-comment",
                         data: JSON.stringify(formData),
                         dataType: 'json',
                         success: function (result) {
@@ -427,7 +391,7 @@
 
                                 $("#" + commentsCountId).html(result.data);
 
-                                $("#"+addCommentDivId).prepend(`
+                                $("#" + addCommentDivId).prepend(`
                     <div class="d-flex align-items-center my-1">
                                                     <!-- avatar -->
                                                     <img
@@ -450,13 +414,13 @@
                     `)
 
                             } else {
-                                $('#'+commentInputFieldId).addClass("text-bg-danger bg-opacity-10 text-success");
+                                $('#' + commentInputFieldId).addClass("text-bg-danger bg-opacity-10 text-success");
                                 console.log("ERROR! Not success returned");
                             }
                             console.log(result);
                         },
                         error: function (e) {
-                            $('#'+commentInputFieldId).addClass("text-bg-danger bg-opacity-10 text-success");
+                            $('#' + commentInputFieldId).addClass("text-bg-danger bg-opacity-10 text-success");
                             console.log("ERROR: ", e);
                         }
                     });
@@ -464,7 +428,9 @@
             })
     </script>
     <!-- Script  tinymce -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.1.0/tinymce.min.js" integrity="sha512-dr3qAVHfaeyZQPiuN6yce1YuH7YGjtUXRFpYK8OfQgky36SUfTfN3+SFGoq5hv4hRXoXxAspdHw4ITsSG+Ud/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.1.0/tinymce.min.js"
+            integrity="sha512-dr3qAVHfaeyZQPiuN6yce1YuH7YGjtUXRFpYK8OfQgky36SUfTfN3+SFGoq5hv4hRXoXxAspdHw4ITsSG+Ud/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         tinymce.init({
             selector: '#textareaa',
@@ -473,7 +439,7 @@
             content_style: "body { line-height: 0.75; }",
             statusbar: false,
             resize: true,
-            init_instance_callback : function(editor) {
+            init_instance_callback: function (editor) {
                 var freeTiny = document.querySelector('.tox .tox-notification--in');
                 freeTiny.style.display = 'none';
             }
