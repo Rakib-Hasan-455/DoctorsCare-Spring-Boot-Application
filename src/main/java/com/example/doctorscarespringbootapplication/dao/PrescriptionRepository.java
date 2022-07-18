@@ -9,5 +9,6 @@ public interface PrescriptionRepository extends JpaRepository<Prescription, Inte
     List<Prescription> findByAppointDoctorPatientIDOrderByIdDesc(String patientIDEmail);
     List<Prescription> findByAppointDoctorDoctorIDOrderByIdDesc(String doctorID);
 
+    List<Prescription> findAllByOrderByIdDesc();
 }
 

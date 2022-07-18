@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  th:replace="patient/bases/base6::layout(~{::section})">
+<html lang="en"  th:replace="doctor/bases/base6::layout(~{::section})">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,7 +7,7 @@
 <body>
 <section>
     
-    <div class="print-div px-5">
+    <div class="print-div px-5 mb-3">
         <table class="prescription">
             <tbody>
             <tr height="15%">
@@ -26,14 +26,15 @@
                             <br/>
                             <small><span th:text="${doctorUser.getPhone()}"> </span></small>
                         </div>
-                        <div class="vl"></div>
+                        <div class="vl">
+                        </div>
                         <div class="credentials">
                             <p>Patient Details:</p>
-                            <h5 th:text="${user.getName()}"></h5>
-                            <small th:text="${user.getAddress()}"></small><br>
-                            <small>DOB:<span th:text="${user.getDOB()}"></span></small>
+                            <h5 th:text="${patientUser.getName()}"></h5>
+                            <small th:text="${patientUser.getAddress()}"></small><br>
+                            <small>DOB:<span th:text="${patientUser.getDOB()}"></span></small>
                             <br />
-                            <small th:text="${user.getPhone()}"></small>
+                            <small th:text="${patientUser.getPhone()}"></small>
                         </div>
                     </div>
                 </td>

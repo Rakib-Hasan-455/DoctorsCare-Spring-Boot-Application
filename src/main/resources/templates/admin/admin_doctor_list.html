@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="admin/bases/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+    <div th:if="${noDoctor == true}" class="container text-center mt-5 pt-5">
+        <h2 style="color: lightcoral"> Currently There is No Doctor!</h2>
+    </div>
+
+    <div th:if="${noDoctor != true}">
+        <h3 class="text-center mb-3 mt-3"> <u>Doctors List</u> </h3>
+        <table class="table mt-5">
+            <thead>
+            <tr>
+                <th class="text-center"  scope="col">Doctor ID</th>
+                <th class="text-center"  scope="col">Doctor Name</th>
+                <th  class="text-center" scope="col">Doctor Email</th>
+                <th class="text-center"  scope="col">Doctor Type</th>
+                <th class="text-center"  scope="col">Doctor Fee</th>
+                <th class="text-center"  scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="doctor : ${doctorList}">
+                <td class="text-center" th:text="${doctor.id}"></td>
+                <td class="text-center" th:text="${doctor.name}"></td>
+                <td class="text-center"  th:text="${doctor.email}"></td>
+                <td class="text-center"  th:text="${doctor.getDoctorsAdditionalInfo().doctortype}"></td>
+                <td class="text-center"  th:text="${doctor.getDoctorsAdditionalInfo().appointmentfee}"></td>
+                <td class="text-center d-flex justify-content-center gap-3">
+                    <i class='bx bx-edit'></i>
+                    <i class='bx bx-trash'></i>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+</body>
+</html>

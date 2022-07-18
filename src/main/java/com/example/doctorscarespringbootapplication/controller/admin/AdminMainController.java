@@ -2,8 +2,10 @@ package com.example.doctorscarespringbootapplication.controller.admin;
 
 
 import com.example.doctorscarespringbootapplication.dao.AppointDoctorRepository;
+import com.example.doctorscarespringbootapplication.dao.PrescriptionRepository;
 import com.example.doctorscarespringbootapplication.dao.UserRepository;
 import com.example.doctorscarespringbootapplication.entity.AppointDoctor;
+import com.example.doctorscarespringbootapplication.entity.Prescription;
 import com.example.doctorscarespringbootapplication.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,10 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Controller
@@ -24,7 +22,10 @@ public class AdminMainController {
     private UserRepository userRepository;
 
     @Autowired
-    AppointDoctorRepository appointDoctorRepository;
+    private AppointDoctorRepository appointDoctorRepository;
+
+    @Autowired
+    private PrescriptionRepository prescriptionRepository;
 
     @GetMapping("/index")
     public String adminHome(Model model, Principal principal) {
@@ -67,6 +68,63 @@ public class AdminMainController {
         return "admin/admin_appointment_logs";
     }
 
+    @GetMapping("/prescription-logs")
+    public String prescriptionLogs(Model model, Principal principal) {
+        model.addAttribute("title", "Appointment Logs");
+        List<Prescription> prescriptionList = prescriptionRepository
+                .findAllByOrderByIdDesc();
+        if (prescriptionList.size() == 0) {
+            model.addAttribute("noPrescription", "true");
+        }
+        model.addAttribute("prescriptionList", prescriptionList);
+        addCommonData(model, principal);
+        return "admin/admin_prescription_logs";
+    }
+
+    @PostMapping("/view-single-prescription")
+    public String viewSinglePrescription(@RequestParam String appointmentID, Model model, Principal principal) {
+        model.addAttribute("title", "Viewing Prescription");
+        model.addAttribute("appointmentID", appointmentID);
+        AppointDoctor appointDoctor = appointDoctorRepository.findById(Integer.parseInt(appointmentID));
+        User patientUser = userRepository.getUserByEmailNative(appointDoctor.getPatientID());
+        User doctorUser = userRepository.findById(Integer.parseInt(appointDoctor.getDoctorID()));
+        model.addAttribute("appointDoctor", appointDoctor);
+        model.addAttribute("patientUser", patientUser);
+        model.addAttribute("doctorUser", doctorUser);
+        addCommonData(model, principal);
+        return "admin/admin_view_single_prescription";
+    }
+
+    @GetMapping("/patients-list")
+    public String patientsList(Model model, Principal principal) {
+        model.addAttribute("title", "Patients List");
+        List<User> patientList = userRepository.findByRoleOrderByIdDesc("ROLE_PATIENT");
+        if (patientList.size() == 0) {
+            model.addAttribute("noPatient", true);
+        }
+        model.addAttribute("patientList", patientList);
+        addCommonData(model, principal);
+        return "admin/admin_patient_list";
+    }
+
+    @GetMapping("/doctors-list")
+    public String doctorsList(Model model, Principal principal) {
+        model.addAttribute("title", "Doctors List");
+        List<User> doctorList = userRepository.findByRoleOrderByIdDesc("ROLE_DOCTOR");
+        if (doctorList.size() == 0) {
+            model.addAttribute("noDoctor", true);
+        }
+        model.addAttribute("doctorList", doctorList);
+        addCommonData(model, principal);
+        return "admin/admin_doctor_list";
+    }
+
+    @GetMapping("/earnings")
+    public String earnings(Model model, Principal principal) {
+        model.addAttribute("title", "Earnings");
+         addCommonData(model, principal);
+        return "admin/admin_earnings";
+    }
 
     @ModelAttribute
     public void addCommonData(Model model, Principal principal) {
