@@ -37,6 +37,25 @@
             </tr>
             </tbody>
         </table>
+        <!--        pagination -->
+        <div class="container justify-content-center d-flex">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li th:if="${currentPage-1 > 0}" class="page-item">
+                        <a class="page-link" th:href="@{'/admin/appointment-logs/'+${currentPage-1}}">Previous</a>
+                    </li>
+                    <li th:if="${currentPage-1 > 0}" class="page-item"><a class="page-link" th:href="@{'/admin/appointment-logs/'+${currentPage-1}}">
+                        <span th:text="${currentPage-1}"></span>
+                    </a></li>
+                    <li class="page-item active"><span class="page-link" th:text="${currentPage}"><span class="sr-only">(current)</span></span>
+                    </li>
+                    <li th:if="${currentPage+1 < totalPages}"  class="page-item"><a class="page-link" th:href="@{'/admin/appointment-logs/'+${currentPage+1}}">
+                        <span th:text="${currentPage+1}"></span>
+                    </a></li>
+                    <li  th:if="${currentPage+1 < totalPages}" class="page-item"> <a class="page-link" th:href="@{'/admin/appointment-logs/'+${currentPage+1}}">Next</a></li>
+                </ul>
+            </nav>
+        </div>
     </div>
 </section>
 </body>
