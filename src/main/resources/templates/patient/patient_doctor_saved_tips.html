@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="doctor/bases/base7::layout(~{::section})" xmlns="http://www.w3.org/1999/html">
+<html lang="en" th:replace="patient/bases/base7::layout(~{::section})" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
@@ -68,8 +68,34 @@
                         <div class="mt-3">
                             <!-- content -->
                             <div>
-                                <p th:utext="${post.getPosts().getPostContent()}">
-                                </p>
+                                <div>
+                                    <p>
+                                        <span th:utext="${#strings.substring(post.getPosts().getPostContent(), 0, 100)}"></span>
+                                        <span th:id="'dots-'+${post.getPosts().getId()}">. . .</span>
+                                    <div th:id="'more-'+${post.getPosts().getId()}" style="display: none">
+                                        <p th:utext="${#strings.substring(post.getPosts().getPostContent(), 100, #strings.length(post.getPosts().getPostContent()))}"></p>
+                                    </div>
+                                    </p>
+                                    <button th:onclick="'javascript:myReadMoreFunction(\'dots-' + ${post.getPosts().getId()} + '\', \'more-' + ${post.getPosts().getId()} + '\', \'myReadMoreBtn-' + ${post.getPosts().getId()} + '\');'"
+                                            th:id="'myReadMoreBtn-'+${post.getPosts().getId()}" class="btn btn-primary mb-3">Read more</button>
+                                    <script>
+                                        function myReadMoreFunction(dotsId, moreId, myReadMoreBtnId) {
+                                            var dots = document.getElementById(dotsId);
+                                            var moreText = document.getElementById(moreId);
+                                            var btnText = document.getElementById(myReadMoreBtnId);
+
+                                            if (dots.style.display === "none") {
+                                                dots.style.display = "inline";
+                                                btnText.innerHTML = "Read more";
+                                                moreText.style.display = "none";
+                                            } else {
+                                                dots.style.display = "none";
+                                                btnText.innerHTML = "Read less";
+                                                moreText.style.display = "inline";
+                                            }
+                                        }
+                                    </script>
+                                </div>
                                 <img
                                         src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
                                         alt="post image"

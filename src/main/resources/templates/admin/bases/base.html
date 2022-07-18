@@ -14,22 +14,18 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-nav fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Smart Contact Manager</a>
+        <a class="navbar-brand px-4" href="#"><i class='bx bx-plus-medical' width="30" height="24"></i>  Doctors Care</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse px-4" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link">  <!--th:href="@{/about}"--> Notification</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link"  th:text="${user.name}"></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/logout}">Logout</a>
                 </li>
-
             </ul>
 
         </div>
@@ -41,7 +37,7 @@
     <ul class="nav-list">
 
         <li>
-            <a th:href="@{/user/index}">
+            <a th:href="@{/admin/index}">
                 <i class='bx bx-grid-alt'></i>
                 <span class="links_name">Home</span>
             </a>
@@ -50,32 +46,47 @@
 
         <li>
             <a href="#">
-                <i class='bx bxs-contact' ></i>
-                <span class="links_name">View Contacts</span>
+                <i class='bx bx-store'></i>
+                <span class="links_name">Emailing Service</span>
             </a>
-            <span class="tooltip">View Contacts</span>
+            <span class="tooltip">Emailing Service</span>
         </li>
         <li>
-            <a th:href="@{/user/add-contact}">
-                <i class='bx bx-book-add'></i>
-                <span class="links_name">Add Contact</span>
+            <a th:href="@{/doctor/todays-appointment}">
+                <i class='bx bx-caret-right-circle'></i>
+                <span class="links_name">Appointment Logs</span>
             </a>
-            <span class="tooltip">Add Contact</span>
+            <span class="tooltip">Appointment Logs</span>
+        </li>
+        <li>
+            <a th:href="@{/doctor/view-prescriptions}">
+                <i class='bx bx-pie-chart-alt-2'></i>
+                <span class="links_name">Prescription Logs</span>
+            </a>
+            <span class="tooltip">Prescription Logs</span>
+        </li>
+        <li>
+            <a th:href="@{/doctor/view-prescriptions}">
+                <i class='bx bxs-user-badge'></i>
+                <span class="links_name">Doctor List</span>
+            </a>
+            <span class="tooltip">Doctor List</span>
+        </li>
+        <li>
+            <a th:href="@{/doctor/view-prescriptions}">
+                <i class='bx bxs-user-detail'></i>
+                <span class="links_name">Patients List</span>
+            </a>
+            <span class="tooltip">Patient List</span>
         </li>
         <li>
             <a href="#">
-                <i class='bx bx-user' ></i>
-                <span class="links_name">Your Profile</span>
+                <i class='bx bx-dollar'></i>
+                <span class="links_name">Earnings</span>
             </a>
-            <span class="tooltip">Your Profile</span>
+            <span class="tooltip">Earnings</span>
         </li>
-       <!-- <li>
-            <a href="#">
-                <i class='bx bx-cog'></i>
-                <span class="links_name">Settings</span>
-            </a>
-            <span class="tooltip">Settings</span>
-        </li>-->
+
         <li>
             <a th:href="@{/logout}">
                 <i class='bx bx-exit'></i>

@@ -30,7 +30,7 @@ public class Posts {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "posts")
     private List<SavedPosts> savedPostsList;
 
-    @Column(length = 5000)
+    @Column(columnDefinition="TEXT")
     private String postContent;
 
     public Posts(int id, String doctorID, String doctorName, Date postDate, Time postTime, String coverPhoto, List<Likes> likesList, String postContent) {

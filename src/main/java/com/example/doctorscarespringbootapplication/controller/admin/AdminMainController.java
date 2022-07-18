@@ -20,7 +20,7 @@ public class AdminMainController {
     public String adminHome(Model model, Principal principal) {
         model.addAttribute("title", "Admin Dashboard");
         addCommonData(model, principal);
-        return "patient/admin_home";
+        return "admin/admin_home";
     }
 
     @Autowired

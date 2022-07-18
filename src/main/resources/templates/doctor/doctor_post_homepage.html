@@ -43,7 +43,7 @@
                 >
                     <div class="modal-dialog modal-dialog-centered modal-lg">
                         <div class="modal-content ">
-                            <form th:action="@{/doctor/do-post-homepage}" method="post">
+                            <form th:action="@{/doctor/do-post-homepage}" method="post" onsubmit="return validateMe();">
                                 <!-- head -->
                                 <div class="modal-header align-items-center">
                                     <h5
@@ -94,8 +94,6 @@
                                       rows="5"
                                       class="form-control border-0"
                                       placeholder="Write Post"
-                                      minlength="10"
-                                      maxlength="5000"
                             ></textarea>
                                             </div>
                                             <div class="mb-2 mt-4">
@@ -205,8 +203,34 @@
                         <div class="mt-3">
                             <!-- content -->
                             <div>
-                                <p th:utext="${post.getPostContent()}">
+                                <div>
+                                <p>
+                                <span th:utext="${#strings.substring(post.getPostContent(), 0, 100)}"></span>
+                                <span th:id="'dots-'+${post.getId()}">. . .</span>
+                                <div th:id="'more-'+${post.getId()}" style="display: none">
+                                    <p th:utext="${#strings.substring(post.getPostContent(), 100, #strings.length(post.getPostContent()))}"></p>
+                                </div>
                                 </p>
+                                <button th:onclick="'javascript:myReadMoreFunction(\'dots-' + ${post.getId()} + '\', \'more-' + ${post.getId()} + '\', \'myReadMoreBtn-' + ${post.getId()} + '\');'"
+                                        th:id="'myReadMoreBtn-'+${post.getId()}" class="btn btn-primary mb-3">Read more</button>
+                                <script>
+                                    function myReadMoreFunction(dotsId, moreId, myReadMoreBtnId) {
+                                        var dots = document.getElementById(dotsId);
+                                        var moreText = document.getElementById(moreId);
+                                        var btnText = document.getElementById(myReadMoreBtnId);
+
+                                        if (dots.style.display === "none") {
+                                            dots.style.display = "inline";
+                                            btnText.innerHTML = "Read more";
+                                            moreText.style.display = "none";
+                                        } else {
+                                            dots.style.display = "none";
+                                            btnText.innerHTML = "Read less";
+                                            moreText.style.display = "inline";
+                                        }
+                                    }
+                                </script>
+                                </div>
                                 <img
                                         src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
                                         alt="post image"
@@ -364,6 +388,19 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
     </div>
     <script th:inline="javascript">
 
+        function validateMe() {
+            var totalChar = document.getElementById("textareaa").value;
+            if (totalChar.length < 150) {
+                alert('Minimum character should be 150! current text length is ' +totalChar.length);
+                return false;
+            }
+            if (totalChar.length > 50000) {
+                alert('maximum character should be 50000! current text length is ' +totalChar.length)
+                return false;
+            }
+            return true;
+        }
+
         function editPostClicked() {
             document.getElementById("editPostForm").submit()
         }
@@ -413,7 +450,7 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
                             console.log(result);
                         },
                         error: function (e) {
-                            $("#" + deletePostLabelId).html("Post is Not Deleted").addClass("alert alert-danger");
+                            $("#" + deletePostLabelId).html("Oops! Post is Not Deleted.").addClass("alert alert-danger");
                             console.log("ERROR: ", e);
                         }
                     });
@@ -434,14 +471,14 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
                         dataType: 'json',
                         success: function (result) {
                             if (result.status == "success") {
-                                $("#" + savedPostLabelId).html("Post Saved").addClass("alert alert-success");
+                                $("#" + savedPostLabelId).html("Post Saved Successfully!").addClass("alert alert-success");
                             } else {
-                                $("#" + savedPostLabelId).html("Already Saved").addClass("alert alert-success");
+                                $("#" + savedPostLabelId).html("Post is Already Saved!").addClass("alert alert-success");
                             }
                             console.log(result);
                         },
                         error: function (e) {
-                            $("#" + savedPostLabelId).html("Not Saved").addClass("alert alert-danger");
+                            $("#" + savedPostLabelId).html("Oops! Post is Not Saved.").addClass("alert alert-danger");
                             console.log("ERROR: ", e);
                         }
                     });
@@ -558,7 +595,7 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
             selector: '#textareaa',
             branding: false,
             elementpath: false,
-            content_style: "body { line-height: 0.75; }",
+            content_style: "body { line-height: 1.4; }",
             statusbar: false,
             resize: true,
             init_instance_callback : function(editor) {
