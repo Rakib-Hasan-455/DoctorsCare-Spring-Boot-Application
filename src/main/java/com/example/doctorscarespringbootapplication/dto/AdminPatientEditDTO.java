@@ -3,6 +3,8 @@ package com.example.doctorscarespringbootapplication.dto;
 public class AdminPatientEditDTO {
     private String id;
 
+    private boolean enabled;
+
     private String name;
     private String page;
     private String DOB;
@@ -26,6 +28,14 @@ public class AdminPatientEditDTO {
 
     public String getName() {
         return name;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public void setName(String name) {

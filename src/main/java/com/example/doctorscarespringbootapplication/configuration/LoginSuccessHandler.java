@@ -22,26 +22,17 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws ServletException, IOException {
-
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
-
-
-
         User user = this.userRepository.getUserByEmailNative(customUserDetails.getUsername());
-
-
-
-        String redirectURL = request.getContextPath();
+        String redirectURL = request.getContextPath()+"/login";
         if (user.getRole().toLowerCase(Locale.ROOT).equals("role_admin")) {
             redirectURL = "/admin/index";
-        } else if (user.getRole().toLowerCase(Locale.ROOT).equals("role_doctor") ) {
+        } else if (user.getRole().toLowerCase(Locale.ROOT).equals("role_doctor")) {
             redirectURL = "/doctor/index";
-        } else if (user.getRole().toLowerCase(Locale.ROOT).equals("role_patient") ) {
+        } else if (user.getRole().toLowerCase(Locale.ROOT).equals("role_patient")) {
             redirectURL = "/patient/index";
         }
-
         response.sendRedirect(redirectURL);
-
     }
 
 }

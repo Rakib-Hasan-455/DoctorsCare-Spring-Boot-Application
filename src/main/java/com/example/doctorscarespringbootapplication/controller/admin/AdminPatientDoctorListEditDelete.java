@@ -47,8 +47,9 @@ public class AdminPatientDoctorListEditDelete {
 
     @PostMapping("/edit-doctor-details")
     public String editDoctorDetails(@ModelAttribute EditUserDTO editUserDTO, Model model, Principal principal) {
-        System.out.println(editUserDTO.getPageNo());
-        System.out.println(editUserDTO.getUserId());
+        User doctorUser = this.userRepository.findById(Integer.parseInt(editUserDTO.getUserId()));
+        model.addAttribute("doctorUser", doctorUser);
+        model.addAttribute("page", editUserDTO.getPageNo());
         addCommonData(model, principal);
         return "admin/admin_doctor_edit";
     }
@@ -62,8 +63,28 @@ public class AdminPatientDoctorListEditDelete {
         user.setPhone(adminPatientEditDTO.getPhone());
         user.setAddress(adminPatientEditDTO.getAddress());
         user.setAbout(adminPatientEditDTO.getAbout());
+        user.setEnabled(adminPatientEditDTO.isEnabled());
         userRepository.save(user);
         return "redirect:/admin/patients-list/"+adminPatientEditDTO.getPage();
+    }
+
+    @PostMapping("/process-doctor-edit")
+    public String processDoctorEdit(@ModelAttribute AdminDoctorEditDTO adminDoctorEditDTO) {
+        User user = userRepository.findById(Integer.parseInt(adminDoctorEditDTO.getId()));
+        user.setName(adminDoctorEditDTO.getName());
+        user.setDOB(adminDoctorEditDTO.getDOB());
+        user.setEmail(adminDoctorEditDTO.getEmail());
+        user.setPhone(adminDoctorEditDTO.getPhone());
+        user.setAddress(adminDoctorEditDTO.getAddress());
+        user.setAbout(adminDoctorEditDTO.getAbout());
+        user.setEnabled(adminDoctorEditDTO.isEnabled());
+        user.getDoctorsAdditionalInfo().setNid(adminDoctorEditDTO.getNid());
+        user.getDoctorsAdditionalInfo().setDoctortype(adminDoctorEditDTO.getDoctortype());
+        user.getDoctorsAdditionalInfo().setDegrees(adminDoctorEditDTO.getDegrees());
+        user.getDoctorsAdditionalInfo().setMedicalcollege(adminDoctorEditDTO.getMedicalcollege());
+        user.getDoctorsAdditionalInfo().setAppointmentfee(adminDoctorEditDTO.getAppointmentfee());
+        userRepository.save(user);
+        return "redirect:/admin/doctors-list/"+adminDoctorEditDTO.getPage();
     }
 
     @ModelAttribute

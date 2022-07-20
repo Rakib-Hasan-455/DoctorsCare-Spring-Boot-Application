@@ -21,6 +21,15 @@
                         </div>
                         <input name="page" th:value="${page}" hidden>
                         <input name="id" th:value="${patientUser.id}" hidden>
+<!--                        Account Enabled? -->
+                        <div class="mb-3">
+                            <label class="form-label">Account is Enabled?</label>
+                            <select name="enabled" class="form-select" th:value="${patientUser.enabled}">
+                                <option value="true" th:selected="${patientUser.enabled == true}">Yes</option>
+                                <option value="false" th:selected="${patientUser.enabled == false}">No</option>
+                            </select>
+
+                        </div>
                             <!--                        name-->
                         <div class="mb-3">
                             <label class="form-label">Full Name</label>

@@ -120,7 +120,6 @@ public class HomeController {
         model.addAttribute("successMsg", "successfully signed up. Please Login!");
         model.addAttribute("successMsgType", "alert-success");
         this.userRepository.save(user);
-//        this.userRepository.sa
         return "doctor_signup";
     }
 

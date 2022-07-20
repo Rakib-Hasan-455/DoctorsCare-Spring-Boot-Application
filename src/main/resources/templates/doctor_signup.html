@@ -76,18 +76,14 @@
                         <div class="mb-3">
                             <label class="form-label"> Specialist at </label>
                             <select name="doctortype" th:value="${user.doctortype}" class="form-select" aria-label="Default select example">
-                                <option selected disabled>(select one)</option>
-                                <option value="pediatrics">Pediatrics</option>
-                                <option value="Skin">Skin</option>
-
-                                <option value="Medicine">Medicine</option>
-                                <option value="Covid Support">Covid Support</option>
-
-                                <option value="Mental Health">Mental Health</option>
-                                <option value="Urology">Urology</option>
-
-                                <option value="Eye">Eye</option>
-                                <option value="Cardiology">Cardiology</option>
+                                <option value="pediatrics" th:selected="${user.doctortype == 'pediatrics'}">Pediatrics</option>
+                                <option value="Skin" th:selected="${user.doctortype == 'Skin'}">Skin</option>
+                                <option value="Medicine" th:selected="${user.doctortype == 'Medicine'}">Medicine</option>
+                                <option value="Covid Support" th:selected="${user.doctortype == 'Covid Support'}">Covid Support</option>
+                                <option value="Mental Health" th:selected="${user.doctortype == 'Mental Health'}">Mental Health</option>
+                                <option value="Urology" th:selected="${user.doctortype == 'Urology'}">Urology</option>
+                                <option value="Eye" th:selected="${user.doctortype == 'Eye'}">Eye</option>
+                                <option value="Cardiology" th:selected="${user.doctortype == 'Cardiology'}">Cardiology</option>
                             </select>
                         </div>
 <!--                        Degrees -->

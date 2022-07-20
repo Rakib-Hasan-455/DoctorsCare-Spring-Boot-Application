@@ -35,7 +35,11 @@
                 <td class="text-center p-3"  th:text="${doctor.getDoctorsAdditionalInfo().doctortype}"></td>
                 <td class="text-center p-3"  th:text="${doctor.getDoctorsAdditionalInfo().appointmentfee}"></td>
                 <td class="text-center d-flex justify-content-center gap-3 p-3">
-                    <i class='bx bx-edit' type="button" onclick="editDoctorCalled()"></i>
+                    <form th:action="@{/admin/edit-doctor-details}" method="post" th:id="'editFormId-'+${doctor.id}">
+                        <input name="pageNo" th:value="${currentPage}" hidden>
+                        <input name="userId" th:value="${doctor.id}" hidden>
+                        <i class='bx bx-edit' type="submit" th:onclick="'javascript:editDoctorCalled(\'editFormId-' + ${doctor.id} + '\')'"></i>
+                    </form>
                     <i class='bx bx-trash' type="button" th:onclick="'javascript:deleteDoctorCalled(\'' + ${doctor.id} + '\', \'deleteAlertId-' + ${doctor.id} + '\', \'deleteRowId-' + ${doctor.id} + '\')'"></i>
                 </td>
             </tr>
@@ -63,8 +67,9 @@
         </div>
     </div>
     <script>
-        function editDoctorCalled() {
-            alert("Edit Dr. called!")
+        function editDoctorCalled(editFormId) {
+            var formId = document.getElementById(editFormId)
+            formId.submit();
         }
 
         function deleteDoctorCalled(doctorId, deletedRowAlertId, deleteRowId) {
