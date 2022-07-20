@@ -15,7 +15,7 @@ import java.nio.file.StandardCopyOption;
 @Component
 public class FileUploadHelper {
     // uploadDir = "G:\\" -> Static path
-    public final String UploadDir = new ClassPathResource("/static/images/userProfileImages").getFile().getAbsolutePath();
+    public final String UploadDir = new ClassPathResource("/static/images/userUploadedImages").getFile().getAbsolutePath();
 
     public FileUploadHelper() throws IOException {
     }
