@@ -86,7 +86,7 @@ public class HomeController {
         System.out.println(Arrays.toString(img));
         imageType = img[1];
         System.out.println(imageType);
-        String profileImgDir = fileUploadHelper.uploadProfileImageFile(profileImg, user.getId()+"."+imageType);
+        String profileImgDir = fileUploadHelper.uploadImageFile(profileImg, user.getId()+"."+imageType);
         if (profileImgDir != null) {
             user.setImageURL(profileImgDir);
             userRepository.save(user);
