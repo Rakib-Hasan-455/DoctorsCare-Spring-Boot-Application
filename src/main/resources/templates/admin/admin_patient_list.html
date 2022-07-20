@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="admin/bases/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+    <div th:if="${noPatient == true}" class="container text-center mt-5 pt-5">
+        <h2 style="color: lightcoral"> Currently There is No Patient!</h2>
+    </div>
+
+    <div th:if="${noPatient != true}">
+        <h3 class="text-center mb-3 mt-3"> <u>Patients List</u> </h3>
+        <table class="table mt-5">
+            <thead>
+            <tr>
+                <th class="text-center"  scope="col">Patient ID</th>
+                <th class="text-center"  scope="col">Patient Name</th>
+                <th  class="text-center" scope="col">Patient Email</th>
+                <th class="text-center"  scope="col">Patient Phone</th>
+                <th class="text-center"  scope="col">Patient Address</th>
+                <th class="text-center"  scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="patient : ${patientList}">
+                <td class="text-center p-3" th:text="${patient.id}"></td>
+                <td class="text-center p-3" th:text="${patient.name}"></td>
+                <td class="text-center p-3" th:text="${patient.email}"></td>
+                <td class="text-center p-3" th:text="${patient.phone}"></td>
+                <td class="text-center p-3" th:text="${patient.address}"></td>
+                <td class="text-center p-3 d-flex justify-content-center gap-3">
+                    <i class='bx bx-edit'></i>
+                    <i class='bx bx-trash'></i>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!--        pagination -->
+        <div class="container justify-content-center d-flex">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li th:if="${currentPage-1 > 0}" class="page-item">
+                        <a class="page-link" th:href="@{'/admin/patients-list/'+${currentPage-1}}">Previous</a>
+                    </li>
+                    <li th:if="${currentPage-1 > 0}" class="page-item"><a class="page-link" th:href="@{'/admin/patients-list/'+${currentPage-1}}">
+                        <span th:text="${currentPage-1}"></span>
+                    </a></li>
+                    <li class="page-item active"><span class="page-link" th:text="${currentPage}"><span class="sr-only">(current)</span></span>
+                    </li>
+                    <li th:if="${currentPage < totalPages}"  class="page-item"><a class="page-link" th:href="@{'/admin/patients-list/'+${currentPage+1}}">
+                        <span th:text="${currentPage+1}"></span>
+                    </a></li>
+                    <li  th:if="${currentPage < totalPages}" class="page-item"> <a class="page-link" th:href="@{'/admin/patients-list/'+${currentPage+1}}">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+</body>
+</html>
