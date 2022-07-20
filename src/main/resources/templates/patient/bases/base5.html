@@ -30,13 +30,26 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse px-4" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link"  th:text="${user.name}"></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                <li class="nav-item dropdown  px-2">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                             class="rounded-circle mx-2" height="30px" width="30px" alt="Profile logo">
+                        <span th:text="${user.name}"></span>
+                    </a>
+                    <ul class="dropdown-menu  px-2" aria-labelledby="navbarScrollingDropdown">
+                        <li><a class="dropdown-item" th:href="@{/patient/patient-profile}">
+                            <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                                 class="rounded-circle mx-2" height="20px" width="20px" alt="Profile logo">
+                            Profile</a>
+                        </li>
+                        <li><a class="dropdown-item" th:href="@{/logout}">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAcFJREFUSEuNVdF1wyAMPE3QEZJu4mwST1aP0hHcDZwN0gnUBwghgbDrnzgYJJ3udBABYKRH3tpCXjVf9H/0EsehHNU/eafPMhwe0gb7JY5JkLKxRxMgsKEGsMHHkqBVvQD4Aug+JAuQBa06AFoB/q7Npa6KA4SbwFBa4jZaeC7KAeDTJ9B+MRfCURLPqg6EIOnkeOXWkZxP+Q3/brhizOcJoKpMw0HexKJWp6644EAUmbi8LglKl+0jCVKHKhjX6w3gp5sOOz6ijAmCWWPdeqJlZ+AB4N0q0z2skqyJT8OOJFdYKXhKslcDiEmuammlaF9iAQ2srwA2Pe6HJ9PtJrmp6FQ+1rZWJmxCbPqxVqAzHAzkbCmJI4P8BWgBeHeEN2Vo4WaSreyCIS6gEsk/TFjAeNs2CuY2Rzq8oUyldSMRGwHParatkVZFtjOVg7YzmOQLZH2BakLFayaD5tevpeytQvw5JLkzq47Cdu91KhCUYhVik8Y1NRenAfoo+m2Ka+/26pjueRFwtzz1F84G0C0rzvrMqZi1iS8AyavkwqlmN/N9G1RlV5HZuqZzc0HmRdCB/GAwzM3lq7i+A+Y9s3n+AJxz4iVkKK2eAAAAAElFTkSuQmCC"
+                                 class="rounded-circle mx-2" height="20px" width="20px" alt="LogOut">
+                            Logout
+                        </a></li>
+                    </ul>
                 </li>
             </ul>
 

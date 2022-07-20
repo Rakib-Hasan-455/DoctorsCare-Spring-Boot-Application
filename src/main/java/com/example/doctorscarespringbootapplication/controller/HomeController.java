@@ -1,5 +1,6 @@
 package com.example.doctorscarespringbootapplication.controller;
 
+import com.example.doctorscarespringbootapplication.configuration.fileUploadHelper.FileUploadHelper;
 import com.example.doctorscarespringbootapplication.dao.AppointDoctorRepository;
 import com.example.doctorscarespringbootapplication.dao.PrescriptionRepository;
 import com.example.doctorscarespringbootapplication.dao.UserRepository;
@@ -17,9 +18,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 
@@ -56,10 +61,11 @@ public class HomeController {
     }
 
     @PostMapping("/process-patient-signup")
-    public String patientSignupProcess(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model) {
+    public String patientSignupProcess(@Valid @ModelAttribute User user, @RequestParam("profileImg") MultipartFile profileImg, BindingResult bindingResult, Model model) throws IOException {
         user.setRole("ROLE_PATIENT");
         user.setEnabled(true);
         user.setImageURL("default.jpg");
+        System.out.println(profileImg.getOriginalFilename());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         if (this.userRepository.getUserByEmailNative(user.getEmail()) != null) {
@@ -72,7 +78,21 @@ public class HomeController {
         }
         model.addAttribute("successMsg", "successfully signed up. Please Login!");
         model.addAttribute("successMsgType", "alert-success");
-        this.userRepository.save(user);
+        user = userRepository.save(user);
+        FileUploadHelper fileUploadHelper = new FileUploadHelper();
+        String imageType = profileImg.getOriginalFilename();
+        System.out.println(imageType);
+        String[] img = imageType.split("\\.");
+        System.out.println(Arrays.toString(img));
+        imageType = img[1];
+        System.out.println(imageType);
+        String profileImgDir = fileUploadHelper.uploadProfileImageFile(profileImg, user.getId()+"."+imageType);
+        if (profileImgDir != null) {
+            user.setImageURL(profileImgDir);
+            userRepository.save(user);
+        } else {
+            model.addAttribute("imageUploaded", false);
+        }
         return "patient_signup";
     }
 

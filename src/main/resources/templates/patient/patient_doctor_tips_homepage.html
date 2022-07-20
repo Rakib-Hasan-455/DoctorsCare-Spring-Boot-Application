@@ -8,6 +8,9 @@
 <section>
     <div class="container-fluid main-container">
         <div class="row align-items-center">
+            <div th:if="${postsListSize == 0}" class="container text-center mt-5 pt-5 px-5">
+                <h2 style="color: lightcoral"> Sorry, Currently You Don't Have Any Doctors Tips Posts!</h2>
+            </div>
             <!-- posts -->
             <!-- p 1 -->
             <div th:each="post : ${postsList}">

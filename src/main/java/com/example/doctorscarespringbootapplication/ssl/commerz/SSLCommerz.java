@@ -137,7 +137,7 @@ public class SSLCommerz {
         con.setReadTimeout(5000);
 
         con.setInstanceFollowRedirects(false);
-        con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        con.setRequestProperty("Content-Type", "application/dumbFile-www-form-urlencoded");
         con.setRequestProperty("charset", "utf-8");
         con.setRequestProperty("Content-Length", Integer.toString(postDataLength));
         con.setUseCaches(false);

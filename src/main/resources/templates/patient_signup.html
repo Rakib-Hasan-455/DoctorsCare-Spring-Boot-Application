@@ -15,7 +15,7 @@
 
                     <h2 class="text-center"> Patient Signup !</h2>
 
-                    <form th:action="@{/process-patient-signup}" method="post" th:object="${user}">
+                    <form th:action="@{/process-patient-signup}" method="post"  enctype="multipart/form-data" th:object="${user}">
 <!--                        name-->
                         <div class="mb-3">
                             <label class="form-label">Full Name</label>
@@ -58,10 +58,20 @@
                             <textarea required placeholder="Enter something about yourself" name="about" cols="30" rows="5" class="form-control" th:text="${user.about}"></textarea>
                         </div>
                         <!--                        Upload Image -->
+                        <div th:if="${imageUploaded == false}" th:text="Image Upload Unsuccessful!" class="alert alert-danger"></div>
                         <div class="form-group mb-3">
                             <label class="form-label"> Upload Your Image </label>
-                            <input type="file" class="form-select" required>
+                            <input name="profileImg" id="image-uploader" type="file" class="form-select" accept="image/jpeg, image/png, image/gif, image/jpg" required>
                         </div>
+                        <script>
+                            $('#image-uploader').on('change', function() {
+                                var imageSize = this.files[0].size / 1024 / 1024;
+                                if (imageSize > 3) {
+                                    alert('Image Size Should be less than 3 MB. Your Image Size is ' + imageSize + ' MB');
+                                    $('#image-uploader').val('')
+                                }
+                            });
+                        </script>
 <!--                        check term -->
                         <div class="form-group form-check text-center mt-3 mb-3">
                             <label class="form-check-label">  <input type="checkbox" class="form-check-input" required> Agree <a th:href="@{/terms-and-conditions}" target="_blank">Terms and Conditions</a></label>

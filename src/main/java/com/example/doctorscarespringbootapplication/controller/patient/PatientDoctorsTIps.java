@@ -43,6 +43,7 @@ public class PatientDoctorsTIps {
         model.addAttribute("title", "Doctor Tips Homepage");
         Pageable pageable = PageRequest.of(page-1, 5);
         Page<Posts> postsList = postsRepository.findAllByOrderByIdDesc(pageable);
+        model.addAttribute("postsListSize", postsList.getTotalElements());
         model.addAttribute("postsList", postsList);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", postsList.getTotalPages());
@@ -64,6 +65,7 @@ public class PatientDoctorsTIps {
         model.addAttribute("user", user);
         Pageable pageable = PageRequest.of(page-1, 5);
         Page<SavedPosts> savedPostsList = savedPostsRepository.findBySaverId(user.getId()+"", pageable);
+        model.addAttribute("postsListSize", savedPostsList.getTotalElements());
         model.addAttribute("postsList", savedPostsList);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", savedPostsList.getTotalPages());
