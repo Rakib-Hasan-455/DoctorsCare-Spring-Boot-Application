@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="doctor/bases/base6::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+
+    <div th:if="${noPrescription == 'true'}" class="container text-center mt-5 pt-5">
+        <h2 style="color: lightcoral" class="mx-5 px-5 mt-3"> Sorry, you don't have any prescriptions! Please get an appointment to have prescriptions.</h2>
+    </div>
+
+    <div th:if="${noPrescription != 'true'}">
+        <h3 class="text-center mb-3 mt-3"> <u>My Prescriptions</u> </h3>
+        <table class="table mt-5">
+            <thead>
+            <tr>
+                <th class="text-center" scope="col">Appoint ID</th>
+                <th class="text-center" scope="col">Date</th>
+                <th class="text-center" scope="col">Time</th>
+                <th class="text-center" scope="col">Dr.  ID</th>
+                <th class="text-center" scope="col">Symptoms</th>
+                <th class="text-center" scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="prescription : ${prescriptionList}">
+                <td class="text-center p-3" th:text="${prescription.getAppointDoctor().getId()}"></td>
+                <td class="text-center p-3" th:text="${prescription.getAppointDoctor().getAppointmentDate()}"></td>
+                <td class="text-center p-3" th:text="${prescription.getAppointDoctor().getAppointmentTime()}"></td>
+                <td class="text-center p-3" th:text="${prescription.getAppointDoctor().getDoctorID()}"></td>
+                <td class="text-center p-3" th:text="${prescription.getSymptoms()}"></td>
+                <td class="text-center p-3">
+                    <form method="post" th:action="@{/doctor/view-single-prescription}" target="_blank">
+                        <input th:name="appointmentID"  type="hidden" th:value="${prescription.getAppointDoctor().getId()}">
+                        <button type="submit" class="btn btn-sm btn-primary">View</button>
+                    </form>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+
+
+        <!--        pagination -->
+        <div class="container justify-content-center d-flex">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li th:if="${currentPage-1 > 0}" class="page-item">
+                        <a class="page-link" th:href="@{'/doctor/view-prescriptions/'+${currentPage-1}}">Previous</a>
+                    </li>
+                    <li th:if="${currentPage-1 > 0}" class="page-item"><a class="page-link" th:href="@{'/doctor/view-prescriptions/'+${currentPage-1}}">
+                        <span th:text="${currentPage-1}"></span>
+                    </a></li>
+                    <li class="page-item active"><span class="page-link" th:text="${currentPage}"><span class="sr-only">(current)</span></span>
+                    </li>
+                    <li th:if="${currentPage < totalPages}"  class="page-item"><a class="page-link" th:href="@{'/doctor/view-prescriptions/'+${currentPage+1}}">
+                        <span th:text="${currentPage+1}"></span>
+                    </a></li>
+                    <li  th:if="${currentPage < totalPages}" class="page-item"> <a class="page-link" th:href="@{'/doctor/view-prescriptions/'+${currentPage+1}}">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+</section>
+</body>
+</html>

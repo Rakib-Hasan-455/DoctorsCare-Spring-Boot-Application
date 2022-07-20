@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="layout(content)" xlms:th="http://thymeleaf.org" xmlns:xlms="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/CSS/doctor/doctorstyle.css}">
+    <link th:href="@{/CSS/doctor/postHomepage.css}" rel="stylesheet">
+
+    <link th:href="@{/images/doctorsCare.png}" rel="icon">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- fontawesome -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+            integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <title th:text="${title}">base title</title>
+</head>
+<body class="postion-relative">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-nav fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand px-4" href="#"><i class='bx bx-plus-medical' width="30" height="24"></i>  Doctors Care</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link"  th:text="${user.name}"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<!-- Sidebar -->
+<div class="sidebar mt-2">
+    <ul class="nav-list">
+
+        <li>
+            <a th:href="@{/doctor/index}">
+                <i class='bx bx-grid-alt'></i>
+                <span class="links_name">Home</span>
+            </a>
+            <span class="tooltip">Home </span>
+        </li>
+        <li>
+            <a th:href="@{/doctor/todays-appointment}">
+                <i class='bx bx-caret-right-circle'></i>
+                <span class="links_name">Todays Appoinements</span>
+            </a>
+            <span class="tooltip">Todays Appointments</span>
+        </li>
+        <li>
+            <a th:href="@{/doctor/meet-patient}">
+                <i class='bx bx-chat'></i>
+                <span class="links_name">Meet Patient</span>
+            </a>
+            <span class="tooltip">Meet Patient</span>
+        </li>
+
+        <li>
+            <a th:href="@{/doctor/view-prescriptions/1}">
+                <i class='bx bx-pie-chart-alt-2'></i>
+                <span class="links_name">Prescriptions</span>
+            </a>
+            <span class="tooltip">Prescriptions</span>
+        </li>
+        <li>
+            <a th:href="@{/doctor/post-homepage/1}">
+                <i class='bx bx-news'></i>
+                <span class="links_name">Doctor Tips</span>
+            </a>
+            <span class="tooltip">Doctor Tips</span>
+        </li>
+        <li>
+            <a th:href="@{/doctor/saved-tips-posts/1}">
+                <i class='bx bx-heart'></i>
+                <span class="links_name">Saved Tips</span>
+            </a>
+            <span class="tooltip">Saved Tips</span>
+        </li>
+
+        <li>
+            <a th:href="@{/logout}">
+                <i class='bx bx-exit'></i>
+                <span class="links_name">Log Out</span>
+            </a>
+            <span class="tooltip">Log Out</span>
+        </li>
+    </ul>
+</div>
+
+<!-- Content -->
+<div class="content mt-5 mb-5">
+    <div th:replace="${content}"></div>
+</div>
+
+<footer class="text-center text-white " style="background-color: #f1f1f1;">
+    <!-- Grid container -->
+    <div class="container pt-4">
+        <!-- Section: Social media -->
+        <section class="mb-4">
+            <!-- Facebook -->
+            <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+            ><i class="fab fa-facebook-f"></i
+            ></a>
+
+
+            <!-- Google -->
+            <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+            ><i class="fab fa-google"></i
+            ></a>
+
+            <!-- Instagram -->
+            <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+            ><i class="fab fa-instagram"></i
+            ></a>
+
+            <!-- Linkedin -->
+            <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+            ><i class="fab fa-linkedin"></i
+            ></a>
+            <!-- Github -->
+            <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+            ><i class="fab fa-github"></i
+            ></a>
+        </section>
+        <!-- Section: Social media -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        @2022 Developed by Brain-Cache
+    </div>
+    <!-- Copyright -->
+</footer>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</body>
+</html>

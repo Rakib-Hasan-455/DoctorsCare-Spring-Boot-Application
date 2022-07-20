@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en"  th:replace="doctor/bases/base6::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+    
+    <div class="print-div px-5 mb-3">
+        <table class="prescription">
+            <tbody>
+            <tr height="15%">
+                <td colspan="2">
+                    <p class="align-right" align="right">Appointment ID: <span th:text="${appointmentID}"></span></p>
+                    <div class="header">
+                        <div class="logo">
+                            <img src="
+								https://i.ibb.co/2744kxw/spine-tech-logo-creative-spine-clinic-vector-2.pngjm i
+								" class="mb-3 mx-4">
+                        </div>
+                        <div class="credentials">
+                            <h5>Dr. <span th:text="${user.getName()}"></span></h5>
+                            <p><span th:text="${user.getDoctorsAdditionalInfo().getDegrees()}"></span></p>
+                            <small><span th:text="${user.getDoctorsAdditionalInfo().getMedicalcollege()}"> </span></small>
+                            <br/>
+                            <small><span th:text="${user.getPhone()}"> </span></small>
+                        </div>
+                        <div class="vl">
+                        </div>
+                        <div class="credentials">
+                            <p>Patient Details:</p>
+                            <h5 th:text="${patientUser.getName()}"></h5>
+                            <small th:text="${patientUser.getAddress()}"></small><br>
+                            <small>DOB:<span th:text="${patientUser.getDOB()}"></span></small>
+                            <br />
+                            <small th:text="${patientUser.getPhone()}"></small>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+                <tr>
+                    <td width="40%">
+                        <div class="desease_details">
+                            <div class="symptoms">
+                                <h5 class="d-header">Symptoms</h5>
+                                <textarea readonly th:name="symptoms"  th:text="${appointDoctor.getPrescription().getSymptoms()}" class="form-control bg-white"  rows="6" cols="20" style="padding: 15px"></textarea>
+                            </div>
+                            <div class="tests">
+                                <h5 class="d-header">Tests</h5>
+                                <textarea readonly th:name="tests"   th:text="${appointDoctor.getPrescription().getTests()}" class="form-control bg-white"  rows="6" cols="20" style="padding: 15px"></textarea>
+                            </div>
+                            <div class="advice">
+                                <h5 class="d-header">Advice</h5>
+                                <textarea readonly th:name="advice"   th:text="${appointDoctor.getPrescription().getAdvice()}" class="form-control bg-white"  rows="6" cols="20" style="padding: 15px"></textarea>
+                            </div>
+                        </div>
+                    </td>
+                    <td width="60%" valign="top">
+                        <h5 class="d-header" style="text-decoration-color: white;">Medicines</h5>
+                        <span style="font-size: 3em;">R<sub>x</sub></span>
+                        <hr />
+                        <div class="medicine">
+                            <textarea readonly th:name="medicines"  th:text="${appointDoctor.getPrescription().getMedicines()}"  class="form-control bg-white" aria-label="With textarea" rows="15" cols="20"  style="padding: 15px"></textarea>
+                               <span style="margin-top: 30px; text-align: right;">
+						Prescribed By
+                        <hr style="border-top: 2px dashed black; margin-left: 220px;">
+                            <span style="font-family: 'Kalam', cursive; font-size: 20px"> <span th:text="${user.getName()}"> </span> </span>
+                            <p style="font-family: 'Kalam', cursive; font-size: 20px"> Date: <span th:text="${appointDoctor.appointmentDate}"></span> </p>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-center">
+                        <button class="btn btn-outline-success btn-lg mb-4 mt-3" onclick="window.print()">Print</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+<!--    Printing as pdf with style css -->
+    <style>
+        @media print {
+        /*    Hide every element */
+            body * {
+                visibility: hidden;
+            }
+        /*    showing only printing div */
+            .print-div * {
+                visibility: visible;
+            }
+            .print-div button {
+                visibility: hidden;
+            }
+            /*    fixing the printing position */
+            .print-div {
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding: 20px;
+            }
+        }
+    </style>
+</section>
+</body>
+</html>
