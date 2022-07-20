@@ -110,14 +110,9 @@ public class PatientAppointDoctorController {
 
     private void updateAvailableTime(Model model, User userList) {
         DateTimeFormatter dtfHour = DateTimeFormatter.ofPattern("HH");
-        DateTimeFormatter dtfMinutes = DateTimeFormatter.ofPattern("mm");
-
         LocalDateTime now = LocalDateTime.now();
         int hour = Integer.parseInt(dtfHour.format(now));
-        int minutes = Integer.parseInt(dtfMinutes.format(now));
-        String time = hour + ":" + minutes;
-
-        model.addAttribute("currentTime", time);
+        model.addAttribute("currentHour", hour);
         if (hour >= 9) {
             userList.getDoctorsSchedule().set_10_00(false);
         }

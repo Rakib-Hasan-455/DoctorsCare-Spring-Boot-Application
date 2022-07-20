@@ -24,17 +24,26 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="patient : ${patientList}">
+            <div  th:each="patient : ${patientList}">
+            <tr class="d-none" th:id="'deleteAlertId-'+${patient.id}">
+                <td colspan="6" class="p-3"></td>
+            </tr>
+            <tr th:id="'deleteRowId-'+${patient.id}">
                 <td class="text-center p-3" th:text="${patient.id}"></td>
                 <td class="text-center p-3" th:text="${patient.name}"></td>
                 <td class="text-center p-3" th:text="${patient.email}"></td>
                 <td class="text-center p-3" th:text="${patient.phone}"></td>
                 <td class="text-center p-3" th:text="${patient.address}"></td>
                 <td class="text-center p-3 d-flex justify-content-center gap-3">
-                    <i class='bx bx-edit'></i>
-                    <i class='bx bx-trash'></i>
+                    <form th:action="@{/admin/edit-patient-details}" method="post" th:id="'editFormId-'+${patient.id}">
+                        <input name="pageNo" th:value="${currentPage}" hidden>
+                        <input name="userId" th:value="${patient.id}" hidden>
+                        <i class='bx bx-edit' type="submit" th:onclick="'javascript:editPatientCalled(\'editFormId-' + ${patient.id} + '\')'"></i>
+                    </form>
+                    <i class='bx bx-trash' type="button" th:onclick="'javascript:deletePatientCalled(\'' + ${patient.id} + '\', \'deleteAlertId-' + ${patient.id} + '\', \'deleteRowId-' + ${patient.id} + '\')'"></i>
                 </td>
             </tr>
+            </div>
             </tbody>
         </table>
 
@@ -58,6 +67,49 @@
             </nav>
         </div>
     </div>
+    <script>
+        function editPatientCalled(editFormId) {
+            var formId = document.getElementById(editFormId)
+            formId.submit();
+        }
+
+        function deletePatientCalled(patientId, deletedRowAlertId, deleteRowId) {
+            $.rowDeleteAjaxFunction(patientId, deletedRowAlertId, deleteRowId)
+        }
+
+        $(document).ready(
+            function () {
+                $.rowDeleteAjaxFunction = function (patientId, deletedRowAlertId, deleteRowId) {
+                    var formData = {
+                        userId: patientId
+                    }
+
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json",
+                        url: "/admin/process-patient-delete",
+                        data: JSON.stringify(formData),
+                        dataType: 'json',
+                        success: function (result) {
+                            if (result.status == "success") {
+                                $("#" + deletedRowAlertId).removeClass("d-none");
+                                $("#" + deletedRowAlertId+' td').html("Patient Deleted Successfully!!");
+                                $("#" + deletedRowAlertId+' td').addClass("text-center bg-success bg-opacity-25");
+                                $("#" + deleteRowId).remove()
+                            }
+                            console.log(result);
+                        },
+                        error: function (e) {
+                            $("#" + deletedRowAlertId).removeClass("d-none");
+                            $("#" + deletedRowAlertId+' td').html("Patient Delete Unsuccessful!")
+                            $("#" + deletedRowAlertId+' td').addClass("text-center bg-danger bg-opacity-25");
+                            console.log("ERROR: ", e);
+                        }
+                    });
+                }
+            }
+        );
+    </script>
 </section>
 </body>
 </html>

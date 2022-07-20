@@ -43,7 +43,7 @@
                 >
                     <div class="modal-dialog modal-dialog-centered modal-lg">
                         <div class="modal-content ">
-                            <form th:action="@{/doctor/do-post-homepage}" method="post" onsubmit="return validateMe();">
+                            <form th:action="@{/doctor/do-post-homepage}" method="post" id="doPostForm">
                                 <!-- head -->
                                 <div class="modal-header align-items-center">
                                     <h5
@@ -94,6 +94,7 @@
                                       rows="5"
                                       class="form-control border-0"
                                       placeholder="Write Post"
+                                      onkeyup="textareaOnkeyPress()"
                             ></textarea>
                                             </div>
                                             <div class="mb-2 mt-4">
@@ -108,7 +109,7 @@
                                 </div>
                                 <!-- footer -->
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary w-100">
+                                    <button type="submit" class="btn btn-primary w-100" id="postFormBtn">
                                         Post
                                     </button>
                                 </div>
@@ -406,18 +407,22 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
 
     </div>
     <script th:inline="javascript">
-        function validateMe() {
-            var totalChar = document.getElementById("textareaa").value;
-            if (totalChar.length < 150) {
-                alert('Minimum character should be 150! current text length is ' +totalChar.length);
-                return false;
+
+        const postForm = document.querySelector('#doPostForm');
+
+        postForm.addEventListener('submit', function (e) {
+            // prevent the form from submitting
+            e.preventDefault();
+            const totalLength = tinymce.activeEditor.plugins.wordcount.body.getCharacterCount();
+             if (totalLength < 150) {
+                alert('Minimum character should be 150! current text length is ' + totalLength);
+            } else if (totalLength > 50000) {
+                alert('maximum character should be 50000! current text length is ' + totalLength)
+            } else {
+                postForm.submit();
             }
-            if (totalChar.length > 50000) {
-                alert('maximum character should be 50000! current text length is ' +totalChar.length)
-                return false;
-            }
-            return true;
-        }
+        });
+
 
         function editPostClicked() {
             document.getElementById("editPostForm").submit()
@@ -609,16 +614,18 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
     <!-- Script  tinymce -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.1.0/tinymce.min.js" integrity="sha512-dr3qAVHfaeyZQPiuN6yce1YuH7YGjtUXRFpYK8OfQgky36SUfTfN3+SFGoq5hv4hRXoXxAspdHw4ITsSG+Ud/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        tinymce.init({
+         tinymce.init({
             selector: '#textareaa',
             branding: false,
             elementpath: false,
             content_style: "body { line-height: 1.4; }",
             statusbar: false,
             resize: true,
-            init_instance_callback : function(editor) {
-                var freeTiny = document.querySelector('.tox .tox-notification--in');
-                freeTiny.style.display = 'none';
+             plugins: 'wordcount',
+
+             init_instance_callback : function(editor) {
+               /* var freeTiny = document.querySelector('.tox .tox-notification--in');
+                freeTiny.style.display = "none";*/
             }
         });
     </script>

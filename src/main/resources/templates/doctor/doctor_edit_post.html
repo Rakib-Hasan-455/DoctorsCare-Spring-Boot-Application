@@ -7,7 +7,7 @@
 <body>
 <section>
     <div class="container-fluid main-container pt-3 pb-5">
-        <form th:action="@{/doctor/process-save-editedpost}" method="post">
+        <form th:action="@{/doctor/process-save-editedpost}" method="post" id="doEditForm">
     <div class="modal-body">
         <div class="my-1 p-1">
             <div class="d-flex flex-column">
@@ -68,6 +68,21 @@
     <!-- Script  tinymce -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.1.0/tinymce.min.js" integrity="sha512-dr3qAVHfaeyZQPiuN6yce1YuH7YGjtUXRFpYK8OfQgky36SUfTfN3+SFGoq5hv4hRXoXxAspdHw4ITsSG+Ud/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
+        const editForm = document.querySelector('#doEditForm');
+
+        editForm.addEventListener('submit', function (e) {
+            // prevent the form from submitting
+            e.preventDefault();
+            const totalLength = tinymce.activeEditor.plugins.wordcount.body.getCharacterCount();
+            if (totalLength < 150) {
+                alert('Minimum character should be 150! current text length is ' + totalLength);
+            } else if (totalLength > 50000) {
+                alert('maximum character should be 50000! current text length is ' + totalLength)
+            } else {
+                editForm.submit();
+            }
+        });
+
         tinymce.init({
             selector: '#textareaa',
             branding: false,
@@ -75,6 +90,7 @@
             content_style: "body { line-height: 1.4; }",
             statusbar: false,
             height: 500,
+            plugins: 'wordcount',
             init_instance_callback : function(editor) {
                 var freeTiny = document.querySelector('.tox .tox-notification--in');
                 freeTiny.style.display = 'none';

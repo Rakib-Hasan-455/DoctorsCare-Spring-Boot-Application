@@ -24,17 +24,22 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="doctor : ${doctorList}">
+            <div  th:each="doctor : ${doctorList}">
+                <tr class="d-none" th:id="'deleteAlertId-'+${doctor.id}">
+                    <td colspan="6" class="p-3"></td>
+                </tr>
+                <tr th:id="'deleteRowId-'+${doctor.id}">
                 <td class="text-center p-3" th:text="${doctor.id}"></td>
                 <td class="text-center p-3" th:text="${doctor.name}"></td>
                 <td class="text-center p-3"  th:text="${doctor.email}"></td>
                 <td class="text-center p-3"  th:text="${doctor.getDoctorsAdditionalInfo().doctortype}"></td>
                 <td class="text-center p-3"  th:text="${doctor.getDoctorsAdditionalInfo().appointmentfee}"></td>
                 <td class="text-center d-flex justify-content-center gap-3 p-3">
-                    <i class='bx bx-edit'></i>
-                    <i class='bx bx-trash'></i>
+                    <i class='bx bx-edit' type="button" onclick="editDoctorCalled()"></i>
+                    <i class='bx bx-trash' type="button" th:onclick="'javascript:deleteDoctorCalled(\'' + ${doctor.id} + '\', \'deleteAlertId-' + ${doctor.id} + '\', \'deleteRowId-' + ${doctor.id} + '\')'"></i>
                 </td>
             </tr>
+            </div>
             </tbody>
         </table>
         <!--        pagination -->
@@ -57,6 +62,49 @@
             </nav>
         </div>
     </div>
+    <script>
+        function editDoctorCalled() {
+            alert("Edit Dr. called!")
+        }
+
+        function deleteDoctorCalled(doctorId, deletedRowAlertId, deleteRowId) {
+            $.rowDeleteAjaxFunction(doctorId, deletedRowAlertId, deleteRowId)
+        }
+
+        $(document).ready(
+            function () {
+                $.rowDeleteAjaxFunction = function (doctorId, deletedRowAlertId, deleteRowId) {
+                    var formData = {
+                        userId: doctorId
+                    }
+
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json",
+                        url: "/admin/process-doctor-delete",
+                        data: JSON.stringify(formData),
+                        dataType: 'json',
+                        success: function (result) {
+                            if (result.status == "success") {
+                                $("#" + deletedRowAlertId).removeClass("d-none");
+                                $("#" + deletedRowAlertId+' td').html("Doctor Deleted Successfully!!");
+                                $("#" + deletedRowAlertId+' td').addClass("text-center bg-success bg-opacity-25");
+                                $("#" + deleteRowId).remove()
+                            }
+                            console.log(result);
+                        },
+                        error: function (e) {
+                            $("#" + deletedRowAlertId).removeClass("d-none");
+                            $("#" + deletedRowAlertId+' td').html("Doctor Delete Unsuccessful!")
+                            $("#" + deletedRowAlertId+' td').addClass("text-center bg-danger bg-opacity-25");
+                            console.log("ERROR: ", e);
+                        }
+                    });
+                }
+            }
+        );
+    </script>
+
 </section>
 </body>
 </html>
