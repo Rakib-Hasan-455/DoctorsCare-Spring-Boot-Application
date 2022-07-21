@@ -61,7 +61,7 @@ public class HomeController {
 
     @PostMapping("/process-patient-signup")
     public String patientSignupProcess(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model) throws IOException {
-        user.setRole("ROLE_ADMIN");
+        user.setRole("ROLE_PATIENT");
         user.setEnabled(true);
         user.setImageURL(user.getImageURL());
         System.out.println(user.getImageURL());
