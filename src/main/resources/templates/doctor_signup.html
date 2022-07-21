@@ -12,6 +12,7 @@
                 <div class="my-card mt-4 mb-3 rounded-3"  >
 
                     <div th:if="${successMsgType == 'alert-success'}" th:classappend="${successMsgType}" th:text="${successMsg}" class="alert"></div>
+                    <div th:if="${imageUpload == false}" style="font-size: 20px; color: lightcoral" class="alert alert-danger text-center">Please Upload Images to Signup!</div>
 
                     <h2 class="text-center mb-4"> Doctor Signup !</h2>
                     <hr>
@@ -60,7 +61,7 @@
                         <!--                        Upload Image -->
                         <div class="form-group mb-5">
                             <label class="form-label"> Upload Your Image </label>
-                            <input name="imageURL" id="image-uploader" type="hidden" data-accepted="image/*" data-maxFileSize="1" data-width="250" data-height="150" class="simple-file-upload">
+                            <input name="imageURL" id="image-uploader" type="hidden" data-accepted="image/*" data-maxFileSize="1" data-width="250" data-height="150" class="simple-file-upload" required>
                             <p class="form-label" style="font-size: 10px; color: red"> Please Note That You Won't be able to change this picture in the future. So Upload Image Carefully* </p>
                         </div>
 

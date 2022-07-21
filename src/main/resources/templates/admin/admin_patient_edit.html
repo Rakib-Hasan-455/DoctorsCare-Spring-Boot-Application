@@ -17,7 +17,7 @@
                     <form th:action="@{/admin/process-patient-edit}" method="post" th:object="${patientUser}">
 
                         <div class=" image d-flex flex-column justify-content-center align-items-center mb-3">
-                             <img src="https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg" height="150" width="150" style="object-fit: cover" class="rounded-circle bg-dark" />
+                             <img th:src="${patientUser.imageURL}" height="150" width="150" style="object-fit: cover" class="rounded-circle bg-dark" />
                         </div>
                         <input name="page" th:value="${page}" hidden>
                         <input name="id" th:value="${patientUser.id}" hidden>

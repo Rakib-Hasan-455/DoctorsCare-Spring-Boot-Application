@@ -56,10 +56,10 @@ public class PatientAppointDoctorController {
     @PostMapping("/appoint-doctor/success")
     public String patientAppointDoctorSuccess(@ModelAttribute AppointDoctorDTO appointDoctorDTO, Principal principal, Model model) {
         model.addAttribute("title", "Appoint Doctor Successful");
-        String patientID = principal.getName(); // Patient_ID
-        String doctorID = appointDoctorDTO.getDoctorID(); // Doctor_ID
-        String doctorFee = appointDoctorDTO.getDoctorFee(); // Doctor_Fee
-        Time appointTime = appointDoctorDTO.getAppointmentTime(); // Appoint_Time
+        String patientID = principal.getName(); // Patient_ID needed
+        String doctorID = appointDoctorDTO.getDoctorID(); // Doctor_ID needed
+        String doctorFee = appointDoctorDTO.getDoctorFee(); // Doctor_Fee needed
+        Time appointTime = appointDoctorDTO.getAppointmentTime(); // Appoint_Time needed
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime localDateTime = LocalDateTime.now();

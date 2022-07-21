@@ -12,6 +12,7 @@
                 <div class="my-card mt-4 mb-3 p-5 rounded-3" >
 
                     <div th:if="${successMsgType == 'alert-success'}" th:classappend="${successMsgType}" th:text="${successMsg}" class="alert"></div>
+                    <div th:if="${imageUpload == false}" style="font-size: 20px; color: lightcoral" class="alert alert-danger text-center">Please Upload Images to Signup!</div>
 
                     <h2 class="text-center"> Patient Signup !</h2>
 
@@ -39,8 +40,7 @@
                             <label class="form-label">Password</label>
                             <input name="password" th:value="${user.password}" placeholder="Enter here" type="password" class="form-control"
                                    th:classappend="${#fields.hasErrors('password')?'is-invalid':''}">
-                            <div th:each="e : ${#fields.errors('password')}" th:text="${e}" class="invalid-feedback">
-                            </div>
+                            <div th:each="e : ${#fields.errors('password')}" th:text="${e}" class="invalid-feedback"></div>
                         </div>
                         <!--                        Phone Number-->
                         <div class="mb-3">
@@ -61,7 +61,7 @@
                         <div th:if="${imageUploaded == false}" th:text="Image Upload Unsuccessful!" class="alert alert-danger"></div>
                         <div class="form-group mb-3">
                             <label class="form-label"> Upload Your Image </label>
-                            <input name="imageURL" id="image-uploader" type="hidden" data-accepted="image/*" data-maxFileSize="1" data-width="250" data-height="150" class="simple-file-upload">
+                            <input name="imageURL" id="image-uploader" type="hidden" data-accepted="image/*" data-maxFileSize="1" data-width="250" data-height="150" class="simple-file-upload" required>
                             <p class="form-label" style="font-size: 10px; color: red"> Please Note That You Won't be able to change this picture in the future. So Upload Image Carefully* </p>
                         </div>
 <!--                        check term -->

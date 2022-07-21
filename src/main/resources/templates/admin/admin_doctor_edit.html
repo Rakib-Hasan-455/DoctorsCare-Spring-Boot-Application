@@ -13,7 +13,7 @@
             <div class="col-md-6 offset-md-3">
                 <div class="my-card mt-4 mb-3  p-5 rounded-3  bg-gray bg-opacity-10"  >
                     <div class=" image d-flex flex-column justify-content-center align-items-center mb-3">
-                        <img src="https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg" height="150" width="150" style="object-fit: cover" class="rounded-circle bg-dark" />
+                        <img th:src="${doctorUser.imageURL}" height="150" width="150" style="object-fit: cover" class="rounded-circle bg-dark" />
                     </div>
                     <form th:action="@{/admin/process-doctor-edit}" method="post" th:object="${doctorUser}">
                         <input name="page" th:value="${page}" hidden>

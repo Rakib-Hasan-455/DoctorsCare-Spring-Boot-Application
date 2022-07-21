@@ -67,8 +67,14 @@ public class HomeController {
         System.out.println(user.getImageURL());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        System.out.println("Image URL ->"+user.getImageURL());
         if (this.userRepository.getUserByEmailNative(user.getEmail()) != null) {
             bindingResult.rejectValue("email", "error.user", "An account already exists for this email.");
+        }
+
+        if (user.getImageURL().equals("")) {
+            bindingResult.rejectValue("imageURL", "error.user", "You must upload an Image.");
+            model.addAttribute("imageUpload", false);
         }
 
         if (bindingResult.hasErrors()) {
@@ -99,6 +105,7 @@ public class HomeController {
         user.setRole("ROLE_DOCTOR");
         user.setEnabled(true);
         user.setImageURL(doctorSignup.getImageURL());
+        System.out.println("Image URL ->"+user.getImageURL());
         DoctorsAdditionalInfo doctorsAdditionalInfo = new DoctorsAdditionalInfo(doctorSignup.getNid(), doctorSignup.getDoctortype(), doctorSignup.getDegrees(), doctorSignup.getMedicalcollege(), doctorSignup.getAppointmentfee());
         user.setDoctorsAdditionalInfo(doctorsAdditionalInfo);
         doctorsAdditionalInfo.setUser(user);
@@ -108,7 +115,13 @@ public class HomeController {
         model.addAttribute("user", doctorSignup);
         if (this.userRepository.getUserByEmailNative(user.getEmail()) != null) {
             bindingResult.rejectValue("email", "error.user", "An account already exists with this email.");
+            model.addAttribute("imageUpload", false);
         }
+
+        if (doctorSignup.getImageURL().equals("")) {
+            bindingResult.rejectValue("imageURL", "error.user", "You must upload an Image.");
+        }
+
         if (bindingResult.hasErrors()) {
             if (bindingResult.getFieldError("email") != null) {
                 String emailError = Objects.requireNonNull(bindingResult.getFieldError("email")).getDefaultMessage() + "\n";
