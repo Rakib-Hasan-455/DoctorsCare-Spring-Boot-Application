@@ -16,6 +16,6 @@ public interface PrescriptionRepository extends JpaRepository<Prescription, Inte
 
     List<Prescription> findAllByOrderByIdDesc();
 
-    Page<Prescription> findAllByOrderByIdDesc(Pageable pageable);
+    Page<Prescription> findAllByMedicinesNotNullOrderByIdDesc(Pageable pageable);
 }
 
