@@ -96,10 +96,10 @@
                             ></textarea>
                                             </div>
                                             <div class="mb-2 mt-4">
-                                                <label for="formFileSm" class="form-label">Upload Cover Photo</label>
-                                                <input class="form-control" id="formFileSm" type="file">
+                                                <label class="form-label">Upload Cover Photo</label>
+                                                <input name="coverPhoto" id="image-uploader" type="hidden" data-accepted="image/*" data-maxFileSize="1" data-width="350" data-height="150" class="simple-file-upload">
+                                                <p class="form-label" style="font-size: 10px; color: red"> Please Note That You Won't be able to change this picture in the future. So Upload Image Carefully* </p>
                                             </div>
-
                                         </div>
                                     </div>
 
@@ -165,7 +165,7 @@
                                     ><i class='bx bx-heart'></i>
                                         Save Post</div>
                                 </li>
-                               <div th:if="${post.getUser().getId() == user.getId()+''}">
+                               <div th:if="${post.getUser().getId() == user.getId()}">
                                 <form th:action="@{/doctor/edit-post}" method="post" id="editPostForm">
                                 <li class="d-flex align-items-center">
                                     <input name="postId" th:value="${post.getId()}" hidden>
@@ -230,7 +230,7 @@
                                 </script>
                                 </div>
                                 <img
-                                        src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                        th:src="${post.getCoverPhoto()}"
                                         alt="post image"
                                         class="img-fluid rounded"
                                 />
@@ -359,7 +359,6 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
                                                     <div class="p-3 rounded comment__input w-100">
                                                         <p class="fw-bold m-0" th:text="${comment.getCommenterName()}"></p>
                                                         <p class="m-0 fs-7 bg-gray p-2 rounded" th:text="${comment.getComment()}">
-
                                                         </p>
                                                     </div>
                                                 </div>
@@ -404,6 +403,8 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
         </div>
 
     </div>
+    <script src="https://app.simplefileupload.com/buckets/1ed91c679c9b4274a9b3c07b836344a6.js"></script>
+
     <script th:inline="javascript">
 
         const postForm = document.querySelector('#doPostForm');

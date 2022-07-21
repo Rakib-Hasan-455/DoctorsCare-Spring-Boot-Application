@@ -67,7 +67,6 @@ public class DoctorPostHomepage {
 
         posts.setPostDate(postDate);
         posts.setPostTime(postTime);
-        posts.setCoverPhoto("Default.jpg");
 
         User doctorUser = userRepository.findById(Integer.parseInt(doctorID));
         List<Posts> postsList = postsRepository.findByUserId(Integer.parseInt(doctorID));
@@ -151,7 +150,7 @@ public class DoctorPostHomepage {
         model.addAttribute("user", user);
         Pageable pageable = PageRequest.of(page-1, 5);
         Page<SavedPosts> savedPostsList = savedPostsRepository.findBySaverId(user.getId()+"", pageable);
-        model.addAttribute("postsList", savedPostsList);
+        model.addAttribute("postsListLength", savedPostsList.getTotalElements());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", savedPostsList.getTotalPages());
         return "doctor/doctor_saved_tips";

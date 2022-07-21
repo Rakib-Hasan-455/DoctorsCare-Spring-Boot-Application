@@ -15,7 +15,7 @@
                 <div class="d-flex align-items-center mb-3">
                     <div class="p-2">
                         <img
-                                src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                th:src="${user.getImageURL()}"
                                 alt="from fb"
                                 class="rounded-circle"
                                 style="
@@ -47,7 +47,7 @@
                 <p class="mt-4 text-center">Uploaded Cover Photo</p>
                 <div class="mb-2 text-center">
                     <img
-                            src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                            th:src="${post.getCoverPhoto()}"
                             alt="post image"
                             class="img-fluid rounded mb-3"
                     />                </div>

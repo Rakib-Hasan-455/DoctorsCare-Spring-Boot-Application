@@ -25,7 +25,7 @@
         <a th:href="@{'/patient/appoint-doctor/'+${userList.id}}" >
             <div class="card 1" >
                 <div class="card_image">
-                    <img src="https://i.pinimg.com/originals/51/d7/e7/51d7e77c36a68ee327dcb68337222b1e.gif" /> </div>
+                    <img th:src="${userList.getImageURL()}" /> </div>
                 <div class="card_title title-white">
                     <span th:text="${userList.name}"></span>
                     <h5>  Appoinement Fee: <span th:text="${userList.getDoctorsAdditionalInfo().appointmentfee}"></span> tk </h5>

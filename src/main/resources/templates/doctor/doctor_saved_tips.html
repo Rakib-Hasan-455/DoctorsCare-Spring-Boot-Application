@@ -10,7 +10,7 @@
     <div class="container-fluid main-container">
         <div class="row align-items-center">
 
-            <div th:if="${#lists.size(postsList) == 0}" class="container text-center mt-5 pt-5 px-5">
+            <div th:if="${postsListLength == 0}" class="container text-center mt-5 pt-5 px-5">
                 <h2 style="color: lightcoral"> Sorry, Currently You Don't Have Any Saved Posts!</h2>
             </div>
             <!-- posts -->
@@ -96,7 +96,7 @@
                                     </script>
                                 </div>
                                 <img
-                                        src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                        th:src="${post.getPosts().getCoverPhoto()}"
                                         alt="post image"
                                         class="img-fluid rounded"
                                 />
@@ -384,12 +384,12 @@
                                 console.log(result.data);
 
                                 $("#" + commentsCountId).html(result.data);
-
+                                var commenterImage = [[${user.getImageURL()}]];
                                 $("#"+addCommentDivId).prepend(`
                     <div class="d-flex align-items-center my-1">
                                                     <!-- avatar -->
                                                     <img
-                                                            src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                                            src="${commenterImage}"
                                                             alt="avatar"
                                                             class="rounded-circle me-2"
                                                             style="
