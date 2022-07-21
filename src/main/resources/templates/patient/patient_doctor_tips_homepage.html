@@ -395,10 +395,11 @@
 
                                 $("#" + commentsCountId).html(result.data);
 
+                                const patientImage = [[${user.getImageURL()}]];
                                 $("#" + addCommentDivId).prepend(`
                     <div class="d-flex align-items-center my-1">
                                                     <!-- avatar -->
-                                                    <img th:src="${user.getImageURL()}"
+                                                    <img src="${patientImage}"
                                                     alt="avatar"
                                                             class="rounded-circle me-2"
                                                             style="
