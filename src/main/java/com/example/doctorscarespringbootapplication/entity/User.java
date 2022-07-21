@@ -37,6 +37,8 @@ public class User {
 
     private String role;
     private boolean enabled;
+
+    @Column(length = 5000)
     private String imageURL;
 
 //    Date of birth
