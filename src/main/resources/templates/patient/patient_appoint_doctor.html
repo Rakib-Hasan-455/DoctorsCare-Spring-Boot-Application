@@ -13,6 +13,8 @@
                 <img src="https://i.pinimg.com/originals/51/d7/e7/51d7e77c36a68ee327dcb68337222b1e.gif" /> </div>
             <div class="card_title title-white">
                 <span th:text="${userList.name}"></span>
+
+<!--                headerparts-->
                 <h6> <span th:text="${userList.getDoctorsAdditionalInfo().degrees}"></span> </h6>
                 <h6> Graducated From <span th:text="${userList.getDoctorsAdditionalInfo().medicalcollege}"></span> </h6>
                 <h6> Email: <span th:text="${userList.email}"></span> </h6>
