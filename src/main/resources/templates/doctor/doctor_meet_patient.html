@@ -121,14 +121,13 @@
         function showMessage(message) {
             // $("#message-container-table").prepend(`<tr><td><b style="color: lightcoral"> ${message.senderName} :</b> ${message.message}</td></tr>`)
             const currentTime = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-            const patientUserImage = [[${patientUser.getImageURL()}]];
-
+            let patientImage = [[${patientProfileImage}]]
 
             $("#msg_card_body").append(`
 <div class="d-flex justify-content-start mb-4">
                         <div class="img_cont_msg">
-                            <img src="${patientUserImage}"
-                class="rounded-circle user_img_msg" style="object-fit: cover">
+                            <img src="${patientImage}"
+                                 class="rounded-circle user_img_msg">
                         </div>
                         <div class="msg_cotainer">
                                 ${message.message}
@@ -155,8 +154,7 @@
 </tr>
 `)*/
             const currentTime = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-            const doctorUserImage = [[${user.getImageURL()}]];
-
+            let doctorImage = [[${doctorProfileImage}]]
 
             $("#msg_card_body").append(`
 <div class = "d-flex justify-content-end mb-4" >
@@ -165,8 +163,9 @@
                 <span class="msg_time_send">${currentTime}</span>
                  </div>
             <div class="img_cont_msg">
-                <img src="${doctorUserImage}"
-                class="rounded-circle user_img_msg" style="object-fit: cover">
+                <img
+                    src="${doctorImage}"
+                    class="rounded-circle user_img_msg">
             </div>
 </div>
 `)

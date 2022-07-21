@@ -111,12 +111,13 @@
         function showMessage(message) {
             // $("#message-container-table").prepend(`<tr><td><b style="color: lightcoral"> ${message.senderName} :</b> ${message.message}</td></tr>`)
             const currentTime = new Date().toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})
-            const doctorUserImage = [[${doctorUser.getImageURL()}]];
+            let doctorImage = [[${doctorProfileImage}]]
+
             $("#msg_card_body").append(`
 <div class="d-flex justify-content-start mb-4">
                         <div class="img_cont_msg">
-                            <img src="${doctorUserImage}"
-                                 class="rounded-circle user_img_msg" alt="profile" style="object-fit: cover">
+                            <img src="${doctorImage}"
+                                 class="rounded-circle user_img_msg" alt="profile">
                         </div>
                         <div class="msg_cotainer">
                                 ${message.message}
@@ -135,8 +136,6 @@
         function showMyMessage() {
             // let myName = [[${senderEmail}]];
             let myMessage = document.getElementById('message-value').value;
-            const patientUserImage = [[${user.getImageURL()}]];
-
             // console.log(myName)
             console.log(myMessage)
             /*$("#message-container-table").append(`
@@ -144,6 +143,7 @@
         </tr>
         `)*/
             const currentTime = new Date().toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})
+            let patientImage = [[${patientProfileImage}]]
 
 
             $("#msg_card_body").append(`
@@ -154,8 +154,8 @@
                  </div>
             <div class="img_cont_msg">
                 <img
-                    src="${patientUserImage}"
-                                 class="rounded-circle user_img_msg" alt="profile" style="object-fit: cover">
+                    src="${patientImage}"
+                    class="rounded-circle user_img_msg">
             </div>
 </div>
 `)

@@ -67,7 +67,8 @@ public class DoctorMainController {
 
             User userPatient = this.userRepository.getUserByEmailNative(appointDoctor.getPatientID());
             model.addAttribute("patientUser", userPatient);
-
+            model.addAttribute("patientProfileImage", userPatient.getImageURL());
+            model.addAttribute("doctorProfileImage", userDoctor.getImageURL());
             PatientMainController.appointmentCountDown(model, dateTimeFormatter, localDateTime, appointDoctor);
         } else {
             model.addAttribute("noDoctorAppointment", "true");

@@ -78,6 +78,12 @@ public class PatientMainController {
             model.addAttribute("doctorUser", user);
             model.addAttribute("receiverEmail", user.getEmail());
             model.addAttribute("appointmentID", appointDoctor.getId());
+
+            User patientUser = userRepository.getUserByEmailNative(principal.getName());
+
+            model.addAttribute("patientProfileImage", patientUser.getImageURL());
+            model.addAttribute("doctorProfileImage", user.getImageURL());
+
             appointmentCountDown(model, dateTimeFormatter, localDateTime, appointDoctor);
 
         } else {
