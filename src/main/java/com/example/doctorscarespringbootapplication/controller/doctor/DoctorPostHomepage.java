@@ -56,7 +56,7 @@ public class DoctorPostHomepage {
     }
 
     @PostMapping("/do-post-homepage")
-    public String doPostHomepage(@ModelAttribute Posts posts, Model model, Principal principal) {
+    public String doPostHomepage(@ModelAttribute Posts posts, @RequestParam String doctorID, Model model, Principal principal) {
 
         DateTimeFormatter postDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter postTimeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -68,6 +68,12 @@ public class DoctorPostHomepage {
         posts.setPostDate(postDate);
         posts.setPostTime(postTime);
         posts.setCoverPhoto("Default.jpg");
+
+        User doctorUser = userRepository.findById(Integer.parseInt(doctorID));
+        List<Posts> postsList = postsRepository.findByUserId(Integer.parseInt(doctorID));
+        posts.setUser(doctorUser);
+        postsList.add(posts);
+        doctorUser.setPosts(postsList);
         postsRepository.save(posts);
         model.addAttribute("posted", true);
         addCommonData(model, principal);

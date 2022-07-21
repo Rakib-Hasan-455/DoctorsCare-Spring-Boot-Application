@@ -60,7 +60,8 @@
                         <!--                        Upload Image -->
                         <div class="form-group mb-5">
                             <label class="form-label"> Upload Your Image </label>
-                            <input type="file" class="form-select" required>
+                            <input name="imageURL" id="image-uploader" type="hidden" data-accepted="image/*" data-maxFileSize="1" data-width="250" data-height="150" class="simple-file-upload">
+                            <p class="form-label" style="font-size: 10px; color: red"> Please Note That You Won't be able to change this picture in the future. So Upload Image Carefully* </p>
                         </div>
 
 <!--                        DOCTOR TYPE INFOS -->
@@ -118,6 +119,8 @@
             </div>
         </div>
     </div>
+    <script src="https://app.simplefileupload.com/buckets/4ea146d7bfb4134b9dca1478227b200c.js"></script>
+
 </section>
 </body>
 </html>

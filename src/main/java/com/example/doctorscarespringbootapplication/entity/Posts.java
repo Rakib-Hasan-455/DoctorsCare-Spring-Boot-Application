@@ -11,10 +11,6 @@ public class Posts {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private String doctorID;
-
-    private String doctorName;
-
     private Date postDate;
 
     private Time postTime;
@@ -30,13 +26,14 @@ public class Posts {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "posts")
     private List<SavedPosts> savedPostsList;
 
+    @ManyToOne
+    private User user;
+
     @Column(columnDefinition="TEXT")
     private String postContent;
 
-    public Posts(int id, String doctorID, String doctorName, Date postDate, Time postTime, String coverPhoto, List<Likes> likesList, String postContent) {
+    public Posts(int id, Date postDate, Time postTime, String coverPhoto, List<Likes> likesList, String postContent) {
         this.id = id;
-        this.doctorID = doctorID;
-        this.doctorName = doctorName;
         this.postDate = postDate;
         this.postTime = postTime;
         this.coverPhoto = coverPhoto;
@@ -44,9 +41,8 @@ public class Posts {
         this.postContent = postContent;
     }
 
-    public Posts(String doctorID, String doctorName, Date postDate, Time postTime, String coverPhoto, String postContent) {
-        this.doctorID = doctorID;
-        this.doctorName = doctorName;
+    public Posts(Date postDate, Time postTime, String coverPhoto, String postContent) {
+
         this.postDate = postDate;
         this.postTime = postTime;
         this.coverPhoto = coverPhoto;
@@ -81,13 +77,7 @@ public class Posts {
         this.id = id;
     }
 
-    public String getDoctorID() {
-        return doctorID;
-    }
 
-    public void setDoctorID(String doctorID) {
-        this.doctorID = doctorID;
-    }
 
     public Date getPostDate() {
         return postDate;
@@ -121,12 +111,12 @@ public class Posts {
         this.postContent = postContent;
     }
 
-    public String getDoctorName() {
-        return doctorName;
+    public User getUser() {
+        return user;
     }
 
-    public void setDoctorName(String doctorName) {
-        this.doctorName = doctorName;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<Likes> getLikesList() {
@@ -141,8 +131,6 @@ public class Posts {
     public String toString() {
         return "Posts{" +
                 "id=" + id +
-                ", doctorID='" + doctorID + '\'' +
-                ", doctorName='" + doctorName + '\'' +
                 ", postDate=" + postDate +
                 ", postTime=" + postTime +
                 ", coverPhoto='" + coverPhoto + '\'' +

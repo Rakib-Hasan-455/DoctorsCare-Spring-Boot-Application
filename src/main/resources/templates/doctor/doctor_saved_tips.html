@@ -23,13 +23,13 @@
                             <!-- avatar -->
                             <div class="d-flex">
                                 <img
-                                        src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                        th:src="${post.getPosts().getUser().getImageURL()}"
                                         alt="avatar"
                                         class="rounded-circle me-2"
                                         style="width: 38px; height: 38px; object-fit: cover"
                                 />
                                 <div>
-                                    <p class="m-0 fw-bold"><span th:text="${post.getPosts().getDoctorName()}"></span></p>
+                                    <p class="m-0 fw-bold"><span th:text="${post.getPosts().getUser().getName()}"></span></p>
                                     <span class="text-muted fs-7"><span th:text="${post.getPosts().getPostDate()}"></span> at <span
                                             th:text="${post.getPosts().getPostTime()}"></span></span>
                                 </div>
@@ -191,7 +191,7 @@
                                                 <div class="d-flex my-2" id="commentForm">
                                                     <!-- avatar -->
                                                     <div>
-                                                        <img    src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                                        <img    th:src="${user.getImageURL()}"
                                                                 alt="avatar"
                                                                 class="rounded-circle me-2"
                                                                 style="width: 38px; height: 38px;  object-fit: cover;                                "
@@ -212,7 +212,7 @@
                                                     <div class="d-flex align-items-center my-1" th:each="comment : ${post.getPosts().getCommentsList()}">
                                                         <!-- avatar -->
                                                         <img
-                                                                src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                                                th:src="${comment.getCommenterImage()}"
                                                                 alt="avatar"
                                                                 class="rounded-circle me-2"
                                                                 style="

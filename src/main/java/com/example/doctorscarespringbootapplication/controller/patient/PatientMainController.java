@@ -9,10 +9,15 @@ import com.example.doctorscarespringbootapplication.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.sql.Time;
 import java.text.ParseException;
@@ -70,7 +75,7 @@ public class PatientMainController {
         if (appointDoctorList.size() != 0) {
             AppointDoctor appointDoctor = appointDoctorList.get(0);
             User user = userRepository.findById(Integer.parseInt(appointDoctor.getDoctorID()));
-            model.addAttribute("doctorName", user.getName());
+            model.addAttribute("doctorUser", user);
             model.addAttribute("receiverEmail", user.getEmail());
             model.addAttribute("appointmentID", appointDoctor.getId());
             appointmentCountDown(model, dateTimeFormatter, localDateTime, appointDoctor);
@@ -114,7 +119,7 @@ public class PatientMainController {
     public String viewPrescriptions(@PathVariable("page") Integer page, Model model, Principal principal) {
         model.addAttribute("title", "View Prescriptions");
         Pageable pageable = PageRequest.of(page-1, 8);
-        Page<Prescription> prescriptionList = prescriptionRepository.findByAppointDoctorPatientIDOrderByIdDesc(principal.getName(), pageable);
+        Page<Prescription> prescriptionList = prescriptionRepository.findByAppointDoctorPatientIDAndSymptomsNotNullOrderByIdDesc(principal.getName(), pageable);
         if (prescriptionList.getTotalElements() == 0) {
             model.addAttribute("noPrescription", "true");
         }
@@ -137,6 +142,14 @@ public class PatientMainController {
 
         addCommonData(model, principal);
         return "patient/patient_view_single_prescription";
+    }
+
+    @GetMapping(value = "/uploadedImages/{filename}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<byte[]> download(@PathVariable String filename) throws IOException {
+        var data = Files.readAllBytes(Paths.get(  "upload/" + filename));
+        return ResponseEntity.ok()
+                .contentLength(data.length)
+                .body(data);
     }
 
 

@@ -15,7 +15,7 @@
                 <div class="d-flex mt-3" type="button">
                     <div class="p-1">
                         <img
-                                src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                th:src="${user.getImageURL()}"
                                 alt="avatar"
                                 class="rounded-circle me-2"
                                 style="width: 38px; height: 38px; object-fit: cover"
@@ -67,7 +67,7 @@
                                             <div class="d-flex align-items-center mb-3">
                                                 <div class="p-2">
                                                     <img
-                                                            src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                                            th:src="${user.getImageURL()}"
                                                             alt="from fb"
                                                             class="rounded-circle"
                                                             style="
@@ -85,7 +85,6 @@
                                             <!-- text -->
                                             <!--                          inputs -->
                                             <input name="doctorID" th:value="${user.getId()}" hidden>
-                                            <input name="doctorName" th:value="${user.getName()}" hidden>
 
                                             <div>
                             <textarea id="textareaa"
@@ -94,7 +93,6 @@
                                       rows="5"
                                       class="form-control border-0"
                                       placeholder="Write Post"
-                                      onkeyup="textareaOnkeyPress()"
                             ></textarea>
                                             </div>
                                             <div class="mb-2 mt-4">
@@ -132,13 +130,13 @@
                             <!-- avatar -->
                             <div class="d-flex">
                                 <img
-                                        src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                        th:src="${post.getUser().getImageURL()}"
                                         alt="avatar"
                                         class="rounded-circle me-2"
                                         style="width: 38px; height: 38px; object-fit: cover"
                                 />
                                 <div>
-                                    <p class="m-0 fw-bold"><span th:text="${post.getDoctorName()}"></span></p>
+                                    <p class="m-0 fw-bold"><span th:text="${post.getUser().getName()}"></span></p>
                                     <span class="text-muted fs-7"><span th:text="${post.getPostDate()}"></span> at <span
                                             th:text="${post.getPostTime()}"></span></span>
                                 </div>
@@ -167,7 +165,7 @@
                                     ><i class='bx bx-heart'></i>
                                         Save Post</div>
                                 </li>
-                               <div th:if="${post.getDoctorID() == user.getId()+''}">
+                               <div th:if="${post.getUser().getId() == user.getId()+''}">
                                 <form th:action="@{/doctor/edit-post}" method="post" id="editPostForm">
                                 <li class="d-flex align-items-center">
                                     <input name="postId" th:value="${post.getId()}" hidden>
@@ -327,7 +325,7 @@
                                                 <div class="d-flex my-2" id="commentForm">
                                                     <!-- avatar -->
                                                     <div>
-                                                        <img    src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                                        <img    th:src="${user.getImageURL()}"
                                                                 alt="avatar"
                                                                 class="rounded-circle me-2"
                                                                 style="width: 38px; height: 38px;  object-fit: cover;                                "
@@ -348,7 +346,7 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
                                                 <div class="d-flex align-items-center my-1" th:each="comment : ${post.getCommentsList()}">
                                                     <!-- avatar -->
                                                     <img
-                                                            src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                                            th:src="${comment.getCommenterImage()}"
                                                             alt="avatar"
                                                             class="rounded-circle me-2"
                                                             style="
@@ -572,14 +570,13 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
                         success: function (result) {
                             if (result.status == "success") {
                                 console.log(result.data);
-
+                                var commenterImage = [[${user.getImageURL()}]];
                                 $("#" + commentsCountId).html(result.data);
-
                                 $("#"+addCommentDivId).prepend(`
                     <div class="d-flex align-items-center my-1">
                                                     <!-- avatar -->
                                                     <img
-                                                            src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                                            src="${commenterImage}"
                                                             alt="avatar"
                                                             class="rounded-circle me-2"
                                                             style="

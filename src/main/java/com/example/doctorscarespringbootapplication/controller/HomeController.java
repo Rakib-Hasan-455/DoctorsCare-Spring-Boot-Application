@@ -1,6 +1,5 @@
 package com.example.doctorscarespringbootapplication.controller;
 
-import com.example.doctorscarespringbootapplication.configuration.fileUploadHelper.FileUploadHelper;
 import com.example.doctorscarespringbootapplication.dao.AppointDoctorRepository;
 import com.example.doctorscarespringbootapplication.dao.PrescriptionRepository;
 import com.example.doctorscarespringbootapplication.dao.UserRepository;
@@ -61,11 +60,11 @@ public class HomeController {
     }
 
     @PostMapping("/process-patient-signup")
-    public String patientSignupProcess(@Valid @ModelAttribute User user, @RequestParam("profileImg") MultipartFile profileImg, BindingResult bindingResult, Model model) throws IOException {
+    public String patientSignupProcess(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model) throws IOException {
         user.setRole("ROLE_PATIENT");
         user.setEnabled(true);
-        user.setImageURL("default.jpg");
-        System.out.println(profileImg.getOriginalFilename());
+        user.setImageURL(user.getImageURL());
+        System.out.println(user.getImageURL());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         if (this.userRepository.getUserByEmailNative(user.getEmail()) != null) {
@@ -76,23 +75,11 @@ public class HomeController {
             model.addAttribute("title", "Patient | Patient Signup");
             return "patient_signup";
         }
+
         model.addAttribute("successMsg", "successfully signed up. Please Login!");
         model.addAttribute("successMsgType", "alert-success");
-        user = userRepository.save(user);
-        FileUploadHelper fileUploadHelper = new FileUploadHelper();
-        String imageType = profileImg.getOriginalFilename();
-        System.out.println(imageType);
-        String[] img = imageType.split("\\.");
-        System.out.println(Arrays.toString(img));
-        imageType = img[1];
-        System.out.println(imageType);
-        String profileImgDir = fileUploadHelper.uploadImageFile(profileImg, user.getId()+"."+imageType);
-        if (profileImgDir != null) {
-            user.setImageURL(profileImgDir);
-            userRepository.save(user);
-        } else {
-            model.addAttribute("imageUploaded", false);
-        }
+        userRepository.save(user);
+
         return "patient_signup";
     }
 
@@ -111,7 +98,7 @@ public class HomeController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole("ROLE_DOCTOR");
         user.setEnabled(true);
-        user.setImageURL("defaultDoctor.jpg");
+        user.setImageURL(doctorSignup.getImageURL());
         DoctorsAdditionalInfo doctorsAdditionalInfo = new DoctorsAdditionalInfo(doctorSignup.getNid(), doctorSignup.getDoctortype(), doctorSignup.getDegrees(), doctorSignup.getMedicalcollege(), doctorSignup.getAppointmentfee());
         user.setDoctorsAdditionalInfo(doctorsAdditionalInfo);
         doctorsAdditionalInfo.setUser(user);

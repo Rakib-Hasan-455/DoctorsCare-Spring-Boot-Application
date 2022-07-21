@@ -5,6 +5,7 @@ import com.example.doctorscarespringbootapplication.dao.AppointDoctorRepository;
 import com.example.doctorscarespringbootapplication.dao.UserRepository;
 import com.example.doctorscarespringbootapplication.dto.AppointDoctorDTO;
 import com.example.doctorscarespringbootapplication.entity.AppointDoctor;
+import com.example.doctorscarespringbootapplication.entity.Prescription;
 import com.example.doctorscarespringbootapplication.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,6 +69,11 @@ public class PatientAppointDoctorController {
         updateDoctorsAvailableTimeDB(doctorID, appointTime);
 
         AppointDoctor appointDoctor = new AppointDoctor(patientID, doctorID, doctorFee, appointTime, appointDate);
+        appointDoctor = appointDoctorRepository.save(appointDoctor);
+        Prescription prescription = new Prescription();
+        prescription.setId(appointDoctor.getId());
+        appointDoctor.setPrescription(prescription);
+        prescription.setAppointDoctor(appointDoctor);
         appointDoctorRepository.save(appointDoctor);
 
         return "patient/patient_appoint_doctor_success";

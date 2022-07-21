@@ -22,7 +22,7 @@
                         <!-- avatar -->
                         <div class="d-flex">
                             <img
-                                    src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                    th:src="${post.getCoverPhoto()}"
                                     alt="avatar"
                                     class="rounded-circle me-2"
                                     style="width: 38px; height: 38px; object-fit: cover"
@@ -221,7 +221,7 @@
                                                      th:each="comment : ${post.getPosts().getCommentsList()}">
                                                     <!-- avatar -->
                                                     <img
-                                                            src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                                            th:src="${comment.getCommenterImage()}"
                                                             alt="avatar"
                                                             class="rounded-circle me-2"
                                                             style="
@@ -403,7 +403,7 @@
                     <div class="d-flex align-items-center my-1">
                                                     <!-- avatar -->
                                                     <img
-                                                            src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                                            th:src="${user.getImageURL()}"
                                                             alt="avatar"
                                                             class="rounded-circle me-2"
                                                             style="

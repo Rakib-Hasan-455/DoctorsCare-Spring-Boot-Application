@@ -9,10 +9,10 @@ import java.util.List;
 
 public interface PrescriptionRepository extends JpaRepository<Prescription, Integer> {
     List<Prescription> findByAppointDoctorPatientIDOrderByIdDesc(String patientIDEmail);
-    Page<Prescription> findByAppointDoctorPatientIDOrderByIdDesc(String patientIDEmail, Pageable pageable);
+    Page<Prescription> findByAppointDoctorPatientIDAndSymptomsNotNullOrderByIdDesc(String patientIDEmail, Pageable pageable);
 
     List<Prescription> findByAppointDoctorDoctorIDOrderByIdDesc(String doctorID);
-    Page<Prescription> findByAppointDoctorDoctorIDOrderByIdDesc(String doctorID, Pageable pageable);
+    Page<Prescription> findByAppointDoctorDoctorIDAndSymptomsNotNullOrderByIdDesc(String doctorID, Pageable pageable);
 
     List<Prescription> findAllByOrderByIdDesc();
 

@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 public class User {
@@ -44,6 +45,9 @@ public class User {
     private String phone;
 
     private String address;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Posts> posts;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private DoctorsAdditionalInfo doctorsAdditionalInfo;
@@ -190,6 +194,14 @@ public class User {
 
     public void setAbout(String about) {
         this.about = about;
+    }
+
+    public List<Posts> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Posts> posts) {
+        this.posts = posts;
     }
 
     public DoctorsSchedule getDoctorsSchedule() {

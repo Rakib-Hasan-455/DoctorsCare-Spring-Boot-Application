@@ -25,13 +25,13 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown  px-2">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                        <img th:src="${user.getImageURL()}"  style="object-fit: cover"
                              class="rounded-circle mx-2" height="30px" width="30px" alt="Profile logo">
                         <span th:text="${user.name}"></span>
                     </a>
                     <ul class="dropdown-menu  px-2" aria-labelledby="navbarScrollingDropdown">
                         <li><a class="dropdown-item" th:href="@{/patient/patient-profile}">
-                            <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                            <img th:src="${user.getImageURL()}"  style="object-fit: cover"
                                  class="rounded-circle mx-2" height="20px" width="20px" alt="Profile logo">
                             Profile</a>
                         </li>

@@ -22,13 +22,13 @@
                         <!-- avatar -->
                         <div class="d-flex">
                             <img
-                                    src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                    th:src="${post.getUser().getImageURL()}"
                                     alt="avatar"
                                     class="rounded-circle me-2"
                                     style="width: 38px; height: 38px; object-fit: cover"
                             />
                             <div>
-                                <p class="m-0 fw-bold"><span th:text="${post.getDoctorName()}"></span></p>
+                                <p class="m-0 fw-bold"><span th:text="${post.getUser().getName()}"></span></p>
                                 <span class="text-muted fs-7"><span th:text="${post.getPostDate()}"></span> at <span
                                         th:text="${post.getPostTime()}"></span></span>
                             </div>
@@ -195,8 +195,9 @@
                                             <div class="d-flex my-2" id="commentForm">
                                                 <!-- avatar -->
                                                 <div>
-                                                    <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                                                         alt="avatar"
+                                                    <img th:src="${user.getImageURL()}"
+
+                                                                             alt="avatar"
                                                          class="rounded-circle me-2"
                                                          style="width: 38px; height: 38px;  object-fit: cover;                                "
                                                     />
@@ -217,7 +218,7 @@
                                                      th:each="comment : ${post.getCommentsList()}">
                                                     <!-- avatar -->
                                                     <img
-                                                            src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                                            th:src="${comment.getCommenterImage()}"
                                                             alt="avatar"
                                                             class="rounded-circle me-2"
                                                             style="
@@ -397,9 +398,8 @@
                                 $("#" + addCommentDivId).prepend(`
                     <div class="d-flex align-items-center my-1">
                                                     <!-- avatar -->
-                                                    <img
-                                                            src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
-                                                            alt="avatar"
+                                                    <img th:src="${user.getImageURL()}"
+                                                    alt="avatar"
                                                             class="rounded-circle me-2"
                                                             style="
                                 width: 38px;

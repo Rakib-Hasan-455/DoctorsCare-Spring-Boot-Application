@@ -66,7 +66,7 @@ public class DoctorMainController {
             model.addAttribute("appointmentID", appointDoctor.getId());
 
             User userPatient = this.userRepository.getUserByEmailNative(appointDoctor.getPatientID());
-            model.addAttribute("patientName", userPatient.getName());
+            model.addAttribute("patientUser", userPatient);
 
             PatientMainController.appointmentCountDown(model, dateTimeFormatter, localDateTime, appointDoctor);
         } else {
@@ -110,7 +110,7 @@ public class DoctorMainController {
         Pageable pageable = PageRequest.of(page-1, 8);
         User user = this.userRepository.getUserByEmailNative(principal.getName());
         Page<Prescription> prescriptionList = prescriptionRepository
-                .findByAppointDoctorDoctorIDOrderByIdDesc(user.getId()+"", pageable);
+                .findByAppointDoctorDoctorIDAndSymptomsNotNullOrderByIdDesc(user.getId()+"", pageable);
         if (prescriptionList.getTotalElements() == 0) {
             model.addAttribute("noPrescription", "true");
         }
