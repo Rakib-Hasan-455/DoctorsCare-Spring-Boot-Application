@@ -42,6 +42,13 @@ public class DoctorMainController {
         return "doctor/doctor_home";
     }
 
+    @GetMapping("/profile")
+    public String patientProfile(Model model, Principal principal) {
+        model.addAttribute("title", "Doctor Profile");
+        addCommonData(model, principal);
+        return "doctor/doctor_profile";
+    }
+
     @GetMapping("/meet-patient")
     public String doctorMeetPatient(Model model, Principal principal) throws ParseException {
         model.addAttribute("title", "Meet Patient");
