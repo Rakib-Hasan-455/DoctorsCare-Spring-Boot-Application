@@ -150,7 +150,9 @@ public class DoctorPostHomepage {
         model.addAttribute("user", user);
         Pageable pageable = PageRequest.of(page-1, 5);
         Page<SavedPosts> savedPostsList = savedPostsRepository.findBySaverId(user.getId()+"", pageable);
+        System.out.println(savedPostsList);
         model.addAttribute("postsListLength", savedPostsList.getTotalElements());
+        model.addAttribute("postsList", savedPostsList);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", savedPostsList.getTotalPages());
         return "doctor/doctor_saved_tips";

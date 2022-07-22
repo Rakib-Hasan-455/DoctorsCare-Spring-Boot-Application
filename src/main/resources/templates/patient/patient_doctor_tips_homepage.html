@@ -7,6 +7,7 @@
 <body>
 <section>
     <div class="container-fluid main-container">
+        <h3 class="text-center"> Doctor Tips </h3>
         <div class="row align-items-center">
             <div th:if="${postsListSize == 0}" class="container text-center mt-5 pt-5 px-5">
                 <h2 style="color: lightcoral"> Sorry, Currently You Don't Have Any Doctors Tips Posts!</h2>
@@ -96,7 +97,7 @@
                                 </script>
                             </div>
                             <img
-                                    src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+                                    th:src="${post.getCoverPhoto()}"
                                     alt="post image"
                                     class="img-fluid rounded"
                             />

@@ -50,6 +50,13 @@ public class PatientMainController {
         return "patient/patient_home";
     }
 
+    @GetMapping("/profile")
+    public String patientProfile(Model model, Principal principal) {
+        model.addAttribute("title", "Patient Profile");
+        addCommonData(model, principal);
+        return "patient/patient_profile";
+    }
+
     @GetMapping("/appoint-doctor-type")
     public String patientAppointDoctor(Model model, Principal principal) {
         model.addAttribute("title", "Patient Dashboard");
@@ -170,6 +177,9 @@ public class PatientMainController {
         Date date2 = format.parse(appointmentTimeStr);
         long difference = date2.getTime() - date1.getTime();
         long countDownTime = (difference/1000)/60;
+        if (countDownTime <= 0) {
+            countDownTime = 0;
+        }
         model.addAttribute("appointCountdownTime", countDownTime);
     }
 

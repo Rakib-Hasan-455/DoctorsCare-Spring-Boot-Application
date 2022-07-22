@@ -6,7 +6,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
 
     <link rel="stylesheet" th:href="@{/CSS/patient/patientstyle.css}">
-<!--    <link rel="stylesheet" th:href="@{/CSS/patient/appoint-doctor.css}">-->
+    <link rel="stylesheet" th:href="@{/CSS/patient/appoint-doctor-type.css}">
+    <link rel="stylesheet" th:href="@{/CSS/patient/patient_profile.css}">
 
     <link th:href="@{/images/doctorsCare.png}" rel="icon">
 
@@ -21,16 +22,16 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse px-4" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown  px-2">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img th:src="${user.getImageURL()}"  style="object-fit: cover"
-                             class="rounded-circle mx-2" height="30px" width="30px" alt="Profile logo">
+                        <img th:src="${user.getImageURL()}"
+                             class="rounded-circle mx-2" height="30px" width="30px" alt="Profile logo" style="object-fit: cover">
                         <span th:text="${user.name}"></span>
                     </a>
                     <ul class="dropdown-menu  px-2" aria-labelledby="navbarScrollingDropdown">
-                        <li><a class="dropdown-item" th:href="@{/patient/profile}">
+                        <li><a class="dropdown-item" th:href="@{/patient/patient-profile}">
                             <img th:src="${user.getImageURL()}"  style="object-fit: cover"
                                  class="rounded-circle mx-2" height="20px" width="20px" alt="Profile logo">
                             Profile</a>
@@ -48,54 +49,47 @@
     </div>
 </nav>
 
-<!-- Sidebar -->
-<div class="sidebar mt-2">
+<!-- Sidebar --><div class="sidebar mt-2">
     <ul class="nav-list">
 
         <li>
-            <a th:href="@{/patient/index}">
+            <a th:href="@{/doctor/index}">
                 <i class='bx bx-grid-alt'></i>
                 <span class="links_name">Home</span>
             </a>
             <span class="tooltip">Home </span>
         </li>
         <li>
-            <a th:href="@{/patient/appoint-doctor-type}">
-            <i class='bx bx-cart-alt'></i>
-            <span class="links_name">Appoint Doctor</span>
-        </a>
-        <span class="tooltip">Appoint Doctor</span>
-        </li>
-        <li>
-            <a th:href="@{/patient/todays-appointment}">
+            <a th:href="@{/doctor/todays-appointment}">
                 <i class='bx bx-caret-right-circle'></i>
                 <span class="links_name">Todays Appoinements</span>
             </a>
             <span class="tooltip">Todays Appointments</span>
         </li>
         <li>
-            <a th:href="@{/patient/meet-doctor}">
+            <a th:href="@{/doctor/meet-patient}">
                 <i class='bx bx-chat'></i>
-                <span class="links_name">Meet Doctor</span>
+                <span class="links_name">Meet Patient</span>
             </a>
-            <span class="tooltip">Meet Doctor</span>
+            <span class="tooltip">Meet Patient</span>
         </li>
+
         <li>
-            <a th:href="@{/patient/view-prescriptions/1}">
+            <a th:href="@{/doctor/view-prescriptions/1}">
                 <i class='bx bx-pie-chart-alt-2'></i>
                 <span class="links_name">Prescriptions</span>
             </a>
             <span class="tooltip">Prescriptions</span>
         </li>
         <li>
-            <a th:href="@{/patient/post-homepage/1}">
+            <a th:href="@{/doctor/post-homepage/1}">
                 <i class='bx bx-news'></i>
                 <span class="links_name">Doctor Tips</span>
             </a>
             <span class="tooltip">Doctor Tips</span>
         </li>
         <li>
-            <a th:href="@{/patient/saved-tips-posts/1}">
+            <a th:href="@{/doctor/saved-tips-posts/1}">
                 <i class='bx bx-heart'></i>
                 <span class="links_name">Saved Tips</span>
             </a>
