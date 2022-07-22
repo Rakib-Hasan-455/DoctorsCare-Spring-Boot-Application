@@ -37,6 +37,13 @@ public class AdminMainController {
         return "admin/admin_home";
     }
 
+    @GetMapping("/profile")
+    public String patientProfile(Model model, Principal principal) {
+        model.addAttribute("title", "Patient Profile");
+        addCommonData(model, principal);
+        return "admin/admin_profile";
+    }
+
     @GetMapping("/emailing-service")
     public String adminEmailingService(Model model, Principal principal) {
         model.addAttribute("title", "Admin Emailing Service");

@@ -20,9 +20,9 @@
                 <h6> Address: <span th:text="${userList.address}"></span> </h6>
 
                 <h5>  Appoinement Fee: <span th:text="${userList.getDoctorsAdditionalInfo().appointmentfee}"></span> tk </h5>
-                <div class="px-2" th:if="${currentHour >= 15}" style="color: rgba(255,255,90,0.94)">
+                <h4 class="px-5 py-3" th:if="${currentHour >= 15}" style="color: rgba(255,255,90,0.94)">
                     Sorry, doctor is not available at this time. Please try to get appointment within 12:00 AM to 2:00 PM.
-                </div>
+                </h4>
 
                 <div th:if="${currentHour < 15}">
                 <form th:action="@{/patient/appoint-doctor/success}" method="post">

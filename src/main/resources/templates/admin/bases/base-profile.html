@@ -15,6 +15,7 @@
     <title th:text="${title}">base title</title>
 </head>
 <body>
+
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-nav fixed-top">
     <div class="container-fluid">
@@ -22,7 +23,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse px-4" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown  px-2">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -49,52 +50,61 @@
     </div>
 </nav>
 
-<!-- Sidebar --><div class="sidebar mt-2">
+<!-- Sidebar -->
+<div class="sidebar mt-2">
     <ul class="nav-list">
 
         <li>
-            <a th:href="@{/doctor/index}">
+            <a th:href="@{/admin/index}">
                 <i class='bx bx-grid-alt'></i>
                 <span class="links_name">Home</span>
             </a>
             <span class="tooltip">Home </span>
         </li>
-        <li>
-            <a th:href="@{/doctor/todays-appointment}">
-                <i class='bx bx-caret-right-circle'></i>
-                <span class="links_name">Todays Appoinements</span>
-            </a>
-            <span class="tooltip">Todays Appointments</span>
-        </li>
-        <li>
-            <a th:href="@{/doctor/meet-patient}">
-                <i class='bx bx-chat'></i>
-                <span class="links_name">Meet Patient</span>
-            </a>
-            <span class="tooltip">Meet Patient</span>
-        </li>
 
         <li>
-            <a th:href="@{/doctor/view-prescriptions/1}">
+            <a th:href="@{/admin/emailing-service}">
+                <i class='bx bx-envelope'></i>
+                <span class="links_name">Emailing Service</span>
+            </a>
+            <span class="tooltip">Emailing Service</span>
+        </li>
+        <li>
+            <a th:href="@{/admin/appointment-logs/1}">
+                <i class='bx bx-caret-right-circle'></i>
+                <span class="links_name">Appointment Logs</span>
+            </a>
+            <span class="tooltip">Appointment Logs</span>
+        </li>
+        <li>
+            <a th:href="@{/admin/prescription-logs/1}">
                 <i class='bx bx-pie-chart-alt-2'></i>
-                <span class="links_name">Prescriptions</span>
+                <span class="links_name">Prescription Logs</span>
             </a>
-            <span class="tooltip">Prescriptions</span>
+            <span class="tooltip">Prescription Logs</span>
         </li>
         <li>
-            <a th:href="@{/doctor/post-homepage/1}">
-                <i class='bx bx-news'></i>
-                <span class="links_name">Doctor Tips</span>
+            <a th:href="@{/admin/patients-list/1}">
+                <i class='bx bxs-user-detail'></i>
+                <span class="links_name">Patients List</span>
             </a>
-            <span class="tooltip">Doctor Tips</span>
+            <span class="tooltip">Patient List</span>
         </li>
         <li>
-            <a th:href="@{/doctor/saved-tips-posts/1}">
-                <i class='bx bx-heart'></i>
-                <span class="links_name">Saved Tips</span>
+            <a th:href="@{/admin/doctors-list/1}">
+                <i class='bx bxs-user-badge'></i>
+                <span class="links_name">Doctor List</span>
             </a>
-            <span class="tooltip">Saved Tips</span>
+            <span class="tooltip">Doctor List</span>
         </li>
+        <li>
+            <a th:href="@{/admin/earnings}">
+                <i class='bx bx-dollar'></i>
+                <span class="links_name">Earnings</span>
+            </a>
+            <span class="tooltip">Earnings</span>
+        </li>
+
         <li>
             <a th:href="@{/logout}">
                 <i class='bx bx-exit'></i>
@@ -106,70 +116,9 @@
 </div>
 
 <!-- Content -->
-<div class="content mt-5">
+<div class="content mt-5 mb-lg-5">
     <div th:replace="${content}"></div>
 </div>
-
-<footer class="text-center text-white " style="background-color: #f1f1f1;">
-    <!-- Grid container -->
-    <div class="container pt-4">
-        <!-- Section: Social media -->
-        <section class="mb-4">
-            <!-- Facebook -->
-            <a
-                    class="btn btn-link btn-floating btn-lg text-dark m-1"
-                    href="#!"
-                    role="button"
-                    data-mdb-ripple-color="dark"
-            ><i class="fab fa-facebook-f"></i
-            ></a>
-
-
-            <!-- Google -->
-            <a
-                    class="btn btn-link btn-floating btn-lg text-dark m-1"
-                    href="#!"
-                    role="button"
-                    data-mdb-ripple-color="dark"
-            ><i class="fab fa-google"></i
-            ></a>
-
-            <!-- Instagram -->
-            <a
-                    class="btn btn-link btn-floating btn-lg text-dark m-1"
-                    href="#!"
-                    role="button"
-                    data-mdb-ripple-color="dark"
-            ><i class="fab fa-instagram"></i
-            ></a>
-
-            <!-- Linkedin -->
-            <a
-                    class="btn btn-link btn-floating btn-lg text-dark m-1"
-                    href="#!"
-                    role="button"
-                    data-mdb-ripple-color="dark"
-            ><i class="fab fa-linkedin"></i
-            ></a>
-            <!-- Github -->
-            <a
-                    class="btn btn-link btn-floating btn-lg text-dark m-1"
-                    href="#!"
-                    role="button"
-                    data-mdb-ripple-color="dark"
-            ><i class="fab fa-github"></i
-            ></a>
-        </section>
-        <!-- Section: Social media -->
-    </div>
-    <!-- Grid container -->
-
-    <!-- Copyright -->
-    <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        @2022 Developed by Brain-Cache
-    </div>
-    <!-- Copyright -->
-</footer>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
