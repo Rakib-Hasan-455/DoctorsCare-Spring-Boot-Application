@@ -59,6 +59,7 @@ public class DoctorPrescription {
             AppointDoctor appointDoctor = appointDoctorRepository.getById(Integer.parseInt(doctorGivePrescriptionDTO.getAppointmentID()));
             User patientUser = userRepository.getUserByEmailNative(appointDoctor.getPatientID());
             Prescription prescription = new Prescription(doctorGivePrescriptionDTO.getSymptoms(), doctorGivePrescriptionDTO.getTests(), doctorGivePrescriptionDTO.getAdvice(), doctorGivePrescriptionDTO.getMedicines());
+            prescription.setId(appointDoctor.getId());
             appointDoctor.setPrescription(prescription);
             prescription.setAppointDoctor(appointDoctor);
             appointDoctorRepository.save(appointDoctor);
