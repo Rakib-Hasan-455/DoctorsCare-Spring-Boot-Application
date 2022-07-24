@@ -16,14 +16,16 @@
         <table class="table mt-5">
         <thead>
         <tr>
-            <th class="text-center"  scope="col">Appointment Date</th>
-            <th  class="text-center" scope="col">Appointment Time</th>
-            <th class="text-center"  scope="col">Patient Email</th>
-            <th class="text-center"  scope="col">My Fee</th>
+            <th class="text-center p-3"  scope="col">Appointment ID</th>
+            <th class="text-center p-3"  scope="col">Appointment Date</th>
+            <th  class="text-center p-3" scope="col">Appointment Time</th>
+            <th class="text-center p-3"  scope="col">Patient Email</th>
+            <th class="text-center p-3"  scope="col">My Fee</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="appointments : ${appointDoctorList}">
+            <td class="text-center p-3" th:text="${appointments.id}"></td>
             <td class="text-center p-3" th:text="${appointments.appointmentDate}"></td>
             <td class="text-center p-3"  th:text="${appointments.appointmentTime}"></td>
             <td class="text-center p-3"  th:text="${appointments.patientID}"></td>

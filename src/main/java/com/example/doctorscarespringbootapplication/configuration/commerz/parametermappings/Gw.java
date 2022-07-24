@@ -1,4 +1,4 @@
-package com.example.doctorscarespringbootapplication.commerz.parametermappings;
+package com.example.doctorscarespringbootapplication.configuration.commerz.parametermappings;
 
 public class Gw {
     public String visa;

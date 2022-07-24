@@ -17,23 +17,23 @@
         <table class="table mt-5">
             <thead>
             <tr>
-                <th class="text-center" scope="col">Appoint ID</th>
-                <th class="text-center" scope="col">Date</th>
-                <th class="text-center" scope="col">Time</th>
-                <th class="text-center" scope="col">Dr. ID</th>
-                <th class="text-center" scope="col">Symptoms</th>
-                <th class="text-center" scope="col">Action</th>
+                <th class="text-center p-3" scope="col">Appoint ID</th>
+                <th class="text-center p-3" scope="col">Date</th>
+                <th class="text-center p-3" scope="col">Time</th>
+                <th class="text-center p-3" scope="col">Dr. ID</th>
+                <th class="text-center p-3" scope="col">Symptoms</th>
+                <th class="text-center p-3" scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
 
             <tr th:each="prescription : ${prescriptionList}">
-                <td class="text-center" th:text="${prescription.getAppointDoctor().getId()}"></td>
-                <td class="text-center" th:text="${prescription.getAppointDoctor().getAppointmentDate()}"></td>
-                <td class="text-center" th:text="${prescription.getAppointDoctor().getAppointmentTime()}"></td>
-                <td class="text-center" th:text="${prescription.getAppointDoctor().getDoctorID()}"></td>
-                <td class="text-center" th:text="${prescription.getSymptoms()}"></td>
-                <td class="text-center">
+                <td class="text-center p-3" th:text="${prescription.getAppointDoctor().getId()}"></td>
+                <td class="text-center p-3" th:text="${prescription.getAppointDoctor().getAppointmentDate()}"></td>
+                <td class="text-center p-3" th:text="${prescription.getAppointDoctor().getAppointmentTime()}"></td>
+                <td class="text-center p-3" th:text="${prescription.getAppointDoctor().getDoctorID()}"></td>
+                <td class="text-center p-3" th:text="${prescription.getSymptoms()}"></td>
+                <td class="text-center p-3">
                     <form method="post" th:action="@{/patient/view-single-prescription}" target="_blank">
                         <input th:name="appointmentID" type="hidden"
                                th:value="${prescription.getAppointDoctor().getId()}">

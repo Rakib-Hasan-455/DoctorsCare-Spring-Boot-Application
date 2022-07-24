@@ -18,4 +18,6 @@ public interface SavedPostsRepository extends JpaRepository<SavedPosts, Integer>
 
 
     List<SavedPosts> findByPostsId(int id);
+
+    long countBySaverId(String saverId);
 }

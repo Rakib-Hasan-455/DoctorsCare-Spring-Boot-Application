@@ -78,6 +78,7 @@
                         <div class="mb-3">
                             <label class="form-label"> Specialist at </label>
                             <select name="doctortype" th:value="${user.doctortype}" class="form-select" aria-label="Default select example">
+                                <option value="pediatrics" selected disabled>(select one)</option>
                                 <option value="pediatrics" th:selected="${user.doctortype == 'pediatrics'}">Pediatrics</option>
                                 <option value="Skin" th:selected="${user.doctortype == 'Skin'}">Skin</option>
                                 <option value="Medicine" th:selected="${user.doctortype == 'Medicine'}">Medicine</option>

@@ -13,21 +13,23 @@
 
     <div th:if="${noDoctorAppointment != 'true'}">
         <h3 class="text-center mb-3 mt-3"> <u>Todays Appointments</u> </h3>
-        <table class="table mt-5">
+        <table class="table table-responsive  mt-5">
         <thead>
         <tr>
-            <th class="text-center"  scope="col">Appointment Date</th>
-            <th  class="text-center" scope="col">Appointment Time</th>
-            <th class="text-center"  scope="col">Doctor ID</th>
-            <th class="text-center"  scope="col">Doctor Fee</th>
+            <th class="text-center p-3"  scope="col">Appointment ID</th>
+            <th class="text-center p-3"  scope="col">Appointment Date</th>
+            <th  class="text-center p-3" scope="col">Appointment Time</th>
+            <th class="text-center p-3"  scope="col">Doctor ID</th>
+            <th class="text-center p-3"  scope="col">Doctor Fee</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="appointments : ${appointDoctorList}">
-            <td class="text-center" th:text="${appointments.appointmentDate}"></td>
-            <td class="text-center"  th:text="${appointments.appointmentTime}"></td>
-            <td class="text-center"  th:text="${appointments.doctorID}"></td>
-            <td class="text-center"  th:text="${appointments.doctorFee}"></td>
+            <td class="text-center p-3" th:text="${appointments.id}"></td>
+            <td class="text-center p-3" th:text="${appointments.appointmentDate}"></td>
+            <td class="text-center p-3"  th:text="${appointments.appointmentTime}"></td>
+            <td class="text-center p-3"  th:text="${appointments.doctorID}"></td>
+            <td class="text-center p-3"  th:text="${appointments.doctorFee}"></td>
         </tr>
         </tbody>
     </table>

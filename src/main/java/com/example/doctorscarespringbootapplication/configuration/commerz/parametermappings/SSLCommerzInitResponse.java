@@ -1,4 +1,4 @@
-package com.example.doctorscarespringbootapplication.ssl.commerz.parametermappings;
+package com.example.doctorscarespringbootapplication.configuration.commerz.parametermappings;
 
 import java.util.List;
 

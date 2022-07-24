@@ -1,11 +1,10 @@
 package com.example.doctorscarespringbootapplication.controller.patient;
 
-import com.example.doctorscarespringbootapplication.dao.AppointDoctorRepository;
-import com.example.doctorscarespringbootapplication.dao.PrescriptionRepository;
-import com.example.doctorscarespringbootapplication.dao.UserRepository;
+import com.example.doctorscarespringbootapplication.dao.*;
 import com.example.doctorscarespringbootapplication.entity.AppointDoctor;
 import com.example.doctorscarespringbootapplication.entity.Prescription;
 import com.example.doctorscarespringbootapplication.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,15 +37,61 @@ public class PatientMainController {
 
     private final PrescriptionRepository prescriptionRepository;
 
-    public PatientMainController(UserRepository userRepository, AppointDoctorRepository appointDoctorRepository, PrescriptionRepository prescriptionRepository) {
+    private final PostsRepository postsRepository;
+    private final SavedPostsRepository savedPostsRepository;
+
+
+    public PatientMainController(UserRepository userRepository, AppointDoctorRepository appointDoctorRepository, PrescriptionRepository prescriptionRepository, PostsRepository postsRepository, SavedPostsRepository savedPostsRepository) {
         this.userRepository = userRepository;
         this.appointDoctorRepository = appointDoctorRepository;
         this.prescriptionRepository = prescriptionRepository;
+        this.postsRepository = postsRepository;
+        this.savedPostsRepository = savedPostsRepository;
     }
 
     @GetMapping("/index")
     public String patientHome(Model model, Principal principal) {
         model.addAttribute("title", "Patient Dashboard");
+        User user = userRepository.getUserByEmailNative(principal.getName());
+//        Three cards data
+        DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        String todayDate = dtfDate.format(now);
+        String todaysAppointmentCount = appointDoctorRepository.countAllByAppointmentDateAndPatientID(todayDate, principal.getName());
+        String todaysCompletedAppointment = prescriptionRepository.countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNullAndAppointDoctorPatientID(todayDate, user.getId()+"");
+        model.addAttribute("todaysAppointment", todaysAppointmentCount);
+        model.addAttribute("todaysCompletedAppointment", todaysCompletedAppointment);
+
+        String todaysGivenPrescriptions = prescriptionRepository.countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNullAndAppointDoctorPatientID(todayDate, user.getId()+"");
+        String totalPrescriptions = prescriptionRepository.countAllByAppointDoctorPatientID(user.getId()+"");
+        model.addAttribute("todaysGivenPrescriptions", todaysGivenPrescriptions);
+        model.addAttribute("totalGivenPrescriptions", totalPrescriptions);
+
+        long totalPosts = postsRepository.count();
+        long totalSavedPosts = savedPostsRepository.countBySaverId(user.getId()+"");
+        model.addAttribute("totalPosts", totalPosts);
+        model.addAttribute("totalSavedPosts", totalSavedPosts);
+//        Upcoming Appointments
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDateTime value = localDateTime.minus(30, ChronoUnit.MINUTES);
+        Time currentTimeMinus30 = Time.valueOf(dateTimeFormatter.format(value));
+
+        List<AppointDoctor> appointDoctorList = appointDoctorRepository.findAllByAppointmentDateAndPatientIDAndAppointmentTimeGreaterThanOrderByAppointmentTimeAsc(todayDate, principal.getName(), currentTimeMinus30);
+        if (appointDoctorList.size() != 0) {
+            model.addAttribute("appointDoctorList", appointDoctorList);
+        } else {
+            model.addAttribute("noDoctorAppointment", "true");
+        }
+
+//        Top 3 doctors
+        List<User> userList = new ArrayList<>();
+        List<String> top3DoctorsList = appointDoctorRepository.findTop3DoctorsNativeQuery();
+        for (String s : top3DoctorsList) {
+            User userX = userRepository.findById(Integer.parseInt(s));
+            userList.add(userX);
+        }
+        model.addAttribute("userList", userList);
         addCommonData(model, principal);
         return "patient/patient_home";
     }
@@ -110,12 +156,7 @@ public class PatientMainController {
         LocalDateTime now = LocalDateTime.now();
         String todayDate = dtfDate.format(now);
 
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        LocalDateTime localDateTime = LocalDateTime.now();
-        LocalDateTime value = localDateTime.minus(30, ChronoUnit.MINUTES);
-        Time currentTimeMinus30 = Time.valueOf(dateTimeFormatter.format(value));
-
-        List<AppointDoctor> appointDoctorList = appointDoctorRepository.findAllByAppointmentDateAndPatientIDAndAppointmentTimeGreaterThanOrderByAppointmentTimeAsc(todayDate, principal.getName(), currentTimeMinus30);
+        List<AppointDoctor> appointDoctorList = appointDoctorRepository.findAllByAppointmentDateAndPatientIDOrderByAppointmentTimeAsc(todayDate, principal.getName());
 
         if (appointDoctorList.size() != 0) {
             model.addAttribute("appointDoctorList", appointDoctorList);

@@ -24,4 +24,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findByDoctorsAdditionalInfoUser_id(int userID);
 
     User findById(int doctorID);
+
+    long countByRole(String role_patient);
+    long countByRoleAndEnabled(String role_patient, Boolean enabled);
+
 }

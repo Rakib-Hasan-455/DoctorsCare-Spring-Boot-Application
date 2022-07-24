@@ -1,0 +1,123 @@
+.cards-list {
+    z-index: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.cards-list a {
+    text-decoration: none;
+}
+
+.card {
+    margin: 30px auto;
+    width: 300px;
+    height: 250px;
+    /*border-radius: 40px;*/
+    /*box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);*/
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.card .card_image {
+    width: inherit;
+    height: inherit;
+    /*border-radius: 30px;*/
+}
+
+.card .card_image img {
+    width: inherit;
+    height: inherit;
+    /*border-radius: 40px;*/
+    object-fit: cover;
+}
+
+.card .card_title {
+    text-align: center;
+    border-radius: 0 0 0px 0px;
+    font-family: sans-serif;
+    font-weight: bold;
+    background: rgba(17, 16, 29, 0.74);
+    font-size: 26px;
+    margin-top: 0;
+    height: 160px;
+    z-index: 1;
+}
+
+.card:hover {
+    transform: scale(0.9, 0.9);
+    /*box-shadow: 5px 5px 30px 15px rgba(0,0,0,0.25),*/
+    /*-5px -5px 30px 15px rgba(0,0,0,0.22);*/
+}
+
+.title-white {
+    color: white;
+}
+
+.title-black {
+    color: black;
+}
+
+
+* {box-sizing: border-box;}
+body {font-family: Verdana, sans-serif;}
+.mySlides {display: none;}
+img {vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+/* Caption text */
+.text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+
+/* The dots/bullets/indicators */
+.dot {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active {
+    background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+    animation-name: fade;
+    animation-duration: 7s;
+}
+
+@keyframes fade {
+    from {opacity: .5}
+    to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+    .text {font-size: 11px}
+}
+
+@media all and (max-width: 500px) {
+    .card-list {
+        flex-direction: column;
+    }
+}
+

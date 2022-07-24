@@ -1,9 +1,7 @@
 package com.example.doctorscarespringbootapplication.controller.admin;
 
 
-import com.example.doctorscarespringbootapplication.dao.AppointDoctorRepository;
-import com.example.doctorscarespringbootapplication.dao.PrescriptionRepository;
-import com.example.doctorscarespringbootapplication.dao.UserRepository;
+import com.example.doctorscarespringbootapplication.dao.*;
 import com.example.doctorscarespringbootapplication.entity.AppointDoctor;
 import com.example.doctorscarespringbootapplication.entity.Prescription;
 import com.example.doctorscarespringbootapplication.entity.User;
@@ -16,6 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,9 +33,59 @@ public class AdminMainController {
     @Autowired
     private PrescriptionRepository prescriptionRepository;
 
+    @Autowired
+    private PostsRepository postsRepository;
+
+    @Autowired
+    private SavedPostsRepository savedPostsRepository;
+
     @GetMapping("/index")
     public String adminHome(Model model, Principal principal) {
         model.addAttribute("title", "Admin Dashboard");
+//        Three cards data
+        DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        String todayDate = dtfDate.format(now);
+        String todaysAppointmentCount = appointDoctorRepository.countAllByAppointmentDate(todayDate);
+        String todaysCompletedAppointment = prescriptionRepository.countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNull(todayDate);
+        model.addAttribute("todaysAppointment", todaysAppointmentCount);
+        model.addAttribute("todaysCompletedAppointment", todaysCompletedAppointment);
+
+        String todaysGivenPrescriptions = prescriptionRepository.countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNull(todayDate);
+        long totalPrescriptions = prescriptionRepository.count();
+        model.addAttribute("todaysGivenPrescriptions", todaysGivenPrescriptions);
+        model.addAttribute("totalGivenPrescriptions", totalPrescriptions);
+
+        long totalPatient = userRepository.countByRole("ROLE_PATIENT");
+        long totalActivePatient = userRepository.countByRoleAndEnabled("ROLE_PATIENT", true);
+        model.addAttribute("totalPatient", totalPatient);
+        model.addAttribute("totalActivePatient", totalActivePatient);
+
+        long totalDoctor = userRepository.countByRole("ROLE_DOCTOR");
+        long totalActiveDoctor = userRepository.countByRoleAndEnabled("ROLE_DOCTOR", true);
+        model.addAttribute("totalDoctor", totalDoctor);
+        model.addAttribute("totalActiveDoctor", totalActiveDoctor);
+//        Upcoming Appointments
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDateTime value = localDateTime.minus(30, ChronoUnit.MINUTES);
+        Time currentTimeMinus30 = Time.valueOf(dateTimeFormatter.format(value));
+
+        List<AppointDoctor> appointDoctorList = appointDoctorRepository.findAllByAppointmentDateOrderByAppointmentDateAsc(todayDate);
+        if (appointDoctorList.size() != 0) {
+            model.addAttribute("appointDoctorList", appointDoctorList);
+        } else {
+            model.addAttribute("noDoctorAppointment", "true");
+        }
+
+//        Top 3 doctors
+        List<User> userList = new ArrayList<>();
+        List<String> top3DoctorsList = appointDoctorRepository.findTop3DoctorsNativeQuery();
+        for (String s : top3DoctorsList) {
+            User userX = userRepository.findById(Integer.parseInt(s));
+            userList.add(userX);
+        }
+        model.addAttribute("userList", userList);
         addCommonData(model, principal);
         return "admin/admin_home";
     }

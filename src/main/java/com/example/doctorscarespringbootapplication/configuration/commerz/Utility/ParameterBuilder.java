@@ -1,4 +1,4 @@
-package com.example.doctorscarespringbootapplication.ssl.commerz.Utility;
+package com.example.doctorscarespringbootapplication.configuration.commerz.Utility;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

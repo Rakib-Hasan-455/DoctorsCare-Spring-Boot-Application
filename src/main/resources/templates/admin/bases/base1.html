@@ -29,12 +29,12 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown  px-2">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img th:src="${user.getImageURL()}"  style="object-fit: cover"
-                             class="rounded-circle mx-2" height="30px" width="30px" alt="Profile logo">
+                        <img th:src="${user.getImageURL()}"
+                             class="rounded-circle mx-2" height="30px" width="30px" alt="Profile logo" style="object-fit: cover">
                         <span th:text="${user.name}"></span>
                     </a>
                     <ul class="dropdown-menu  px-2" aria-labelledby="navbarScrollingDropdown">
-                        <li><a class="dropdown-item" th:href="@{/patient/profile}">
+                        <li><a class="dropdown-item" th:href="@{/admin/profile}">
                             <img th:src="${user.getImageURL()}"  style="object-fit: cover"
                                  class="rounded-circle mx-2" height="20px" width="20px" alt="Profile logo">
                             Profile</a>
@@ -55,55 +55,58 @@
 <!-- Sidebar -->
 <div class="sidebar mt-2">
     <ul class="nav-list">
+
         <li>
-            <a th:href="@{/patient/index}">
+            <a th:href="@{/admin/index}">
                 <i class='bx bx-grid-alt'></i>
                 <span class="links_name">Home</span>
             </a>
             <span class="tooltip">Home </span>
         </li>
+
         <li>
-        <a th:href="@{/patient/appoint-doctor-type}">
-            <i class='bx bx-cart-alt'></i>
-            <span class="links_name">Appoint Doctor</span>
-        </a>
-        <span class="tooltip">Appoint Doctor</span>
+            <a th:href="@{/admin/emailing-service}">
+                <i class='bx bx-envelope'></i>
+                <span class="links_name">Emailing Service</span>
+            </a>
+            <span class="tooltip">Emailing Service</span>
         </li>
         <li>
-            <a th:href="@{/patient/todays-appointment}">
+            <a th:href="@{/admin/appointment-logs/1}">
                 <i class='bx bx-caret-right-circle'></i>
-                <span class="links_name">Todays Appoinements</span>
+                <span class="links_name">Appointment Logs</span>
             </a>
-            <span class="tooltip">Todays Appointments</span>
+            <span class="tooltip">Appointment Logs</span>
         </li>
         <li>
-            <a th:href="@{/patient/meet-doctor}">
-                <i class='bx bx-chat'></i>
-                <span class="links_name">Meet Doctor</span>
-            </a>
-            <span class="tooltip">Meet Doctor</span>
-        </li>
-        <li>
-            <a th:href="@{/patient/view-prescriptions/1}">
+            <a th:href="@{/admin/prescription-logs/1}">
                 <i class='bx bx-pie-chart-alt-2'></i>
-                <span class="links_name">Prescriptions</span>
+                <span class="links_name">Prescription Logs</span>
             </a>
-            <span class="tooltip">Prescriptions</span>
+            <span class="tooltip">Prescription Logs</span>
         </li>
         <li>
-            <a th:href="@{/patient/post-homepage/1}">
-                <i class='bx bx-news'></i>
-                <span class="links_name">Doctor Tips</span>
+            <a th:href="@{/admin/patients-list/1}">
+                <i class='bx bxs-user-detail'></i>
+                <span class="links_name">Patients List</span>
             </a>
-            <span class="tooltip">Doctor Tips</span>
+            <span class="tooltip">Patient List</span>
         </li>
         <li>
-            <a th:href="@{/patient/saved-tips-posts/1}">
-                <i class='bx bx-heart'></i>
-                <span class="links_name">Saved Tips</span>
+            <a th:href="@{/admin/doctors-list/1}">
+                <i class='bx bxs-user-badge'></i>
+                <span class="links_name">Doctor List</span>
             </a>
-            <span class="tooltip">Saved Tips</span>
+            <span class="tooltip">Doctor List</span>
         </li>
+        <li>
+            <a th:href="@{/admin/earnings}">
+                <i class='bx bx-dollar'></i>
+                <span class="links_name">Earnings</span>
+            </a>
+            <span class="tooltip">Earnings</span>
+        </li>
+
         <li>
             <a th:href="@{/logout}">
                 <i class='bx bx-exit'></i>

@@ -1,6 +1,4 @@
-package com.example.doctorscarespringbootapplication.commerz;
-
-import com.example.doctorscarespringbootapplication.ssl.commerz.SSLCommerz;
+package com.example.doctorscarespringbootapplication.configuration.commerz;
 
 import java.util.Map;
 
@@ -26,7 +24,7 @@ public class TransactionResponseValidator {
         String amount = "150";
         String currency = "BDT";
         // Set your store Id and store password and define TestMode
-        com.example.doctorscarespringbootapplication.ssl.commerz.SSLCommerz sslcz = new SSLCommerz("abc62bdc6438f3c5", "abc62bdc6438f3c5@ssl", true);
+        SSLCommerz sslcz = new SSLCommerz("abc62bdc6438f3c5", "abc62bdc6438f3c5@ssl", true);
 
         /**
          * If following order validation returns true, then process transaction as success.

@@ -21,7 +21,6 @@
         </div>
 
         <div th:each="userList: ${userList}">
-
         <a th:href="@{'/patient/appoint-doctor/'+${userList.id}}" >
             <div class="card 1" >
                 <div class="card_image">
@@ -31,12 +30,9 @@
                     <h5>  Appoinement Fee: <span th:text="${userList.getDoctorsAdditionalInfo().appointmentfee}"></span> tk </h5>
                     <h6> <span th:text="${userList.getDoctorsAdditionalInfo().degrees}"></span> </h6>
                     <h6>  <span th:text="${userList.getDoctorsAdditionalInfo().medicalcollege}"></span> </h6>
-
                 </div>
-
             </div>
         </a>
-
         </div>
 
     </div>

@@ -1,9 +1,9 @@
-package com.example.doctorscarespringbootapplication.ssl.commerz.Utility;
+package com.example.doctorscarespringbootapplication.configuration.commerz.Utility;
 
+import com.example.doctorscarespringbootapplication.configuration.commerz.parametermappings.SSLCommerzInitResponse;
+import com.example.doctorscarespringbootapplication.configuration.commerz.parametermappings.SSLCommerzValidatorResponse;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.example.doctorscarespringbootapplication.ssl.commerz.parametermappings.SSLCommerzInitResponse;
-import com.example.doctorscarespringbootapplication.ssl.commerz.parametermappings.SSLCommerzValidatorResponse;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,8 +1,7 @@
-package com.example.doctorscarespringbootapplication.commerz;
+package com.example.doctorscarespringbootapplication.configuration.commerz;
 
 
-import com.example.doctorscarespringbootapplication.ssl.commerz.SSLCommerz;
-import com.example.doctorscarespringbootapplication.ssl.commerz.Utility.ParameterBuilder;
+import com.example.doctorscarespringbootapplication.configuration.commerz.Utility.ParameterBuilder;
 
 import java.util.Map;
 
