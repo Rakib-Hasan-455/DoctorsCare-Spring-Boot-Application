@@ -12,5 +12,6 @@ public interface AdditionalDoctorsRepository extends JpaRepository<DoctorsAdditi
 
     DoctorsAdditionalInfo findDoctorsAdditionalInfoByUser_id(int userID);
 
+    int countByDoctortype(String doctorType);
 
 }

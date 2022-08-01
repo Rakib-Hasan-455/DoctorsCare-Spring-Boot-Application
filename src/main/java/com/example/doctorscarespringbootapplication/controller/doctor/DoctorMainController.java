@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.sql.Date;
 import java.sql.Time;
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -45,15 +46,16 @@ public class DoctorMainController {
         model.addAttribute("title", "Doctors Dashboard");
         User user = userRepository.getUserByEmailNative(principal.getName());
 //        Three cards data
-        DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         LocalDateTime now = LocalDateTime.now();
         String todayDate = dtfDate.format(now);
-        String todaysAppointmentCount = appointDoctorRepository.countAllByAppointmentDateAndDoctorID(todayDate, user.getId()+"");
-        String todaysCompletedAppointment = prescriptionRepository.countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNullAndAppointDoctorDoctorID(todayDate, user.getId()+"");
+        String todaysAppointmentCount = appointDoctorRepository.countAllByAppointmentDateAndDoctorID(Date.valueOf(todayDate), user.getId()+"");
+        String todaysCompletedAppointment = prescriptionRepository.countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNullAndAppointDoctorDoctorID(Date.valueOf(todayDate), user.getId()+"");
         model.addAttribute("todaysAppointment", todaysAppointmentCount);
         model.addAttribute("todaysCompletedAppointment", todaysCompletedAppointment);
 
-        String todaysGivenPrescriptions = prescriptionRepository.countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNullAndAppointDoctorDoctorID(todayDate, user.getId()+"");
+        String todaysGivenPrescriptions = prescriptionRepository.countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNullAndAppointDoctorDoctorID(Date.valueOf(todayDate), user.getId()+"");
         String totalPrescriptions = prescriptionRepository.countAllByAppointDoctorDoctorID(user.getId()+"");
         model.addAttribute("todaysGivenPrescriptions", todaysGivenPrescriptions);
         model.addAttribute("totalGivenPrescriptions", totalPrescriptions);
@@ -68,7 +70,7 @@ public class DoctorMainController {
         LocalDateTime value = localDateTime.minus(30, ChronoUnit.MINUTES);
         Time currentTimeMinus30 = Time.valueOf(dateTimeFormatter.format(value));
 
-        List<AppointDoctor> appointDoctorList = appointDoctorRepository.findAllByAppointmentDateAndPatientIDAndAppointmentTimeGreaterThanOrderByAppointmentTimeAsc(todayDate, principal.getName(), currentTimeMinus30);
+        List<AppointDoctor> appointDoctorList = appointDoctorRepository.findAllByAppointmentDateAndPatientIDAndAppointmentTimeGreaterThanOrderByAppointmentTimeAsc(Date.valueOf(todayDate), principal.getName(), currentTimeMinus30);
         if (appointDoctorList.size() != 0) {
             model.addAttribute("appointDoctorList", appointDoctorList);
         } else {
@@ -98,7 +100,8 @@ public class DoctorMainController {
     public String doctorMeetPatient(Model model, Principal principal) throws ParseException {
         model.addAttribute("title", "Meet Patient");
 
-        DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         LocalDateTime now = LocalDateTime.now();
         String todaysDate = dtfDate.format(now);
 
@@ -110,7 +113,7 @@ public class DoctorMainController {
         User userDoctor = this.userRepository.getUserByEmailNative(principal.getName());
         String doctorsID = userDoctor.getId()+"";
 
-        List<AppointDoctor> appointDoctorList = this.appointDoctorRepository.findAllByAppointmentDateAndDoctorIDAndAppointmentTimeGreaterThanOrderByAppointmentTimeAsc(todaysDate, doctorsID, currentTimeMinus30);
+        List<AppointDoctor> appointDoctorList = this.appointDoctorRepository.findAllByAppointmentDateAndDoctorIDAndAppointmentTimeGreaterThanOrderByAppointmentTimeAsc(Date.valueOf(todaysDate), doctorsID, currentTimeMinus30);
         if (appointDoctorList.size() != 0) {
             AppointDoctor appointDoctor = appointDoctorList.get(0);
             model.addAttribute("senderEmailDoctor", principal.getName());
@@ -134,14 +137,15 @@ public class DoctorMainController {
     public String patientTodayAppointment(Model model, Principal principal) {
         model.addAttribute("title", "Today's Appointment");
 
-        DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         LocalDateTime now = LocalDateTime.now();
         String todayDate = dtfDate.format(now);
 
         User user = userRepository.getUserByEmailNative(principal.getName());
         List<AppointDoctor> appointDoctorList = appointDoctorRepository
                 .findAllByAppointmentDateAndDoctorIDOrderByAppointmentTimeAsc
-                        (todayDate, user.getId()+"");
+                        (Date.valueOf(todayDate), user.getId()+"");
 
 
         if (appointDoctorList.size() != 0) {

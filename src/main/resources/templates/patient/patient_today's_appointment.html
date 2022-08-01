@@ -29,7 +29,7 @@
             <td class="text-center p-3" th:text="${appointments.appointmentDate}"></td>
             <td class="text-center p-3"  th:text="${appointments.appointmentTime}"></td>
             <td class="text-center p-3"  th:text="${appointments.doctorID}"></td>
-            <td class="text-center p-3"  th:text="${appointments.doctorFee}"></td>
+            <td class="text-center p-3">৳<span th:text="${appointments.doctorFee}"></span></td>
         </tr>
         </tbody>
     </table>

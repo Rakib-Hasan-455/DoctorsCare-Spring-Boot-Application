@@ -85,7 +85,7 @@
                 <td th:text="${appointments.id}"></td>
                 <td th:text="${appointments.appointmentTime}"></td>
                 <td th:text="${appointments.doctorID}"></td>
-                <td th:text="${appointments.doctorFee}"></td>
+                <td>৳<span th:text="${appointments.doctorFee}"></span></td>
             </tr>
             <tr  th:if="${noDoctorAppointment == 'true'}" class="table-danger">
                 <td colspan="4">Currently You Have No Upcoming Appointments!</td>

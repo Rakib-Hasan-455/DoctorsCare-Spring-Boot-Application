@@ -58,26 +58,39 @@ public class DoctorPostHomepage {
     @PostMapping("/do-post-homepage")
     public String doPostHomepage(@ModelAttribute Posts posts, @RequestParam String doctorID, Model model, Principal principal) {
 
-        DateTimeFormatter postDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter postTimeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
+        if (!posts.getCoverPhoto().equals("")) {
+            DateTimeFormatter postDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter postTimeFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-        LocalDateTime localDateTime = LocalDateTime.now();
-        Date postDate = Date.valueOf(postDateFormat.format(localDateTime));
-        Time postTime =  Time.valueOf(postTimeFormat.format(localDateTime));
+            LocalDateTime localDateTime = LocalDateTime.now();
+            Date postDate = Date.valueOf(postDateFormat.format(localDateTime));
+            Time postTime = Time.valueOf(postTimeFormat.format(localDateTime));
 
-        posts.setPostDate(postDate);
-        posts.setPostTime(postTime);
+            posts.setPostDate(postDate);
+            posts.setPostTime(postTime);
 
-        User doctorUser = userRepository.findById(Integer.parseInt(doctorID));
-        List<Posts> postsList = postsRepository.findByUserId(Integer.parseInt(doctorID));
-        posts.setUser(doctorUser);
-        postsList.add(posts);
-        doctorUser.setPosts(postsList);
-        postsRepository.save(posts);
-        model.addAttribute("posted", true);
+            User doctorUser = userRepository.findById(Integer.parseInt(doctorID));
+            List<Posts> postsList = postsRepository.findByUserId(Integer.parseInt(doctorID));
+            posts.setUser(doctorUser);
+            postsList.add(posts);
+            doctorUser.setPosts(postsList);
+            postsRepository.save(posts);
+            model.addAttribute("posted", true);
+            return "redirect:/doctor/post-homepage/1";
+        } else {
+            model.addAttribute("posted", false);
+        }
+        model.addAttribute("title", "Doctor Tips Homepage");
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<Posts> postsListSelect = postsRepository.findAllByOrderByIdDesc(pageable);
+        model.addAttribute("postsList", postsListSelect);
+        model.addAttribute("currentPage", 1);
+        model.addAttribute("totalPages", postsListSelect.getTotalPages());
         addCommonData(model, principal);
-        return "redirect:/doctor/post-homepage/1";
+        return "doctor/doctor_post_homepage";
     }
+
+
 
     @PostMapping("/process-like")
     @Transactional

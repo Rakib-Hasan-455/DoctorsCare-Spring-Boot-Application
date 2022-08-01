@@ -38,7 +38,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("title", "Home | Doctors Care");
+        model.addAttribute("title", "Doctors Care | Home");
         return "index.html";
     }
 

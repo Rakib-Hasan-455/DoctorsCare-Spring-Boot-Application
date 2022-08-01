@@ -15,6 +15,7 @@ public class Posts {
 
     private Time postTime;
 
+    @Column(length = 10000)
     private String coverPhoto;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "posts")

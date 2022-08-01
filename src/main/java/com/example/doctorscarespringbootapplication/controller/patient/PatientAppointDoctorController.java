@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -61,10 +62,10 @@ public class PatientAppointDoctorController {
         String doctorFee = appointDoctorDTO.getDoctorFee(); // Doctor_Fee needed
         Time appointTime = appointDoctorDTO.getAppointmentTime(); // Appoint_Time needed
 
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime localDateTime = LocalDateTime.now();
 
-        String appointDate = localDateTime.format(dateTimeFormatter); // Appoint Date
+        Date appointDate = Date.valueOf(localDateTime.format(dateTimeFormatter)); // Appoint Date
 
         updateDoctorsAvailableTimeDB(doctorID, appointTime);
 

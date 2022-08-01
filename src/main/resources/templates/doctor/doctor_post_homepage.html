@@ -117,6 +117,7 @@
                 </div>
                 <hr class="mt-4"/>
                 <p th:if="${posted == true}" class="text-center alert alert-success  alert-dismissible ">Successfully Posted!</p>
+                <p th:if="${posted == false}" class="text-center alert alert-danger  alert-dismissible ">Posting Failed... Please Upload Images to Post!</p>
                 <p th:if="${postsaved == 'true'}" class="text-center alert alert-success  alert-dismissible ">Post Was Updated!</p>
 
                 <!-- posts -->

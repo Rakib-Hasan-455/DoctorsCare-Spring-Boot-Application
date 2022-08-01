@@ -86,7 +86,7 @@
 
     <div class="container table-responsive py-5 text-center w-75 mt-5 rounded-5 card "
          style="background-color: #A8E8CA50">
-        <h4 class="text-center py-2 pb-4 text-black text-opacity-75">Today's Appointments</h4>
+        <h4 class="text-center py-2 pb-4 text-black text-opacity-75">Today's Latest Appointments</h4>
         <table class="table table-bordered table-hover rounded-circle">
             <thead class="thead-dark">
             <tr style="background-color: #00C85185; color: white">
@@ -101,13 +101,18 @@
                 <td th:text="${appointments.id}"></td>
                 <td th:text="${appointments.appointmentTime}"></td>
                 <td th:text="${appointments.doctorID}"></td>
-                <td th:text="${appointments.doctorFee}"></td>
+                <td>৳<span th:text="${appointments.doctorFee}"></span></td>
             </tr>
             <tr th:if="${noDoctorAppointment == 'true'}" class="table-danger">
-                <td colspan="4">Currently There No Appointments Today!</td>
+                <td colspan="4">Currently There is No Appointments Today!</td>
             </tr>
             </tbody>
         </table>
+        <div class="container text-center pt-3">
+            <a th:href="@{/admin/appointment-logs/1}"
+               class="btn btn-outline-success float-right">View All
+                Appointments</a>
+        </div>
     </div>
 
 

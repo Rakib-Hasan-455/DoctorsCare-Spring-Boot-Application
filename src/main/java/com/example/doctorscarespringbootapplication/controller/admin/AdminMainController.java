@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -43,15 +44,16 @@ public class AdminMainController {
     public String adminHome(Model model, Principal principal) {
         model.addAttribute("title", "Admin Dashboard");
 //        Three cards data
-        DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         LocalDateTime now = LocalDateTime.now();
         String todayDate = dtfDate.format(now);
-        String todaysAppointmentCount = appointDoctorRepository.countAllByAppointmentDate(todayDate);
-        String todaysCompletedAppointment = prescriptionRepository.countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNull(todayDate);
+        String todaysAppointmentCount = appointDoctorRepository.countAllByAppointmentDate(Date.valueOf(todayDate));
+        String todaysCompletedAppointment = prescriptionRepository.countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNull(Date.valueOf(todayDate));
         model.addAttribute("todaysAppointment", todaysAppointmentCount);
         model.addAttribute("todaysCompletedAppointment", todaysCompletedAppointment);
 
-        String todaysGivenPrescriptions = prescriptionRepository.countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNull(todayDate);
+        String todaysGivenPrescriptions = prescriptionRepository.countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNull(Date.valueOf(todayDate));
         long totalPrescriptions = prescriptionRepository.count();
         model.addAttribute("todaysGivenPrescriptions", todaysGivenPrescriptions);
         model.addAttribute("totalGivenPrescriptions", totalPrescriptions);
@@ -71,8 +73,9 @@ public class AdminMainController {
         LocalDateTime value = localDateTime.minus(30, ChronoUnit.MINUTES);
         Time currentTimeMinus30 = Time.valueOf(dateTimeFormatter.format(value));
 
-        List<AppointDoctor> appointDoctorList = appointDoctorRepository.findAllByAppointmentDateOrderByAppointmentDateAsc(todayDate);
-        if (appointDoctorList.size() != 0) {
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<AppointDoctor> appointDoctorList = appointDoctorRepository.findAllByAppointmentDateOrderByIdDesc(Date.valueOf(todayDate), pageable);
+        if (appointDoctorList.getTotalElements() != 0) {
             model.addAttribute("appointDoctorList", appointDoctorList);
         } else {
             model.addAttribute("noDoctorAppointment", "true");
@@ -195,12 +198,7 @@ public class AdminMainController {
         return "admin/admin_doctor_list";
     }
 
-    @GetMapping("/earnings")
-    public String earnings(Model model, Principal principal) {
-        model.addAttribute("title", "Earnings");
-         addCommonData(model, principal);
-        return "admin/admin_earnings";
-    }
+
 
     @ModelAttribute
     public void addCommonData(Model model, Principal principal) {

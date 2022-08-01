@@ -1,6 +1,7 @@
 package com.example.doctorscarespringbootapplication.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Time;
 
 @Entity
@@ -19,12 +20,12 @@ public class AppointDoctor {
     @Basic
     private Time appointmentTime;
 
-    private String appointmentDate;
+    private Date appointmentDate;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "appointDoctor")
     private Prescription prescription;
 
-    public AppointDoctor(int id, String patientID, String doctorID, String doctorFee, Time appointmentTime, String appointmentDate) {
+    public AppointDoctor(int id, String patientID, String doctorID, String doctorFee, Time appointmentTime, Date appointmentDate) {
         this.id = id;
         this.patientID = patientID;
         this.doctorID = doctorID;
@@ -33,7 +34,7 @@ public class AppointDoctor {
         this.appointmentDate = appointmentDate;
     }
 
-    public AppointDoctor(String patientID, String doctorID, String doctorFee, Time appointmentTime, String appointmentDate) {
+    public AppointDoctor(String patientID, String doctorID, String doctorFee, Time appointmentTime, Date appointmentDate) {
         this.patientID = patientID;
         this.doctorID = doctorID;
         this.doctorFee = doctorFee;
@@ -41,7 +42,7 @@ public class AppointDoctor {
         this.appointmentDate = appointmentDate;
     }
 
-    public AppointDoctor(int id, String patientID, String doctorID, String doctorFee, Time appointmentTime, String appointmentDate, Prescription prescription) {
+    public AppointDoctor(int id, String patientID, String doctorID, String doctorFee, Time appointmentTime, Date appointmentDate, Prescription prescription) {
         this.id = id;
         this.patientID = patientID;
         this.doctorID = doctorID;
@@ -94,11 +95,11 @@ public class AppointDoctor {
         this.appointmentTime = appointmentTime;
     }
 
-    public String getAppointmentDate() {
+    public Date getAppointmentDate() {
         return appointmentDate;
     }
 
-    public void setAppointmentDate(String appointmentDate) {
+    public void setAppointmentDate(Date appointmentDate) {
         this.appointmentDate = appointmentDate;
     }
 
