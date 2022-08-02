@@ -46,8 +46,7 @@ public class AdminEarnings {
         model.addAttribute("title", "Earnings");
         addCommonData(model, principal);
 
-
-//        Income Short Stats 4 Cards
+        //        Income Short Stats 4 Cards
         String totalEarnings = appointDoctorRepository.sumAllAppointEarningNative();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -60,12 +59,12 @@ public class AdminEarnings {
             String earnUpDriftPercentString = dec.format(earnUpdriftPercent) + "%";
             model.addAttribute("totalEarnUpdrift", earnUpDriftPercentString);
         } else {
-            if (totalEarnings != null) {
-                model.addAttribute("totalEarnings", totalEarnings);
-            } else {
-                model.addAttribute("totalEarnings", "0.00");
-            }
             model.addAttribute("totalEarnUpdrift", "0.00%");
+        }
+        if (totalEarnings != null) {
+            model.addAttribute("totalEarnings", totalEarnings);
+        } else {
+            model.addAttribute("totalEarnings", "0.00");
         }
 
 
@@ -78,12 +77,12 @@ public class AdminEarnings {
             String earnUpDriftPercentString = dec.format(earnUpdriftPercent) + "%";
             model.addAttribute("totalEarnTodayUpdrift", earnUpDriftPercentString);
         } else {
-            if (totalEarnToday != null) {
-                model.addAttribute("totalEarnToday", totalEarnToday);
-            } else {
-                model.addAttribute("totalEarnToday", "0.00");
-            }
             model.addAttribute("totalEarnTodayUpdrift", "0.00%");
+        }
+        if (totalEarnToday != null) {
+            model.addAttribute("totalEarnToday", totalEarnToday);
+        } else {
+            model.addAttribute("totalEarnToday", "0.00");
         }
 
         LocalDateTime weeklyStartingDate =  localDateTime.minusDays(7);
@@ -95,12 +94,12 @@ public class AdminEarnings {
             String earnUpDriftPercentString = dec.format(earnUpdriftPercent) + "%";
             model.addAttribute("totalEarnWeeklyUpdrift", earnUpDriftPercentString);
         } else {
-            if (totalEarnWeekly != null) {
-                model.addAttribute("totalEarnWeekly", totalEarnWeekly);
-            } else {
-                model.addAttribute("totalEarnWeekly", "0.00");
-            }
             model.addAttribute("totalEarnWeeklyUpdrift", "0.00%");
+        }
+        if (totalEarnWeekly != null) {
+            model.addAttribute("totalEarnWeekly", totalEarnWeekly);
+        } else {
+            model.addAttribute("totalEarnWeekly", "0.00");
         }
 
         LocalDateTime monthlyStartingDate =  localDateTime.minusDays(30);
@@ -112,12 +111,12 @@ public class AdminEarnings {
             String earnUpDriftPercentString = dec.format(earnUpdriftPercent) + "%";
             model.addAttribute("totalEarnMonthlyUpdrift", earnUpDriftPercentString);
         } else {
-            if (totalEarnMonthly != null) {
-                model.addAttribute("totalEarnMonthly", totalEarnMonthly);
-            } else {
-                model.addAttribute("totalEarnMonthly", "0.00");
-            }
             model.addAttribute("totalEarnMonthlyUpdrift", "0.00%");
+        }
+        if (totalEarnMonthly != null) {
+            model.addAttribute("totalEarnMonthly", totalEarnMonthly);
+        } else {
+            model.addAttribute("totalEarnMonthly", "0.00");
         }
 
 
