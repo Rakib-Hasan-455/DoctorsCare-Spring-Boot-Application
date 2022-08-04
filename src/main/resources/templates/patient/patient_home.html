@@ -99,27 +99,25 @@
     <div class="container mt-5 mb-5 py-5 my-5 pb-5 pt-lg-5 bg-secondary bg-opacity-10 rounded-5 w-75">
         <h4 class="text-center"> All-time Top 3 Doctors!</h4>
         <div class="cards-list">
-            <div class="container mt-5 mt-5 text-center" th:if="${#lists.isEmpty(userList)}">
+            <div class="container mt-5 mt-5 text-center" th:if="${#lists.isEmpty(userListt)}">
                 <h2 style="color: lightcoral"> Currently there is no top doctor in this week!</h2>
             </div>
 
-            <div class="slideshow-container" th:if="${not #lists.isEmpty(userList)}">
-                <div th:each="userList: ${userList}">
+<!--            <div class="slideshow-container" th:if="${not #lists.isEmpty(userListt)}">-->
+                <div th:each="userListtt: ${userListt}">
                     <div class="mySlides fade">
-                        <a th:href="@{'/patient/appoint-doctor/'+${userList.id}}">
+                        <a th:href="@{'/patient/appoint-doctor/'+${userListtt.id}}">
                             <div class="card">
-                                <!--                    <div class="card_image" style="object-fit: cover">-->
-                                <img th:src="${userList.getImageURL()}" style="object-fit: cover" class="rounded-top"
+                                                    <div class="card_image" style="object-fit: cover">
+                                <img th:src="${userListtt.getImageURL()}" style="object-fit: cover" class="rounded-top"
                                      height="200" width="300px"/>
-                                <!--                    </div>-->
+                                                    </div>
                                 <div class="card_title title-white rounded-bottom">
-                                    <span th:text="${userList.name}"></span>
-                                    <h6>Specialist at <span th:text="${userList.getDoctorsAdditionalInfo().doctortype}"></span></h6>
-                                    <h5> Appoinement Fee: <span
-                                            th:text="${userList.getDoctorsAdditionalInfo().appointmentfee}"></span> tk
-                                    </h5>
-                                    <h6><span th:text="${userList.getDoctorsAdditionalInfo().degrees}"></span></h6>
-                                    <h6><span th:text="${userList.getDoctorsAdditionalInfo().medicalcollege}"></span>
+                                    <span th:text="${userListtt.name}"></span>
+                                    <h6>Specialist at <span th:text="${userListtt.getDoctorsAdditionalInfo().doctortype}"></span></h6>
+                                    <h5> Appoinement Fee: <span th:text="${userListtt.getDoctorsAdditionalInfo().appointmentfee}"></span> tk</h5>
+                                    <h6><span th:text="${userListtt.getDoctorsAdditionalInfo().degrees}"></span></h6>
+                                    <h6><span th:text="${userListtt.getDoctorsAdditionalInfo().medicalcollege}"></span>
                                     </h6>
                                 </div>
                             </div>
@@ -131,9 +129,9 @@
         <br/>
 
         <div style="text-align: center">
-            <span class="dot mx-3 px-4 rounded-pill" th:each="userList: ${userList}"></span>
+            <span class="dot mx-3 px-4 rounded-pill" th:each="userListtt: ${userList}"></span>
         </div>
-    </div>
+<!--    </div>-->
 
     <script>
         let slideIndex = 0;

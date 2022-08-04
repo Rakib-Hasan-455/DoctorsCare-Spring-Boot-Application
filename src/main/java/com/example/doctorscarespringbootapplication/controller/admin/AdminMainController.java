@@ -1,6 +1,7 @@
 package com.example.doctorscarespringbootapplication.controller.admin;
 
 
+import com.example.doctorscarespringbootapplication.configuration.EmailSenderServiceJava;
 import com.example.doctorscarespringbootapplication.dao.*;
 import com.example.doctorscarespringbootapplication.entity.AppointDoctor;
 import com.example.doctorscarespringbootapplication.entity.Prescription;
@@ -86,7 +87,9 @@ public class AdminMainController {
         List<String> top3DoctorsList = appointDoctorRepository.findTop3DoctorsNativeQuery();
         for (String s : top3DoctorsList) {
             User userX = userRepository.findById(Integer.parseInt(s));
-            userList.add(userX);
+            if (userX != null) {
+                userList.add(userX);
+            }
         }
         model.addAttribute("userList", userList);
         addCommonData(model, principal);
@@ -115,10 +118,47 @@ public class AdminMainController {
         System.out.println(sendMailTo);
         System.out.println(emailSubject);
         System.out.println(emailBody);
+
+        switch (sendMailTo) {
+            case "All Patients":
+                sendMailToAllPatients(emailSubject, emailBody);
+                break;
+            case "All Doctors":
+                sendMailToAllDoctors(emailSubject, emailBody);
+                break;
+            case "All Patients & Doctors":
+                sendMailToAllPatientsAndDoctors(emailSubject, emailBody);
+                break;
+        }
         model.addAttribute("title", "Email Sent Successful");
         model.addAttribute("emailSent", true);
         addCommonData(model, principal);
         return "admin/admin_email_service";
+    }
+
+    @Autowired
+    private EmailSenderServiceJava emailSenderServiceJava;
+
+    private void sendMailToAllPatients(String emailSubject, String emailBody) {
+        List<User> allPatientEmailList = userRepository.findByRole("ROLE_PATIENT");
+        for (User user : allPatientEmailList) {
+            emailSenderServiceJava.sendEmail(user.getEmail(), emailSubject , emailBody);
+        }
+
+    }
+
+    private void sendMailToAllDoctors(String emailSubject, String emailBody) {
+        List<User> allDoctorEmailList = userRepository.findByRole("ROLE_DOCTOR");
+        for (User user : allDoctorEmailList) {
+            emailSenderServiceJava.sendEmail(user.getEmail(), emailSubject , emailBody);
+        }
+    }
+
+    private void sendMailToAllPatientsAndDoctors(String emailSubject, String emailBody) {
+        List<User> allPatientAndDoctorEmailList = userRepository.findByRoleNative("ROLE_PATIENT", "ROLE_DOCTOR");
+        for (User user : allPatientAndDoctorEmailList) {
+            emailSenderServiceJava.sendEmail(user.getEmail(), emailSubject , emailBody);
+        }
     }
 
     @GetMapping("/appointment-logs/{page}")

@@ -82,7 +82,9 @@ public class DoctorMainController {
         List<String> top3DoctorsList = appointDoctorRepository.findTop3DoctorsNativeQuery();
         for (String s : top3DoctorsList) {
             User userX = userRepository.findById(Integer.parseInt(s));
-            userList.add(userX);
+            if (userX != null) {
+                userList.add(userX);
+            }
         }
         model.addAttribute("userList", userList);
         addCommonData(model, principal);

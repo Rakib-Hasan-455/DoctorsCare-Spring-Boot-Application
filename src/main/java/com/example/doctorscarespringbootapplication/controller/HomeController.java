@@ -1,5 +1,6 @@
 package com.example.doctorscarespringbootapplication.controller;
 
+import com.example.doctorscarespringbootapplication.configuration.EmailSenderServiceJava;
 import com.example.doctorscarespringbootapplication.dao.AppointDoctorRepository;
 import com.example.doctorscarespringbootapplication.dao.PrescriptionRepository;
 import com.example.doctorscarespringbootapplication.dao.UserRepository;
@@ -10,6 +11,8 @@ import com.example.doctorscarespringbootapplication.entity.User;
 import com.example.doctorscarespringbootapplication.configuration.commerz.SSLCommerz;
 import com.example.doctorscarespringbootapplication.configuration.commerz.Utility.ParameterBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -140,9 +143,8 @@ public class HomeController {
         return "doctor_signup";
     }
 
-
-
     @GetMapping("/login")
+//    @EventListener(ApplicationEvent.class)
     public String login() {
         return "login";
     }

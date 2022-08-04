@@ -17,6 +17,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     List<User> findByRole(String role);
 
+    @Query(value = "SELECT * FROM USER WHERE ROLE = :m or ROLE = :n", nativeQuery = true)
+    List<User> findByRoleNative(@Param("m") String rolePatient, @Param("n") String roleDoctor);
+
     List<User> findByRoleOrderByIdDesc(String role);
 
     Page<User> findByRoleOrderByIdDesc(String role, Pageable pageable);

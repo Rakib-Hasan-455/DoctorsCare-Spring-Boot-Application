@@ -88,11 +88,15 @@ public class PatientMainController {
 //        Top 3 doctors
         List<User> userList = new ArrayList<>();
         List<String> top3DoctorsList = appointDoctorRepository.findTop3DoctorsNativeQuery();
+        System.out.println("Top 3 " + top3DoctorsList);
         for (String s : top3DoctorsList) {
             User userX = userRepository.findById(Integer.parseInt(s));
-            userList.add(userX);
+            if (userX != null) {
+                userList.add(userX);
+            }
         }
-        model.addAttribute("userList", userList);
+        System.out.println("TOp user " + userList);
+        model.addAttribute("userListt", userList);
         addCommonData(model, principal);
         return "patient/patient_home";
     }

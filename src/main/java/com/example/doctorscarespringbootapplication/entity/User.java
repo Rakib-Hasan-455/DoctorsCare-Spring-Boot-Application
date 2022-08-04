@@ -27,7 +27,7 @@ public class User {
     @Valid
     @NotBlank(message = "Field Can't be blank")
 //    @Pattern(regexp = "\"^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{3,}$\"\n", message = "Password Should Be of Minimum eight characters, at least one letter and one number")
-    @Size(min = 5, max = 250, message = "Password must be within 3 - 250 characters!")
+    @Size(min = 5, max = 250, message = "Password must be within 5 - 250 characters!")
     private String password;
 
 //    @Column(length = 255)
