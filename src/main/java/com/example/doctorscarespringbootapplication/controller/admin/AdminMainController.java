@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.security.Principal;
 import java.sql.Date;
 import java.sql.Time;
@@ -114,7 +115,7 @@ public class AdminMainController {
     public String emailServiceProcess(@RequestParam("sendMailTo") String sendMailTo,
             @RequestParam("emailSubject") String emailSubject,
             @RequestParam("emailBody") String emailBody,
-            Model model, Principal principal) {
+            Model model, Principal principal) throws MessagingException {
         System.out.println(sendMailTo);
         System.out.println(emailSubject);
         System.out.println(emailBody);
@@ -139,23 +140,23 @@ public class AdminMainController {
     @Autowired
     private EmailSenderServiceJava emailSenderServiceJava;
 
-    private void sendMailToAllPatients(String emailSubject, String emailBody) {
-        List<User> allPatientEmailList = userRepository.findByRole("ROLE_PATIENT");
+    private void sendMailToAllPatients(String emailSubject, String emailBody) throws MessagingException {
+        List<User> allPatientEmailList = userRepository.findByRoleAndEnabled("ROLE_PATIENT", true);
         for (User user : allPatientEmailList) {
             emailSenderServiceJava.sendEmail(user.getEmail(), emailSubject , emailBody);
         }
 
     }
 
-    private void sendMailToAllDoctors(String emailSubject, String emailBody) {
-        List<User> allDoctorEmailList = userRepository.findByRole("ROLE_DOCTOR");
+    private void sendMailToAllDoctors(String emailSubject, String emailBody) throws MessagingException {
+        List<User> allDoctorEmailList = userRepository.findByRoleAndEnabled("ROLE_DOCTOR", true);
         for (User user : allDoctorEmailList) {
             emailSenderServiceJava.sendEmail(user.getEmail(), emailSubject , emailBody);
         }
     }
 
-    private void sendMailToAllPatientsAndDoctors(String emailSubject, String emailBody) {
-        List<User> allPatientAndDoctorEmailList = userRepository.findByRoleNative("ROLE_PATIENT", "ROLE_DOCTOR");
+    private void sendMailToAllPatientsAndDoctors(String emailSubject, String emailBody) throws MessagingException {
+        List<User> allPatientAndDoctorEmailList = userRepository.findByRoleAndEnabledNative("ROLE_PATIENT", "ROLE_DOCTOR");
         for (User user : allPatientAndDoctorEmailList) {
             emailSenderServiceJava.sendEmail(user.getEmail(), emailSubject , emailBody);
         }

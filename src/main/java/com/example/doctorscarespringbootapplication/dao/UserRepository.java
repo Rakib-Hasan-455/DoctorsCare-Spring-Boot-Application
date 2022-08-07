@@ -17,8 +17,14 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     List<User> findByRole(String role);
 
+    List<User> findByRoleAndEnabled(String role, boolean isEnabled);
+
+
     @Query(value = "SELECT * FROM USER WHERE ROLE = :m or ROLE = :n", nativeQuery = true)
     List<User> findByRoleNative(@Param("m") String rolePatient, @Param("n") String roleDoctor);
+
+    @Query(value = "SELECT * FROM USER WHERE ROLE = :m or ROLE = :n and enabled = true", nativeQuery = true)
+    List<User> findByRoleAndEnabledNative(@Param("m") String rolePatient, @Param("n") String roleDoctor);
 
     List<User> findByRoleOrderByIdDesc(String role);
 

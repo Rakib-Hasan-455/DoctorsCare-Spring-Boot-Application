@@ -21,7 +21,7 @@ public class User {
     @Valid
     @Column(unique = true)
     @NotBlank(message = "Email can't be blank")
-    @Pattern(regexp = "[a-z0-9]+.+@[a-z]+\\.[a-z]{2,3}", message = "Email is not valid!")
+//    @Pattern(regexp = "[a-z0-9]+.+@[a-z]+\\.[a-z]{2,3}", message = "Email is not valid!")
     private String email;
 
     @Valid
@@ -57,6 +57,9 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private DoctorsSchedule doctorsSchedule;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private AccountActiveToken accountActiveToken;
 
     public User() {
     }
@@ -132,6 +135,14 @@ public class User {
 
     public void setDoctorsAdditionalInfo(DoctorsAdditionalInfo doctorsAdditionalInfo) {
         this.doctorsAdditionalInfo = doctorsAdditionalInfo;
+    }
+
+    public AccountActiveToken getAccountActiveToken() {
+        return accountActiveToken;
+    }
+
+    public void setAccountActiveToken(AccountActiveToken accountActiveToken) {
+        this.accountActiveToken = accountActiveToken;
     }
 
     public int getId() {

@@ -3,7 +3,11 @@ package com.example.doctorscarespringbootapplication.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 @Service
 public class EmailSenderServiceJava {
@@ -13,12 +17,13 @@ public class EmailSenderServiceJava {
 
     public void sendEmail(String toEmail,
                                 String subject,
-                                String body) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("doctorscaremail@gmail.com");
-        message.setTo(toEmail);
-        message.setText(body);
-        message.setSubject(subject);
+                                String body) throws MessagingException {
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        helper.setFrom("doctorscaremail@gmail.com");
+        helper.setTo(toEmail);
+        helper.setSubject(subject);
+        helper.setText(body, true);
         javaMailSender.send(message);
         System.out.println("Mail Send...");
     }

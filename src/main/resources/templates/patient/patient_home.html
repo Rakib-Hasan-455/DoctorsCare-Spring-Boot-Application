@@ -103,7 +103,7 @@
                 <h2 style="color: lightcoral"> Currently there is no top doctor in this week!</h2>
             </div>
 
-<!--            <div class="slideshow-container" th:if="${not #lists.isEmpty(userListt)}">-->
+            <div class="slideshow-container" th:if="${not #lists.isEmpty(userListt)}">
                 <div th:each="userListtt: ${userListt}">
                     <div class="mySlides fade">
                         <a th:href="@{'/patient/appoint-doctor/'+${userListtt.id}}">
@@ -131,7 +131,7 @@
         <div style="text-align: center">
             <span class="dot mx-3 px-4 rounded-pill" th:each="userListtt: ${userList}"></span>
         </div>
-<!--    </div>-->
+    </div>
 
     <script>
         let slideIndex = 0;

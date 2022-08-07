@@ -15,7 +15,7 @@
                         <h2 class="text-center mb-3">Please sign in!</h2>
 
                         <form class="form-signin" method="post" th:action="@{/do_login}">
-                <div th:if="${param.error}" class="alert alert-danger"> Invalid Username or Password</div>
+                <div th:if="${param.error}" class="alert alert-danger text-center"> Invalid Username or Password! Can't remember password? Use forget password option.</div>
                 <div th:if="${param.logout}" class="alert alert-success"> You have been Logged Out</div>
 
                             <div class="m-4">
@@ -30,6 +30,7 @@
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
                             </div>
                         </form>
+                        <div  class="text-center pt-4"><a href="google.com">Forgot Password?</a></div>
                     </div>
                 </div>
             </div>
