@@ -122,6 +122,9 @@
 
                 <!-- posts -->
                 <!-- p 1 -->
+                <div th:if="${postsListSize == 0}" class="container text-center mt-5 pt-5 pb-5 px-5">
+                    <h2 style="color: lightcoral"> Sorry, Currently You Don't Have Any Doctors Tips Posts!</h2>
+                </div>
                 <div th:each="post : ${postsList}">
                     <p th:id="'deletePostLabel-'+${post.getId()}" class="text-center mt-3"></p>
                     <p class="text-center mt-3" th:id="'savedPost-'+${post.getId()}"></p>

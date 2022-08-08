@@ -83,6 +83,8 @@ public class DoctorPostHomepage {
         model.addAttribute("title", "Doctor Tips Homepage");
         Pageable pageable = PageRequest.of(0, 5);
         Page<Posts> postsListSelect = postsRepository.findAllByOrderByIdDesc(pageable);
+        System.out.println("Total Post = " +postsListSelect.getTotalElements());
+        model.addAttribute("postsListSize", postsListSelect.getTotalElements());
         model.addAttribute("postsList", postsListSelect);
         model.addAttribute("currentPage", 1);
         model.addAttribute("totalPages", postsListSelect.getTotalPages());

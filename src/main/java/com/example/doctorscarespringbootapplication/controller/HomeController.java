@@ -17,13 +17,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.sql.Date;
@@ -73,6 +71,8 @@ public class HomeController {
 
     @PostMapping("/process-patient-signup")
     public String patientSignupProcess(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model) throws IOException, MessagingException {
+        model.addAttribute("title", "Patient | Patient Signup");
+
         user.setRole("ROLE_PATIENT");
         user.setEnabled(false);
         user.setImageURL(user.getImageURL());
@@ -118,7 +118,7 @@ public class HomeController {
         userRepository.save(user);
 
         emailSenderServiceJava.sendEmail(user.getEmail(), "DoctorsCare Account Verification",
-                "<h4>Dear Patient, <br> To verify your account please click this link.<h4> <h3><a target=\"_blank\" href=\"http://localhost:8080/verify-account?token="+user.getAccountActiveToken().getToken()+"\"> Click Here To Active Your Account</a></h3>" +
+                "<h4>Dear Patient, <br> To verify your account please click this link.<h4> <h3><a target=\"_blank\" href=\"https://doctors-care-application.herokuapp.com/verify-account?token="+user.getAccountActiveToken().getToken()+"\"> Click Here To Active Your Account</a></h3>" +
                         "<h4>Regards,<br>" +
                         "Doctors Care Team</h4>");
         return "patient_signup";
@@ -133,6 +133,8 @@ public class HomeController {
 
     @PostMapping("process-doctor-signup")
     public String doctorSignupProcess(@Valid @ModelAttribute DoctorSignup doctorSignup, BindingResult bindingResult, Model model) throws MessagingException {
+        model.addAttribute("title", "Doctor | Doctor Signup");
+
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         User user = new User(doctorSignup.getName(), doctorSignup.getEmail(), doctorSignup.getPassword(), doctorSignup.getAbout(), doctorSignup.getDOB(), doctorSignup.getPhone(), doctorSignup.getAddress());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -195,7 +197,7 @@ public class HomeController {
         userRepository.save(user);
 
         emailSenderServiceJava.sendEmail(user.getEmail(), "DoctorsCare Account Verification",
-                "<h4>Dear Doctor, <br> To verify your account please click this link.<h4> <h3><a target=\"_blank\" href=\"http://localhost:8080/verify-account?token="+user.getAccountActiveToken().getToken()+"\"> Click Here To Active Your Account</a></h3>" +
+                "<h4>Dear Doctor, <br> To verify your account please click this link.<h4> <h3><a target=\"_blank\" href=\"https://doctors-care-application.herokuapp.com/verify-account?token="+user.getAccountActiveToken().getToken()+"\"> Click Here To Active Your Account</a></h3>" +
                         "<h4>Regards,<br>" +
                         "Doctors Care Team</h4>");
         return "doctor_signup";
@@ -240,8 +242,98 @@ public class HomeController {
 
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model) {
+        model.addAttribute("title", "Login to account");
         return "login";
+    }
+
+    @GetMapping("/forgot-password")
+    public String forgotPassword(Model model) {
+        model.addAttribute("title", "Forgot Password");
+        model.addAttribute("sendOtpDiv", true);
+        model.addAttribute("verifyOtpDiv", false);
+        model.addAttribute("changePasswordDiv", false);
+        return "forgot_password";
+    }
+
+    @GetMapping("/send-otp")
+    public String sendOTP(@RequestParam String email, Model model, HttpSession httpSession) throws MessagingException {
+        model.addAttribute("title", "Forgot Password");
+        User user = userRepository.getUserByEmailNative(email);
+        if (user != null && !user.getRole().equals("ROLE_ADMIN")) {
+            if (!user.isEnabled() && user.getAccountActiveToken().isEmailIsVerified()) {
+                model.addAttribute("accountDisabled", true);
+                model.addAttribute("sendOtpDiv", true);
+                model.addAttribute("verifyOtpDiv", false);
+                model.addAttribute("changePasswordDiv", false);
+            } else if (!user.isEnabled() && !user.getAccountActiveToken().isEmailIsVerified()) {
+                model.addAttribute("accountNotVerified", true);
+                model.addAttribute("sendOtpDiv", true);
+                model.addAttribute("verifyOtpDiv", false);
+                model.addAttribute("changePasswordDiv", false);
+            } else {
+                model.addAttribute("title", "Enter Your OTP");
+                model.addAttribute("sendOtpDiv", false);
+                model.addAttribute("verifyOtpDiv", true);
+                model.addAttribute("changePasswordDiv", false);
+                String forgotPassOTP = String.valueOf((int) (Math.random() * (999999 - 999)) + 999);
+                emailSenderServiceJava.sendEmail(email, "Doctors Care OTP Verification", "<h3>Dear user,<br>" +
+                        "To change your password you need to use this OTP code. <br>" +
+                        "Your OTP code is </h3> <h2>"+forgotPassOTP+"</h2> " +
+                        "<h3>Regards,<br>" +
+                        "Doctors Care Team.</h3>");
+                httpSession.setAttribute("forgotPassOTP", forgotPassOTP);
+                httpSession.setAttribute("forgotPassEmail", email);
+            }
+        } else {
+            model.addAttribute("invalidEmail", true);
+            model.addAttribute("sendOtpDiv", true);
+            model.addAttribute("verifyOtpDiv", false);
+            model.addAttribute("changePasswordDiv", false);
+        }
+        return "forgot_password";
+    }
+
+    @PostMapping("/change-password")
+    public String changePassword(@RequestParam String newPassword, @RequestParam String confirmPassword, Model model, HttpSession httpSession) {
+        model.addAttribute("title", "Change Your Password");
+        System.out.println(newPassword);
+        System.out.println(confirmPassword);
+        if (newPassword.equals(confirmPassword)) {
+            String passChangerEmail = (String) httpSession.getAttribute("forgotPassEmail");
+            User user = userRepository.getUserByEmailNative(passChangerEmail);
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userRepository.save(user);
+            model.addAttribute("title", "Change Password Successful!");
+            model.addAttribute("passwordChanged", true);
+        } else {
+            model.addAttribute("title", "Change Password Unsuccessful!");
+            model.addAttribute("passwordChanged", false);
+        }
+        model.addAttribute("sendOtpDiv", false);
+        model.addAttribute("verifyOtpDiv", false);
+        model.addAttribute("changePasswordDiv", true);
+        return "forgot_password";
+    }
+
+    @GetMapping("/verify-otp")
+    public String verifyOTP(@RequestParam String OTP, Model model, HttpSession httpSession) {
+        model.addAttribute("title", "Enter Your OTP");
+        String generatedOTP = (String) httpSession.getAttribute("forgotPassOTP");
+        if (generatedOTP.equals(OTP)) {
+            model.addAttribute("title", "Change Your Password");
+            model.addAttribute("sendOtpDiv", false);
+            model.addAttribute("verifyOtpDiv", false);
+            model.addAttribute("changePasswordDiv", true);
+        } else {
+            model.addAttribute("title", "OTP Doesn't Match. Enter Your OTP Again");
+            model.addAttribute("OTPNotMatch", true);
+            model.addAttribute("sendOtpDiv", false);
+            model.addAttribute("verifyOtpDiv", true);
+            model.addAttribute("changePasswordDiv", false);
+        }
+        return "forgot_password";
     }
 
     @GetMapping("/test-payment")
