@@ -12,6 +12,7 @@ import com.example.doctorscarespringbootapplication.entity.AppointDoctorTransact
 import com.example.doctorscarespringbootapplication.entity.Prescription;
 import com.example.doctorscarespringbootapplication.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ import java.util.Map;
 import java.util.Random;
 
 @Controller
+@ComponentScan
 @RequestMapping("/patient")
 public class PatientAppointDoctorController {
 
