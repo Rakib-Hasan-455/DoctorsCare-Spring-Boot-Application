@@ -92,7 +92,7 @@ public class HomeController {
             model.addAttribute("imageUpload", false);
         }
 
-        String token = getRandomTokenString();
+        String token = getRandomTokenString()+userRepository.nextHibernateSequenceNative();
         AccountActiveToken accountActiveToken = new AccountActiveToken();
         accountActiveToken.setToken(token);
         LocalDateTime localDateTime = LocalDateTime.now();
@@ -161,7 +161,7 @@ public class HomeController {
             bindingResult.rejectValue("imageURL", "error.user", "You must upload an Image.");
         }
 
-        String token = getRandomTokenString();
+        String token = getRandomTokenString()+userRepository.nextHibernateSequenceNative();
         AccountActiveToken accountActiveToken = new AccountActiveToken();
         accountActiveToken.setToken(token);
         LocalDateTime localDateTime = LocalDateTime.now();
@@ -336,22 +336,9 @@ public class HomeController {
         return "forgot_password";
     }
 
-    @GetMapping("/test-payment")
-    public RedirectView payTest() throws Exception {
-        Map<String, String>  transactionMap = ParameterBuilder.constructRequestParameters();
-        SSLCommerz sslCommerz = new SSLCommerz("abc62bdc6438f3c5", "abc62bdc6438f3c5@ssl", true);
-        String url = sslCommerz.initiateTransaction(transactionMap, false);
-        RedirectView redirectView = new RedirectView();
-        redirectView.setUrl(url);
-        return redirectView;
+    @GetMapping("/test-nextId")
+    @ResponseBody
+    public String payTest() throws Exception {
+        return userRepository.nextHibernateSequenceNative()+" This is next id?";
     }
-
-    @GetMapping("/test-payment-success")
-    public String payTestSuccess() {
-        return "dummy";
-    }
-
-
-
-
 }

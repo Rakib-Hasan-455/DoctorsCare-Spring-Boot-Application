@@ -1,5 +1,9 @@
 package com.example.doctorscarespringbootapplication.configuration.commerz;
 
+import com.example.doctorscarespringbootapplication.dao.AppointDoctorTransactionRepository;
+import com.example.doctorscarespringbootapplication.entity.AppointDoctorTransaction;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Map;
 
 /**
@@ -15,16 +19,19 @@ public class TransactionResponseValidator {
      * @throws Exception
      * Send Received params from your success resoponse (POST ) in this Map</>
      */
+    @Autowired
+    private AppointDoctorTransactionRepository appointDoctorTransactionRepository;
     public boolean receiveSuccessResponse(Map<String, String> request) throws Exception {
 
         String trxId = request.get("tran_id");
         /**
          *Get your AMOUNT and Currency FROM DB to initiate this Transaction
          */
-        String amount = "150";
+        AppointDoctorTransaction appointDoctorTransaction = appointDoctorTransactionRepository.findByTxid(trxId);
+        String amount = appointDoctorTransaction.getDoctorFee();
         String currency = "BDT";
         // Set your store Id and store password and define TestMode
-        SSLCommerz sslcz = new SSLCommerz("abc62bdc6438f3c5", "abc62bdc6438f3c5@ssl", true);
+        SSLCommerz sslcz = new SSLCommerz("docto62f28257d4314", "docto62f28257d4314@ssl", true);
 
         /**
          * If following order validation returns true, then process transaction as success.

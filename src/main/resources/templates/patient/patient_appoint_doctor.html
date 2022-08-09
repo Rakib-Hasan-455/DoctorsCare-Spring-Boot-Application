@@ -25,7 +25,7 @@
                 </h4>
 
                 <div th:if="${currentHour < 15}">
-                <form th:action="@{/patient/appoint-doctor/success}" method="post">
+                <form th:action="@{/patient/appoint-doctor/attempt-payment}" method="post">
                     <input type="hidden" name="doctorID" th:value="${userList.id}"/>
                     <input type="hidden" name="doctorFee" th:value="${userList.getDoctorsAdditionalInfo().appointmentfee}"/>
 
