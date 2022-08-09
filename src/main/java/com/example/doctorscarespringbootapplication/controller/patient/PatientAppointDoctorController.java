@@ -104,6 +104,8 @@ public class PatientAppointDoctorController {
         String patientID = principal.getName(); // Patient_ID needed
         String transactionId = requestMap.get("tran_id");
         AppointDoctorTransaction appointDoctorTransaction = appointDoctorTransactionRepository.findByTxid(transactionId); // Fetching from database
+        appointDoctorTransaction.setTransactionStatus("Paid");
+        appointDoctorTransactionRepository.save(appointDoctorTransaction);
         String doctorID = appointDoctorTransaction.getDoctorId(); // Doctor_ID needed
         String doctorFee = appointDoctorTransaction.getDoctorFee(); // Doctor_Fee needed
         Time appointTime = appointDoctorTransaction.getAppointmentTime(); // Appoint_Time needed
