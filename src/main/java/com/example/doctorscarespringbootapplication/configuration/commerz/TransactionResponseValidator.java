@@ -29,6 +29,7 @@ public class TransactionResponseValidator {
          */
         AppointDoctorTransaction appointDoctorTransaction = appointDoctorTransactionRepository.findByTxid(trxId);
         String amount = appointDoctorTransaction.getDoctorFee();
+//        String amount = "150";
         String currency = "BDT";
         // Set your store Id and store password and define TestMode
         SSLCommerz sslcz = new SSLCommerz("docto62f28257d4314", "docto62f28257d4314@ssl", true);

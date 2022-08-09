@@ -24,7 +24,7 @@ public class TransactionInitiator {
              * Provide your SSL Commerz store Id and Password by this following constructor.
              * If Test Mode then insert true and false otherwise.
              */
-            SSLCommerz sslcz = new SSLCommerz("abc62bdc6438f3c5", "abc62bdc6438f3c5@ssl", true);
+            SSLCommerz sslcz = new SSLCommerz("docto62f28257d4314", "docto62f28257d4314@ssl", true);
 
             /**
              * If user want to get Gate way list then pass isGetGatewayList parameter as true
