@@ -92,6 +92,7 @@ public class PatientAppointDoctorController {
         Map<String, String> transactionMap = ParameterBuilder.constructRequestParam(baseurl, doctorFee, appointDrTxId, patientUser.getName());
         SSLCommerz sslCommerz = new SSLCommerz("docto62f28257d4314", "docto62f28257d4314@ssl", true);
         String url = sslCommerz.initiateTransaction(transactionMap, false);
+        System.out.println(url);
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl(url);
         return redirectView;
