@@ -90,7 +90,6 @@ public class ParameterBuilder {
         postData.put("ship_state", "State Nam");
         postData.put("ship_postcode", "Post Cod");
         postData.put("ship_country", "Country");
-        postData.put("ipn_url", "https://doctors-care-application.herokuapp.com/patient/appoint-doctor/pay-success-validator");
         return postData;
     }
 
