@@ -103,6 +103,7 @@ public class PatientAppointDoctorController {
         appointDoctor.setPrescription(prescription);
         prescription.setAppointDoctor(appointDoctor);
         model.addAttribute("appointDoctor", appointDoctor);
+        model.addAttribute("transactionId", transactionId);
         appointDoctorRepository.save(appointDoctor);
         return "patient/patient_appoint_doctor_success";
     }
