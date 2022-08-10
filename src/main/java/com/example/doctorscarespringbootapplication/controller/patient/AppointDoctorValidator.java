@@ -10,6 +10,7 @@ import com.example.doctorscarespringbootapplication.entity.AppointDoctorTransact
 import com.example.doctorscarespringbootapplication.entity.Prescription;
 import com.example.doctorscarespringbootapplication.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 @RestController
+@ComponentScan
 public class AppointDoctorValidator {
     @Autowired
     private UserRepository userRepository;
@@ -36,7 +38,7 @@ public class AppointDoctorValidator {
 
     @Autowired
     private AppointDoctorTransactionRepository appointDoctorTransactionRepository;
-    @PostMapping("/appoint-doctor/success")
+    @PostMapping("/patient/appoint-doctor/success")
     public String patientAppointDoctorSuccess(@RequestParam Map<String, String> requestMap, Model model, Principal principal) {
         model.addAttribute("title", "Appoint Doctor Successful");
         String patientID = principal.getName(); // Patient_ID needed

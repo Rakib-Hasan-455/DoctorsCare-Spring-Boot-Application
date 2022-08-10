@@ -87,7 +87,6 @@ public class SSLCommerz {
      * @throws Exception
      */
     public String initiateTransaction(Map<String, String> postData, boolean isGetGatewayList) throws Exception {
-
         postData.put("store_id", this.storeId);
         postData.put("store_passwd", this.storePass);
         String response = this.sendPost(postData);
@@ -109,6 +108,7 @@ public class SSLCommerz {
     }
 
     private String sendPost(Map<String, String> postData) throws IOException {
+        System.out.println(this.sslczURL + this.submitURL);
         String response = SSLCommerz.post(this.sslczURL + this.submitURL, postData);
         return response;
     }
@@ -137,7 +137,7 @@ public class SSLCommerz {
         con.setReadTimeout(5000);
 
         con.setInstanceFollowRedirects(false);
-        con.setRequestProperty("Content-Type", "application/dumbFile-www-form-urlencoded");
+        con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         con.setRequestProperty("charset", "utf-8");
         con.setRequestProperty("Content-Length", Integer.toString(postDataLength));
         con.setUseCaches(false);
@@ -171,8 +171,8 @@ public class SSLCommerz {
      * @throws IOException
      * @throws NoSuchAlgorithmException
      */
-    public boolean orderValidate(String merchantTrnxnId, String merchantTrnxnAmount, String merchantTrnxnCurrency,
-                                 Map<String, String> requestParameters) throws IOException, NoSuchAlgorithmException {
+    boolean orderValidate(String merchantTrnxnId, String merchantTrnxnAmount, String merchantTrnxnCurrency,
+                          Map<String, String> requestParameters) throws IOException, NoSuchAlgorithmException {
         boolean hash_verified = this.ipnHashVerify(requestParameters);
         if (hash_verified) {
 

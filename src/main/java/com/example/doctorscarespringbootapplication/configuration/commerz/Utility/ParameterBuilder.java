@@ -35,7 +35,7 @@ public class ParameterBuilder {
         Map<String, String> postData = new HashMap<String, String>();
         postData.put("total_amount", "150.00");
         postData.put("tran_id", "TESTASPNET1234");
-        postData.put("success_url", baseUrl + "appoint-doctor/success");
+        postData.put("success_url", baseUrl + "patient/appoint-doctor/success");
         postData.put("fail_url", "https://sandbox.sslcommerz.com/developer/fail.php");
         postData.put("cancel_url", "https://sandbox.sslcommerz.com/developer/cancel.php");
         postData.put("version", "3.00");
@@ -64,13 +64,14 @@ public class ParameterBuilder {
         return postData;
     }
 
-    public static Map<String, String> constructRequestParam(String baseUrl, String payment, String transactionID, String patientName) {
+    public static Map<String, String> constructRequestParam(String payment, String transactionID, String patientName) {
         // CREATING LIST OF POST DATA
         //baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
+        String baseUrl = "https://doctors-care-application.herokuapp.com/";//Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
         Map<String, String> postData = new HashMap<String, String>();
         postData.put("total_amount", payment);
         postData.put("tran_id", transactionID);
-        postData.put("success_url", baseUrl + "appoint-doctor/success");
+        postData.put("success_url", baseUrl + "patient/appoint-doctor/success");
         postData.put("fail_url", "https://sandbox.sslcommerz.com/developer/fail.php");
         postData.put("cancel_url", "https://sandbox.sslcommerz.com/developer/cancel.php");
         postData.put("version", "3.00");
@@ -83,7 +84,7 @@ public class ParameterBuilder {
         postData.put("cus_country", "Bangladesh");
         postData.put("cus_phone", "0111111111");
         postData.put("cus_fax", "0171111111");
-        postData.put("ship_name", "Doctors Care");
+        postData.put("ship_name", "Doctor-ABC");
         postData.put("ship_add1", "Address Line On");
         postData.put("ship_add2", "Address Line Tw");
         postData.put("ship_city", "City Nam");
@@ -92,5 +93,4 @@ public class ParameterBuilder {
         postData.put("ship_country", "Country");
         return postData;
     }
-
 }

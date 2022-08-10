@@ -89,7 +89,9 @@ public class PatientAppointDoctorController {
         User patientUser = userRepository.getUserByEmailNative(principal.getName());
         String baseurl = "https://doctors-care-application.herokuapp.com/";
 //        SSL redirect to payment
-        Map<String, String> transactionMap = ParameterBuilder.constructRequestParam(baseurl, doctorFee, appointDrTxId, patientUser.getName());
+        Map<String, String> transactionMap = ParameterBuilder.constructRequestParam(doctorFee, appointDrTxId, patientUser.getName());
+//        Map<String, String> transactionMap = ParameterBuilder.constructRequestParameters();
+
         SSLCommerz sslCommerz = new SSLCommerz("docto62f28257d4314", "docto62f28257d4314@ssl", true);
         String url = sslCommerz.initiateTransaction(transactionMap, false);
         System.out.println(url);
