@@ -342,7 +342,7 @@ public class HomeController {
         return userRepository.nextHibernateSequenceNative()+" This is next id?";
     }
 
-    @PostMapping(value = "/handle-payment")
+    @GetMapping(value = "/handle-payment")
     public RedirectView payTestHandle() throws Exception {
         Map<String, String> transactionMap = ParameterBuilder.constructRequestParameters();
 
