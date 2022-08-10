@@ -32,7 +32,7 @@
                     <div class="mb-1 px-3">
                     <label class="form-label h6 mt-3 mb-4"> Get Appointment at
                         <select required name="appointmentTime" class="form-select">
-                        <option selected disabled>(select time)</option>
+                        <option disabled>(select time)</option>
                         <option th:if="${userList.getDoctorsSchedule()._10_00}" value="10:00:00">10:00 AM</option>
                         <option th:if="${userList.getDoctorsSchedule()._10_30}" value="10:30:00">10:30 AM</option>
                         <option th:if="${userList.getDoctorsSchedule()._11_00}" value="11:00:00">11:00 AM</option>
