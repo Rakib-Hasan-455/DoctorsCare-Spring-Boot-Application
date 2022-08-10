@@ -77,7 +77,7 @@ public class PatientAppointDoctorController {
         return sb.toString();
     }
 
-    @GetMapping("/patient/appoint-doctor/success")
+    @GetMapping("/appoint-doctor/success")
     public String patientAppointDoctorSuccess(@RequestParam Map<String, String> requestMap, Model model, Principal principal) {
         model.addAttribute("title", "Appoint Doctor Successful");
         String patientID = principal.getName(); // Patient_ID needed
