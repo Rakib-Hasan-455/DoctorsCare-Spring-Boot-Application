@@ -341,4 +341,17 @@ public class HomeController {
     public String payTest() throws Exception {
         return userRepository.nextHibernateSequenceNative()+" This is next id?";
     }
+
+    @PostMapping(value = "/handle-payment")
+    public RedirectView payTestHandle() throws Exception {
+        Map<String, String> transactionMap = ParameterBuilder.constructRequestParameters();
+
+        SSLCommerz sslCommerz = new SSLCommerz("docto62c031c5a653e", "docto62c031c5a653e@ssl", true);
+        String url = sslCommerz.initiateTransaction(transactionMap, false);
+        System.out.println("The url: " + url);
+        System.out.println("after previous url");
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl(url);
+        return redirectView;
+    }
 }
