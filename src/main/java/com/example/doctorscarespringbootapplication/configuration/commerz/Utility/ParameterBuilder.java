@@ -35,7 +35,7 @@ public class ParameterBuilder {
         Map<String, String> postData = new HashMap<String, String>();
         postData.put("total_amount", "150.00");
         postData.put("tran_id", "TESTASPNET1234");
-        postData.put("success_url", baseUrl + "patient/appoint-doctor/success");
+        postData.put("success_url", baseUrl + "appoint-doctor/success");
         postData.put("fail_url", "https://sandbox.sslcommerz.com/developer/fail.php");
         postData.put("cancel_url", "https://sandbox.sslcommerz.com/developer/cancel.php");
         postData.put("version", "3.00");
@@ -60,7 +60,7 @@ public class ParameterBuilder {
         postData.put("value_b", "ref00");
         postData.put("value_c", "ref00");
         postData.put("value_d", "ref00");
-        postData.put("ipn_url", "https://doctors-care-application.herokuapp.com/patient/appoint-doctor/pay-success-validator");
+        postData.put("ipn_url", "https://doctors-care-application.herokuapp.com/pay-success-validator");
         return postData;
     }
 
@@ -70,7 +70,7 @@ public class ParameterBuilder {
         Map<String, String> postData = new HashMap<String, String>();
         postData.put("total_amount", payment);
         postData.put("tran_id", transactionID);
-        postData.put("success_url", baseUrl + "patient/appoint-doctor/success");
+        postData.put("success_url", baseUrl + "appoint-doctor/success");
         postData.put("fail_url", "https://sandbox.sslcommerz.com/developer/fail.php");
         postData.put("cancel_url", "https://sandbox.sslcommerz.com/developer/cancel.php");
         postData.put("version", "3.00");

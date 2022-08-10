@@ -99,35 +99,7 @@ public class PatientAppointDoctorController {
     }
 
 
-    @PostMapping("/appoint-doctor/success")
-    public String patientAppointDoctorSuccess(@RequestParam Map<String, String> requestMap, Model model, Principal principal) {
-        model.addAttribute("title", "Appoint Doctor Successful");
-        String patientID = principal.getName(); // Patient_ID needed
-        String transactionId = requestMap.get("tran_id");
-        AppointDoctorTransaction appointDoctorTransaction = appointDoctorTransactionRepository.findByTxid(transactionId); // Fetching from database
-        appointDoctorTransaction.setTransactionStatus("Paid");
-        appointDoctorTransactionRepository.save(appointDoctorTransaction);
-        String doctorID = appointDoctorTransaction.getDoctorId(); // Doctor_ID needed
-        String doctorFee = appointDoctorTransaction.getDoctorFee(); // Doctor_Fee needed
-        Time appointTime = appointDoctorTransaction.getAppointmentTime(); // Appoint_Time needed
 
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDateTime localDateTime = LocalDateTime.now();
-
-        Date appointDate = Date.valueOf(localDateTime.format(dateTimeFormatter)); // Appoint Date
-
-        updateDoctorsAvailableTimeDB(doctorID, appointTime);
-
-        AppointDoctor appointDoctor = new AppointDoctor(patientID, doctorID, doctorFee, appointTime, appointDate);
-        appointDoctor = appointDoctorRepository.save(appointDoctor);
-        Prescription prescription = new Prescription();
-        prescription.setId(appointDoctor.getId());
-        appointDoctor.setPrescription(prescription);
-        prescription.setAppointDoctor(appointDoctor);
-        model.addAttribute("appointDoctor", appointDoctor);
-        appointDoctorRepository.save(appointDoctor);
-        return "patient/patient_appoint_doctor_success";
-    }
 
     private void updateDoctorsAvailableTimeDB(String doctorID, Time appointTime) {
         User userList = this.userRepository.findById(Integer.parseInt(doctorID));
