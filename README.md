@@ -88,10 +88,13 @@ Admin Earnings Statistics <br>
 <li> JavaScript </li>
 <li> Thymeleaf </li>
 <li> Boxicons Icons </li>
+
 <br>
 <b> Library & Resources was used</b>
 <li> Simple Image Upload (Heroku Plugins)</li>
 <li> ClearDB for MySQL Database (Heroku Plugins)</li>
+<li> TinyMCE (TextField Editor) </li>
+
 <br>
 <b> Backend </b>
 <li> Spring Boot </li>
