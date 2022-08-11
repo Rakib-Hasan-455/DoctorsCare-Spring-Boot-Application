@@ -100,6 +100,10 @@ public class PatientAppointDoctorController {
         appointDoctor = appointDoctorRepository.save(appointDoctor);
         Prescription prescription = new Prescription();
         prescription.setId(appointDoctor.getId());
+        prescription.setSymptoms("");
+        prescription.setTests(" ");
+        prescription.setAdvice(" ");
+        prescription.setMedicines(" ");
         appointDoctor.setPrescription(prescription);
         prescription.setAppointDoctor(appointDoctor);
         model.addAttribute("appointDoctor", appointDoctor);
