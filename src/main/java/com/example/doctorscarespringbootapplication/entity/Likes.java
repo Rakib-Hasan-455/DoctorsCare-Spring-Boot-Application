@@ -7,10 +7,8 @@ public class Likes {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
     @ManyToOne
     private Posts posts;
-
     private String likerId;
 
     public Likes(int id, Posts post, String likerId) {

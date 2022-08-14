@@ -5,7 +5,7 @@
 }
 
 html {
-    scroll-padding:90px;
+    scroll-padding: 90px;
 }
 
 body {
@@ -54,6 +54,7 @@ body {
     border: 2px solid #fff;
     color: #fff;
 }
+
 .cta .cta-btn:hover {
     background: #fff;
     color: #3fbbc0;
@@ -68,18 +69,22 @@ body {
     font-weight: 600;
     font-size: 26px;
 }
+
 .about .content ul {
     list-style: none;
     padding: 0;
 }
+
 .about .content ul li {
     padding-bottom: 10px;
 }
+
 .about .content ul i {
     font-size: 20px;
     padding-right: 4px;
     color: #3fbbc0;
 }
+
 .about .content p:last-child {
     margin-bottom: 0;
 }
@@ -101,12 +106,14 @@ body {
     padding: 8px;
     border: 2px dotted #c5ebec;
 }
+
 .contact .info-box h3 {
     font-size: 20px;
     color: #777777;
     font-weight: 700;
     margin: 10px 0;
 }
+
 .contact .info-box p {
     padding: 0;
     line-height: 24px;
@@ -121,13 +128,16 @@ body {
 .testimonials {
     background: rgba(186, 250, 231, 0.74);
 }
+
 .testimonials .testimonials-carousel, .testimonials .testimonials-slider {
     overflow: hidden;
 }
+
 .testimonials .testimonial-item {
     box-sizing: content-box;
     min-height: 320px;
 }
+
 .testimonials .testimonial-item .testimonial-img {
     width: 90px;
     border-radius: 50%;
@@ -136,32 +146,38 @@ body {
     z-index: 2;
     border: 6px solid #fff;
 }
+
 .testimonials .testimonial-item h3 {
     font-size: 18px;
     font-weight: bold;
     margin: 10px 0 5px 45px;
     color: #111;
 }
+
 .testimonials .testimonial-item h4 {
     font-size: 14px;
     color: #999;
     margin: 0 0 0 45px;
 }
+
 .testimonials .testimonial-item .quote-icon-left, .testimonials .testimonial-item .quote-icon-right {
     color: #b2e4e6;
     font-size: 26px;
 }
+
 .testimonials .testimonial-item .quote-icon-left {
     display: inline-block;
     left: -5px;
     position: relative;
 }
+
 .testimonials .testimonial-item .quote-icon-right {
     display: inline-block;
     right: -5px;
     position: relative;
     top: 10px;
 }
+
 .testimonials .testimonial-item p {
     font-style: italic;
     margin: 0 15px 0 15px;
@@ -172,10 +188,12 @@ body {
     position: relative;
     z-index: 1;
 }
+
 .testimonials .swiper-pagination {
     margin-top: 20px;
     position: relative;
 }
+
 .testimonials .swiper-pagination .swiper-pagination-bullet {
     width: 12px;
     height: 12px;
@@ -183,6 +201,7 @@ body {
     opacity: 1;
     border: 1px solid #3fbbc0;
 }
+
 .testimonials .swiper-pagination .swiper-pagination-bullet-active {
     background-color: #3fbbc0;
 }

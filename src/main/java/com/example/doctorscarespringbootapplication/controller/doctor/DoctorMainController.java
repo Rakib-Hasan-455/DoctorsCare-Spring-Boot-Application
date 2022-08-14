@@ -50,18 +50,18 @@ public class DoctorMainController {
 
         LocalDateTime now = LocalDateTime.now();
         String todayDate = dtfDate.format(now);
-        String todaysAppointmentCount = appointDoctorRepository.countAllByAppointmentDateAndDoctorID(Date.valueOf(todayDate), user.getId()+"");
-        String todaysCompletedAppointment = prescriptionRepository.countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNullAndAppointDoctorDoctorID(Date.valueOf(todayDate), user.getId()+"");
+        String todaysAppointmentCount = appointDoctorRepository.countAllByAppointmentDateAndDoctorID(Date.valueOf(todayDate), user.getId() + "");
+        String todaysCompletedAppointment = prescriptionRepository.countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNullAndAppointDoctorDoctorID(Date.valueOf(todayDate), user.getId() + "");
         model.addAttribute("todaysAppointment", todaysAppointmentCount);
         model.addAttribute("todaysCompletedAppointment", todaysCompletedAppointment);
 
-        String todaysGivenPrescriptions = prescriptionRepository.countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNullAndAppointDoctorDoctorID(Date.valueOf(todayDate), user.getId()+"");
-        String totalPrescriptions = prescriptionRepository.countAllByAppointDoctorDoctorID(user.getId()+"");
+        String todaysGivenPrescriptions = prescriptionRepository.countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNullAndAppointDoctorDoctorID(Date.valueOf(todayDate), user.getId() + "");
+        String totalPrescriptions = prescriptionRepository.countAllByAppointDoctorDoctorID(user.getId() + "");
         model.addAttribute("todaysGivenPrescriptions", todaysGivenPrescriptions);
         model.addAttribute("totalGivenPrescriptions", totalPrescriptions);
 
         long totalPosts = postsRepository.count();
-        long totalSavedPosts = savedPostsRepository.countBySaverId(user.getId()+"");
+        long totalSavedPosts = savedPostsRepository.countBySaverId(user.getId() + "");
         model.addAttribute("totalPosts", totalPosts);
         model.addAttribute("totalSavedPosts", totalSavedPosts);
 //        Upcoming Appointments
@@ -113,7 +113,7 @@ public class DoctorMainController {
         Time currentTimeMinus30 = Time.valueOf(dateTimeFormatter.format(value));
 
         User userDoctor = this.userRepository.getUserByEmailNative(principal.getName());
-        String doctorsID = userDoctor.getId()+"";
+        String doctorsID = userDoctor.getId() + "";
 
         List<AppointDoctor> appointDoctorList = this.appointDoctorRepository.findAllByAppointmentDateAndDoctorIDAndAppointmentTimeGreaterThanOrderByAppointmentTimeAsc(Date.valueOf(todaysDate), doctorsID, currentTimeMinus30);
         if (appointDoctorList.size() != 0) {
@@ -147,7 +147,7 @@ public class DoctorMainController {
         User user = userRepository.getUserByEmailNative(principal.getName());
         List<AppointDoctor> appointDoctorList = appointDoctorRepository
                 .findAllByAppointmentDateAndDoctorIDOrderByAppointmentTimeAsc
-                        (Date.valueOf(todayDate), user.getId()+"");
+                        (Date.valueOf(todayDate), user.getId() + "");
 
 
         if (appointDoctorList.size() != 0) {
@@ -162,10 +162,10 @@ public class DoctorMainController {
     @GetMapping("/view-prescriptions/{page}")
     public String viewPrescriptions(@PathVariable("page") Integer page, Model model, Principal principal) {
         model.addAttribute("title", "View Prescriptions");
-        Pageable pageable = PageRequest.of(page-1, 8);
+        Pageable pageable = PageRequest.of(page - 1, 8);
         User user = this.userRepository.getUserByEmailNative(principal.getName());
         Page<Prescription> prescriptionList = prescriptionRepository
-                .findByAppointDoctorDoctorIDAndSymptomsNotNullOrderByIdDesc(user.getId()+"", pageable);
+                .findByAppointDoctorDoctorIDAndSymptomsNotNullOrderByIdDesc(user.getId() + "", pageable);
         if (prescriptionList.getTotalElements() == 0) {
             model.addAttribute("noPrescription", "true");
         }

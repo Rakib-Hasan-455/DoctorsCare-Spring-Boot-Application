@@ -8,7 +8,6 @@ public class SavedPostsDTO {
         this.saverId = saverId;
         this.postId = postId;
     }
-
     public SavedPostsDTO() {
     }
 

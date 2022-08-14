@@ -1,9 +1,7 @@
 package com.example.doctorscarespringbootapplication.dto;
 
 public class UnsavePostDTO {
-
     private String postId;
-
     private String unsaverId;
 
     public UnsavePostDTO(String postId, String unsaverId) {

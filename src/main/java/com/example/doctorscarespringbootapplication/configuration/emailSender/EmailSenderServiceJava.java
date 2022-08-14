@@ -1,4 +1,4 @@
-package com.example.doctorscarespringbootapplication.configuration;
+package com.example.doctorscarespringbootapplication.configuration.emailSender;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -16,8 +16,8 @@ public class EmailSenderServiceJava {
     private JavaMailSender javaMailSender;
 
     public void sendEmail(String toEmail,
-                                String subject,
-                                String body) throws MessagingException {
+                          String subject,
+                          String body) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         helper.setFrom("doctorscaremail@gmail.com");

@@ -41,7 +41,7 @@ public class PatientDoctorsTIps {
     @GetMapping("/post-homepage/{page}")
     public String postHomepage(@PathVariable("page") Integer page, Model model, Principal principal) {
         model.addAttribute("title", "Doctor Tips Homepage");
-        Pageable pageable = PageRequest.of(page-1, 5);
+        Pageable pageable = PageRequest.of(page - 1, 5);
         Page<Posts> postsList = postsRepository.findAllByOrderByIdDesc(pageable);
         model.addAttribute("postsListSize", postsList.getTotalElements());
         model.addAttribute("postsList", postsList);
@@ -63,8 +63,8 @@ public class PatientDoctorsTIps {
         String userEmail = principal.getName();
         User user = userRepository.getUserByEmailNative(userEmail);
         model.addAttribute("user", user);
-        Pageable pageable = PageRequest.of(page-1, 5);
-        Page<SavedPosts> savedPostsList = savedPostsRepository.findBySaverId(user.getId()+"", pageable);
+        Pageable pageable = PageRequest.of(page - 1, 5);
+        Page<SavedPosts> savedPostsList = savedPostsRepository.findBySaverId(user.getId() + "", pageable);
         model.addAttribute("postsListSize", savedPostsList.getTotalElements());
         model.addAttribute("postsList", savedPostsList);
         model.addAttribute("currentPage", page);
@@ -146,8 +146,8 @@ public class PatientDoctorsTIps {
 
 
     public static ResponseEntity<Object> getObjectResponseEntityUnsavePost(@RequestBody UnsavePostDTO unsavePostDTO, SavedPostsRepository savedPostsRepository) {
-        System.out.println("Post ID -> " + unsavePostDTO.getPostId() );
-        System.out.println("Unsaver ID -> " + unsavePostDTO.getUnsaverId() );
+        System.out.println("Post ID -> " + unsavePostDTO.getPostId());
+        System.out.println("Unsaver ID -> " + unsavePostDTO.getUnsaverId());
         savedPostsRepository.deleteByPostsIdAndSaverId(Integer.parseInt(unsavePostDTO.getPostId()), unsavePostDTO.getUnsaverId());
         ServiceResponse<String> response = new ServiceResponse<String>("success", "Post Unsaved Successfully!");
         return new ResponseEntity<Object>(response, HttpStatus.OK);

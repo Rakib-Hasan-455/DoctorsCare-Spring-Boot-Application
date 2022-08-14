@@ -10,7 +10,7 @@
     <div class="container-fluid main-container">
         <h3 class="text-center"> Saved Tips </h3>
         <div class="row align-items-center">
-             <div th:if="${postsListSize == 0}" class="container text-center mt-5 pt-5 px-5">
+            <div th:if="${postsListSize == 0}" class="container text-center mt-5 pt-5 px-5">
                 <h2 style="color: lightcoral"> Sorry, Currently You Don't Have Any Saved Posts!</h2>
             </div>
             <!-- posts -->
@@ -29,7 +29,8 @@
                                     style="width: 38px; height: 38px; object-fit: cover"
                             />
                             <div>
-                                <p class="m-0 fw-bold"><span th:text="${post.getPosts().getUser().getName()}"></span></p>
+                                <p class="m-0 fw-bold"><span th:text="${post.getPosts().getUser().getName()}"></span>
+                                </p>
                                 <span class="text-muted fs-7"><span th:text="${post.getPosts().getPostDate()}"></span> at <span
                                         th:text="${post.getPosts().getPostTime()}"></span></span>
                             </div>

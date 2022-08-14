@@ -7,7 +7,6 @@ public class MessageModel {
     private String message;
 
 
-
     public MessageModel(String senderName, String receiverName, String message) {
         this.senderName = senderName;
         this.receiverName = receiverName;

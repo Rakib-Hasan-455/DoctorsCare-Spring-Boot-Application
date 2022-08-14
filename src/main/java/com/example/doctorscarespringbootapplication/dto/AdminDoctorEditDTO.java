@@ -2,9 +2,7 @@ package com.example.doctorscarespringbootapplication.dto;
 
 public class AdminDoctorEditDTO {
     private String id;
-
     private boolean enabled;
-
     private String name;
     private String page;
     private String DOB;
@@ -12,7 +10,6 @@ public class AdminDoctorEditDTO {
     private String phone;
     private String address;
     private String about;
-
     private String nid;
     private String doctortype;
     private String degrees;

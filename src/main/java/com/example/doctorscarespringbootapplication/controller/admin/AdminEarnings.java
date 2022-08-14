@@ -68,7 +68,7 @@ public class AdminEarnings {
         }
 
 
-        LocalDateTime yesterdayDate =  localDateTime.minusDays(1);
+        LocalDateTime yesterdayDate = localDateTime.minusDays(1);
         String yesterdayDateFormatted = yesterdayDate.format(dateTimeFormatter);
         String totalEarnYesterday = appointDoctorRepository.sumTodaysEarning(Date.valueOf(yesterdayDateFormatted));
         if (totalEarnYesterday != null && totalEarnToday != null) {
@@ -85,7 +85,7 @@ public class AdminEarnings {
             model.addAttribute("totalEarnToday", "0.00");
         }
 
-        LocalDateTime weeklyStartingDate =  localDateTime.minusDays(7);
+        LocalDateTime weeklyStartingDate = localDateTime.minusDays(7);
         String weeklyStartingDateFormatted = weeklyStartingDate.format(dateTimeFormatter);
         String totalEarnWeekly = appointDoctorRepository.sumWeeklyEarningNative(Date.valueOf(weeklyStartingDateFormatted), Date.valueOf(dateToday));
         if (totalEarnWeekly != null && totalEarnToday != null) {
@@ -102,7 +102,7 @@ public class AdminEarnings {
             model.addAttribute("totalEarnWeekly", "0.00");
         }
 
-        LocalDateTime monthlyStartingDate =  localDateTime.minusDays(30);
+        LocalDateTime monthlyStartingDate = localDateTime.minusDays(30);
         String monthlyStartingDateFormatted = monthlyStartingDate.format(dateTimeFormatter);
         String totalEarnMonthly = appointDoctorRepository.sumWeeklyEarningNative(Date.valueOf(monthlyStartingDateFormatted), Date.valueOf(dateToday));
         if (totalEarnMonthly != null && totalEarnToday != null) {

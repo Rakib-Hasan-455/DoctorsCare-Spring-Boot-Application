@@ -24,59 +24,60 @@
     </div>
 
     <div th:if="${noDoctorAppointment != 'true'}">
-    <div id="container" class="text-center mt-5 pt-5 d-none">
-        <h1> 🕖 Appointment Countdown: <br>
-            <span id="time"> --:-- </span>
-            Minutes left </h1>
-    </div>
+        <div id="container" class="text-center mt-5 pt-5 d-none">
+            <h1> 🕖 Appointment Countdown: <br>
+                <span id="time"> --:-- </span>
+                Minutes left </h1>
+        </div>
 
 
-    <div class="container d-none" id="messengerclass">
-        <div class="chat">
-            <div class="card">
-                <div class="card-header msg_head">
-                    <div class="d-flex bd-highlight">
-                        <div class="img_cont">
-                            <img th:src="${doctorUser.getImageURL()}"
-                                 class="rounded-circle user_img" alt="Profile logo" style="object-fit: cover">
-                            <span class="online_icon"></span>
-                        </div>
-                        <div class="user_info">
-                            <span th:text="${doctorUser.getName()}"></span>
+        <div class="container d-none" id="messengerclass">
+            <div class="chat">
+                <div class="card">
+                    <div class="card-header msg_head">
+                        <div class="d-flex bd-highlight">
+                            <div class="img_cont">
+                                <img th:src="${doctorUser.getImageURL()}"
+                                     class="rounded-circle user_img" alt="Profile logo" style="object-fit: cover">
+                                <span class="online_icon"></span>
+                            </div>
+                            <div class="user_info">
+                                <span th:text="${doctorUser.getName()}"></span>
+                            </div>
+
                         </div>
 
                     </div>
+                    <div class="card-body msg_card_body" id="msg_card_body">
 
-                </div>
-                <div class="card-body msg_card_body" id="msg_card_body">
+                        <!--                Messages  -->
 
-<!--                Messages  -->
+                    </div>
 
-                </div>
-
-                <div class="card-footer">
-                    <div class="input-group">
-                        <div class="input-group-append">
-                            <span class="input-group-text attach_btn"><i class='bx bx-chat'></i></span>
-                        </div>
-                        <input type="text" id="message-value" name="" class="form-control type_msg"
-                               placeholder="Type your message...">
-                        <div class="input-group-append">
-                            <span class="input-group-text send_btn" id="send-btn"><i class="fas fa-location-arrow"></i></span>
+                    <div class="card-footer">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text attach_btn"><i class='bx bx-chat'></i></span>
+                            </div>
+                            <input type="text" id="message-value" name="" class="form-control type_msg"
+                                   placeholder="Type your message...">
+                            <div class="input-group-append">
+                                <span class="input-group-text send_btn" id="send-btn"><i
+                                        class="fas fa-location-arrow"></i></span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="container mt-3 text-center">
-            <form th:action="@{/patient/view-single-prescription}" method="post" target="_blank">
-                <input name="appointmentID" type="hidden" th:value="${appointmentID}">
-            <button class="btn btn-lg btn-success" type="submit">View Prescriptions</button>
-            </form>
-        </div>
+            <div class="container mt-3 text-center">
+                <form th:action="@{/patient/view-single-prescription}" method="post" target="_blank">
+                    <input name="appointmentID" type="hidden" th:value="${appointmentID}">
+                    <button class="btn btn-lg btn-success" type="submit">View Prescriptions</button>
+                </form>
+            </div>
 
-    </div>
+        </div>
     </div>
 
     <script th:inline="javascript">
@@ -221,9 +222,6 @@
             // have to make it into a variable so that you can stop the interval later!!!
             intervalHandle = setInterval(tick, 1000);
         }
-
-
-
 
 
         jQuery(document).ready(function ($) {

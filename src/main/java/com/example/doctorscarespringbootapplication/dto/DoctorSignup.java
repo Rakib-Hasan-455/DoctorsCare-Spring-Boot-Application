@@ -181,7 +181,6 @@ public class DoctorSignup {
     }
 
 
-
     @Override
     public String toString() {
         return "DoctorSignup{" +

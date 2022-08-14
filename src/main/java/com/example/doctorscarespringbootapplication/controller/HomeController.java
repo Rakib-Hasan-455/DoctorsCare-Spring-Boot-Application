@@ -1,6 +1,6 @@
 package com.example.doctorscarespringbootapplication.controller;
 
-import com.example.doctorscarespringbootapplication.configuration.EmailSenderServiceJava;
+import com.example.doctorscarespringbootapplication.configuration.emailSender.EmailSenderServiceJava;
 import com.example.doctorscarespringbootapplication.dao.AccountActiveTokenRepository;
 import com.example.doctorscarespringbootapplication.dao.AppointDoctorRepository;
 import com.example.doctorscarespringbootapplication.dao.PrescriptionRepository;

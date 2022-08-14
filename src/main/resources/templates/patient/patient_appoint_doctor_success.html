@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  th:replace="patient/bases/base3::layout(~{::section})">
+<html lang="en" th:replace="patient/bases/base3::layout(~{::section})">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,26 +9,28 @@
     <div class="card">
         <div class="wrapper">
             <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
-                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
             </svg>
         </div>
         <h1 class="pt-2">Success</h1>
-        <p class="pt-4">We received your payment.<br /> Now you can meet with doctor at your appointment time!</p>
+        <p class="pt-4">We received your payment.<br/> Now you can meet with doctor at your appointment time!</p>
         <br>
         <br>
         <h3>Payment Details:</h3>
-        <p> Patient Email: <span th:text="${appointDoctor.patientID}"></span> </p>
-        <p> Doctor Id : <span th:text="${appointDoctor.doctorID}"></span> </p>
-        <p> Transaction ID: <b><span th:text="${transactionId}"></span> </b> </p>
-        <p> Appointment ID: <span th:text="${appointDoctor.id}"></span> </p>
-        <p> Appointment Date: <span th:text="${appointDoctor.appointmentDate}"></span> </p>
-        <p> Appointment Time : <span th:text="${appointDoctor.appointmentTime}"></span> </p>
+        <p> Patient Email: <span th:text="${appointDoctor.patientID}"></span></p>
+        <p> Doctor Id : <span th:text="${appointDoctor.doctorID}"></span></p>
+        <p> Transaction ID: <b><span th:text="${transactionId}"></span> </b></p>
+        <p> Appointment ID: <span th:text="${appointDoctor.id}"></span></p>
+        <p> Appointment Date: <span th:text="${appointDoctor.appointmentDate}"></span></p>
+        <p> Appointment Time : <span th:text="${appointDoctor.appointmentTime}"></span></p>
         <p> Doctor Fee: <span th:text="${appointDoctor.doctorFee}"></span> Taka</p>
         <br>
         <br>
         <div class="text-center">
-            <a th:href="@{/patient/meet-doctor}" class="btn btn-lg btn-primary w-25"><i class='bx bx-chat' style="font-size: 24px ; padding: 11px 16px;  color: white;"></i><span style="font-size: 24px; margin-bottom: 20px">Meet Doctor</span></a>
+            <a th:href="@{/patient/meet-doctor}" class="btn btn-lg btn-primary w-25"><i class='bx bx-chat'
+                                                                                        style="font-size: 24px ; padding: 11px 16px;  color: white;"></i><span
+                    style="font-size: 24px; margin-bottom: 20px">Meet Doctor</span></a>
         </div>
     </div>
 
@@ -38,6 +40,7 @@
             padding: 40px 0;
             background: #EBF0F5;
         }
+
         h1 {
             color: #88B04B;
             font-family: "Poppins", sans-serif;
@@ -45,12 +48,14 @@
             font-size: 40px;
             margin-bottom: 10px;
         }
+
         p {
             color: #404F5E;
             font-family: "Poppins", sans-serif;
-            font-size:20px;
+            font-size: 20px;
             margin: 0;
         }
+
         .card {
             background: white;
             padding: 60px;
@@ -80,7 +85,7 @@
         }
 
         .checkmark {
-            width:  156px;
+            width: 156px;
             height: 156px;
             border-radius: 50%;
             display: block;

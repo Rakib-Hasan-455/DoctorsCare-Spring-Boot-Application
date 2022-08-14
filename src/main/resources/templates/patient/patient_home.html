@@ -22,7 +22,8 @@
                         <h2 class="text-right">
                             <i class='bx bxs-cart'></i>
                             <span class="px-3" th:text="${todaysAppointment}"></span></h2>
-                        <p class="m-b-0">Finished Appointments:<span class="f-right" th:text="${todaysCompletedAppointment}"></span></p>
+                        <p class="m-b-0">Finished Appointments:<span class="f-right"
+                                                                     th:text="${todaysCompletedAppointment}"></span></p>
                     </div>
                     <div class="text-center py-3 bg-dark bg-opacity-25">
                         <a th:href="@{/patient/todays-appointment}" class="aHover">View Today's Appointments</a>
@@ -39,7 +40,7 @@
                             <i class='bx bx-pie-chart-alt-2'></i>
                             <span class="px-3" th:text="${todaysGivenPrescriptions}"></span></h2>
                         <p class="m-b-0">My Total Prescriptions
-                            <span class="f-right"  th:text="${totalGivenPrescriptions}"></span>
+                            <span class="f-right" th:text="${totalGivenPrescriptions}"></span>
                         </p>
                     </div>
                     <div class="text-center py-3 bg-dark bg-opacity-25">
@@ -54,7 +55,7 @@
                         <h6 class="m-b-20">Total Doctor Tips</h6>
                         <h2 class="text-right">
                             <i class='bx bx-news'></i>
-                            <span class="px-3" th:text="${totalPosts}" ></span></h2>
+                            <span class="px-3" th:text="${totalPosts}"></span></h2>
                         <p class="m-b-0">Saved Doctor Tips<span class="f-right" th:text="${totalSavedPosts}"></span></p>
                     </div>
                     <div class="text-center py-3 bg-dark bg-opacity-25">
@@ -87,7 +88,7 @@
                 <td th:text="${appointments.doctorID}"></td>
                 <td>৳<span th:text="${appointments.doctorFee}"></span></td>
             </tr>
-            <tr  th:if="${noDoctorAppointment == 'true'}" class="table-danger">
+            <tr th:if="${noDoctorAppointment == 'true'}" class="table-danger">
                 <td colspan="4">Currently You Have No Upcoming Appointments!</td>
             </tr>
             </tbody>
@@ -108,14 +109,18 @@
                     <div class="mySlides fade">
                         <a th:href="@{'/patient/appoint-doctor/'+${userListtt.id}}">
                             <div class="card">
-                                                    <div class="card_image" style="object-fit: cover">
-                                <img th:src="${userListtt.getImageURL()}" style="object-fit: cover" class="rounded-top"
-                                     height="200" width="300px"/>
-                                                    </div>
+                                <div class="card_image" style="object-fit: cover">
+                                    <img th:src="${userListtt.getImageURL()}" style="object-fit: cover"
+                                         class="rounded-top"
+                                         height="200" width="300px"/>
+                                </div>
                                 <div class="card_title title-white rounded-bottom">
                                     <span th:text="${userListtt.name}"></span>
-                                    <h6>Specialist at <span th:text="${userListtt.getDoctorsAdditionalInfo().doctortype}"></span></h6>
-                                    <h5> Appoinement Fee: <span th:text="${userListtt.getDoctorsAdditionalInfo().appointmentfee}"></span> tk</h5>
+                                    <h6>Specialist at <span
+                                            th:text="${userListtt.getDoctorsAdditionalInfo().doctortype}"></span></h6>
+                                    <h5> Appoinement Fee: <span
+                                            th:text="${userListtt.getDoctorsAdditionalInfo().appointmentfee}"></span> tk
+                                    </h5>
                                     <h6><span th:text="${userListtt.getDoctorsAdditionalInfo().degrees}"></span></h6>
                                     <h6><span th:text="${userListtt.getDoctorsAdditionalInfo().medicalcollege}"></span>
                                     </h6>

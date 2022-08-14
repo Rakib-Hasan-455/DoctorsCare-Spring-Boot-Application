@@ -67,22 +67,18 @@ public class SSLCommerz {
         this.storeTestMode = storeTestMode;
 
         if (storeTestMode) {
-             this.storeId = "docto62f28257d4314";
-             this.storePass = "docto62f28257d4314@ssl";
+            this.storeId = "docto62f28257d4314";
+            this.storePass = "docto62f28257d4314@ssl";
             this.sslczURL = "https://sandbox.sslcommerz.com/";
         }
 
     }
 
     /**
-     *
-     * @param postData
-     * postData is a Map with String Key and String value.
-     * Construct this Map with Necessary Key value pair to provide request parameters.
-     * @param isGetGatewayList
-     * isGetGatewayList is to define whether user wants to get response as Gateway list or not
-     * @return
-     * Returns a String which is an URL with Session Key to perform payment option selection,
+     * @param postData         postData is a Map with String Key and String value.
+     *                         Construct this Map with Necessary Key value pair to provide request parameters.
+     * @param isGetGatewayList isGetGatewayList is to define whether user wants to get response as Gateway list or not
+     * @return Returns a String which is an URL with Session Key to perform payment option selection,
      * and payment finalization
      * @throws Exception
      */
@@ -114,12 +110,9 @@ public class SSLCommerz {
     }
 
     /**
-     * @param uri
-     * uri to hit SSL Commerz URI
-     * @param postData
-     * postData is the request parameter Map comprised of key value pair
-     * @return
-     * Returns a String which is an URL with Session Key to perform payment option selection,
+     * @param uri      uri to hit SSL Commerz URI
+     * @param postData postData is the request parameter Map comprised of key value pair
+     * @return Returns a String which is an URL with Session Key to perform payment option selection,
      * and payment finalization
      * @throws IOException
      */
@@ -156,18 +149,12 @@ public class SSLCommerz {
     }
 
     /**
-     *
-     * @param merchantTrnxnId
-     * merchantTrnxnId : merchants Transaction id.
-     * @param merchantTrnxnAmount
-     * merchantTrnxnAmount: merchants transaction amount.
-     * @param merchantTrnxnCurrency
-     * merchantTrnxnCurrency: Merchants transaction amount
-     * @param requestParameters
-     *  requestParameters is a Map of String as key and String as value
-     *  which should be constructed from the success response of the payment page.
-     * @return
-     * Returns a boolean value indicating a valid success response or not.
+     * @param merchantTrnxnId       merchantTrnxnId : merchants Transaction id.
+     * @param merchantTrnxnAmount   merchantTrnxnAmount: merchants transaction amount.
+     * @param merchantTrnxnCurrency merchantTrnxnCurrency: Merchants transaction amount
+     * @param requestParameters     requestParameters is a Map of String as key and String as value
+     *                              which should be constructed from the success response of the payment page.
+     * @return Returns a boolean value indicating a valid success response or not.
      * @throws IOException
      * @throws NoSuchAlgorithmException
      */
@@ -216,12 +203,9 @@ public class SSLCommerz {
     }
 
     /**
-     *
-     * @param requestParameters
-     * requestParameters is a Map of String which should be constructed from the RequestParameter returned from
-     * the success response of payment page.
-     * @return
-     * Returns if the Hash generated during SSL Commerz payment request and the hash generated from the
+     * @param requestParameters requestParameters is a Map of String which should be constructed from the RequestParameter returned from
+     *                          the success response of payment page.
+     * @return Returns if the Hash generated during SSL Commerz payment request and the hash generated from the
      * redirected success response from that payment page
      * @throws UnsupportedEncodingException
      * @throws NoSuchAlgorithmException
@@ -236,7 +220,7 @@ public class SSLCommerz {
 
                 // Split key String by comma to make a list array
                 keyList = verify_key.split(",");
-                TreeMap<String, String> sortedMap = new TreeMap<String,String>();
+                TreeMap<String, String> sortedMap = new TreeMap<String, String>();
 
                 // Store key and value of post in a sorted Map
                 for (final String k : keyList) {

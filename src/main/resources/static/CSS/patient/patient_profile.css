@@ -1,6 +1,7 @@
 * {
     box-sizing: border-box;
 }
+
 body {
     width: 100%;
     background: #fafafa;
@@ -14,35 +15,41 @@ body {
     width: 100%;
     height: 360px;
 }
+
 .pf {
     width: 150px;
     height: 150px;
     border-radius: 50%;
     z-index: 1;
 }
+
 .main {
     width: 100%;
     margin-top: -340px;
     margin-bottom: 10px;
 }
+
 .contain {
     width: 80%;
     background: white;
     border-radius: 20px;
     padding: 20px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     margin-top: -80px;
     margin-bottom: 20px;
 }
+
 .title {
     padding: 10px;
 }
+
 .summary {
     text-align: center;
     width: 60%;
     padding: 8px;
     margin-bottom: 10px;
 }
+
 .btn {
     width: 350px;
     background-color: transparent;
@@ -57,30 +64,36 @@ body {
     transition-duration: 0.4s;
     cursor: pointer;
 }
+
 .btn:hover {
     background-color: #222;
     color: white;
 }
+
 .contain_2 {
     width: 80%;
     border-radius: 20px;
     margin-bottom: 20px;
 }
+
 .column {
     float: left;
     width: 50%;
     padding: 20px 5px 10px 15px;
 }
+
 .row:after {
     content: "";
     display: table;
     clear: both;
 }
+
 .i_contain {
     width: 100%;
     transition-duration: 0.4s;
     cursor: pointer;
 }
+
 .icon_logo {
     width: 64px;
     height: 64px;
@@ -93,6 +106,7 @@ body {
     border: 1px solid #ccc;
     background-color: black;
 }
+
 .i_cards {
     width: 100%;
     height: 90px;
@@ -100,61 +114,75 @@ body {
     border-radius: 20px;
     padding: 8px 8px 8px 14px;
     text-align: left;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     float: left;
 }
+
 .i_title {
     margin-top: 10px;
     margin-left: 55px;
     margin-right: 4px;
 }
+
 .i_summary {
     margin-left: 55px;
     overflow: hidden;
     margin-right: 4px;
 }
+
 .i_contain:hover .icon_logo {
     margin-top: 4px;
 }
+
 footer {
     padding: 30px;
     color: block;
     background: white;
     border-top: 1px solid #ccc;
 }
+
 footer a {
     text-decoration: none;
     color: black;
 }
+
 .i_space {
     width: 100%;
     height: 70px;
 }
+
 @media only screen and (max-width: 600px) {
     .bg {
         height: 260px;
         background-size: cover;
     }
+
     .main {
         margin-top: -229px;
     }
+
     .pf {
         width: 120px;
         height: 120px;
     }
+
     .contain {
         width: 85%;
         margin-top: -60px;
     }
+
     .summary {
         width: 80%;
     }
+
     .contain_2 {
         width: 85%;
     }
+
     .column {
         width: 100%;
     }
+
     .i_space {
         height: 50px;
     }

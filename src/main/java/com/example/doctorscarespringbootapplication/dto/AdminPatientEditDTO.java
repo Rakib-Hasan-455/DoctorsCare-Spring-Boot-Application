@@ -2,9 +2,7 @@ package com.example.doctorscarespringbootapplication.dto;
 
 public class AdminPatientEditDTO {
     private String id;
-
     private boolean enabled;
-
     private String name;
     private String page;
     private String DOB;

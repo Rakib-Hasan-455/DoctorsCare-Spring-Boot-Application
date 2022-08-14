@@ -12,7 +12,6 @@ public class Prescription {
 
     @Id
     private int id;
-
     @ColumnDefault("")
     private String symptoms;
 

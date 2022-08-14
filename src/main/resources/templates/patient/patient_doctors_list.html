@@ -10,8 +10,8 @@
 
     <div class="container mt-3 text-center" th:if="${not #lists.isEmpty(userList)}">
 
-    <h2 class="text-center"> <span th:text="${doctorType}"></span> Doctor </h2>
-    <h4 class="card-title text-center px-5 mt-3 mb-4"> Please select your desired Doctor To Get Appointment</h4>
+        <h2 class="text-center"><span th:text="${doctorType}"></span> Doctor </h2>
+        <h4 class="card-title text-center px-5 mt-3 mb-4"> Please select your desired Doctor To Get Appointment</h4>
     </div>
 
     <div class="cards-list">
@@ -21,18 +21,19 @@
         </div>
 
         <div th:each="userList: ${userList}">
-        <a th:href="@{'/patient/appoint-doctor/'+${userList.id}}" >
-            <div class="card 1" >
-                <div class="card_image">
-                    <img th:src="${userList.getImageURL()}" /> </div>
-                <div class="card_title title-white">
-                    <span th:text="${userList.name}"></span>
-                    <h5>  Appoinement Fee: <span th:text="${userList.getDoctorsAdditionalInfo().appointmentfee}"></span> tk </h5>
-                    <h6> <span th:text="${userList.getDoctorsAdditionalInfo().degrees}"></span> </h6>
-                    <h6>  <span th:text="${userList.getDoctorsAdditionalInfo().medicalcollege}"></span> </h6>
+            <a th:href="@{'/patient/appoint-doctor/'+${userList.id}}">
+                <div class="card 1">
+                    <div class="card_image">
+                        <img th:src="${userList.getImageURL()}"/></div>
+                    <div class="card_title title-white">
+                        <span th:text="${userList.name}"></span>
+                        <h5> Appoinement Fee: <span
+                                th:text="${userList.getDoctorsAdditionalInfo().appointmentfee}"></span> tk </h5>
+                        <h6><span th:text="${userList.getDoctorsAdditionalInfo().degrees}"></span></h6>
+                        <h6><span th:text="${userList.getDoctorsAdditionalInfo().medicalcollege}"></span></h6>
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
         </div>
 
     </div>

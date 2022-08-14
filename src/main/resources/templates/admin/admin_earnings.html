@@ -58,7 +58,8 @@
                                         <h1 class="mb-1">৳<span th:text="${totalEarnings}"></span></h1>
                                     </div>
                                     <div class="metric-label d-inline-block float-right text-success font-weight-bold">
-                                        <span><i class="fa fa-fw fa-arrow-up"></i></span><span th:text="${totalEarnUpdrift}"></span>
+                                        <span><i class="fa fa-fw fa-arrow-up"></i></span><span
+                                            th:text="${totalEarnUpdrift}"></span>
                                     </div>
                                 </div>
                                 <div id="sparkline-revenue"></div>
@@ -72,7 +73,8 @@
                                         <h1 class="mb-1">৳<span th:text="${totalEarnToday}"></span></h1>
                                     </div>
                                     <div class="metric-label d-inline-block float-right text-info font-weight-bold">
-                                        <span><i class="fa fa-fw fa-arrow-up"></i></span><span th:text="${totalEarnTodayUpdrift}"></span>
+                                        <span><i class="fa fa-fw fa-arrow-up"></i></span><span
+                                            th:text="${totalEarnTodayUpdrift}"></span>
                                     </div>
                                 </div>
                                 <div id="sparkline-revenue2"></div>
@@ -86,7 +88,8 @@
                                         <h1 class="mb-1">৳<span th:text="${totalEarnWeekly}"></span></h1>
                                     </div>
                                     <div class="metric-label d-inline-block float-right text-primary font-weight-bold">
-                                        <span><i class="fa fa-fw fa-arrow-up"></i></span><span th:text="${totalEarnWeeklyUpdrift}"></span>
+                                        <span><i class="fa fa-fw fa-arrow-up"></i></span><span
+                                            th:text="${totalEarnWeeklyUpdrift}"></span>
                                     </div>
                                 </div>
                                 <div id="sparkline-revenue3"></div>
@@ -100,7 +103,8 @@
                                         <h1 class="mb-1">৳<span th:text="${totalEarnMonthly}"></span></h1>
                                     </div>
                                     <div class="metric-label d-inline-block float-right text-warning font-weight-bold">
-                                        <span><i class="fa fa-fw fa-arrow-up"></i></span><span th:text="${totalEarnMonthlyUpdrift}"></span>
+                                        <span><i class="fa fa-fw fa-arrow-up"></i></span><span
+                                            th:text="${totalEarnMonthlyUpdrift}"></span>
                                     </div>
                                 </div>
                                 <div id="sparkline-revenue4"></div>
@@ -132,10 +136,13 @@
                                             <tbody>
                                             <tr th:each="appointments : ${appointDoctorList}">
                                                 <td class="text-center p-3" th:text="${appointments.id}"></td>
-                                                <td class="text-center p-3" th:text="${appointments.appointmentDate}"></td>
-                                                <td class="text-center p-3" th:text="${appointments.appointmentTime}"></td>
+                                                <td class="text-center p-3"
+                                                    th:text="${appointments.appointmentDate}"></td>
+                                                <td class="text-center p-3"
+                                                    th:text="${appointments.appointmentTime}"></td>
                                                 <td class="text-center p-3" th:text="${appointments.patientID}"></td>
-                                                <td class="text-center p-3">৳<span th:text="${appointments.doctorFee}"></span></td>
+                                                <td class="text-center p-3">৳<span
+                                                        th:text="${appointments.doctorFee}"></span></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="9"><a th:href="@{/admin/appointment-logs/1}"
@@ -189,37 +196,37 @@
                                                             class="fa fa-fw fa-square-full "></i></span>
                                                     <span class="legend-text">Pediatrics</span>
                                             </span>
-                                            <span class="legend-item mr-3 px-3">
+                                    <span class="legend-item mr-3 px-3">
                                                   <span class="fa-xs mr-1 legend-tile" style="color: #F05B4F;"><i
-                                                        class="fa fa-fw fa-square-full"></i></span>
+                                                          class="fa fa-fw fa-square-full"></i></span>
                                                  <span class="legend-text">Skin</span>
                                             </span>
-                                             <span class="legend-item mr-3 px-3">
+                                    <span class="legend-item mr-3 px-3">
                                                 <span class="fa-xs mr-1 legend-tile" style="color: #F4C63D;"><i
                                                         class="fa fa-fw fa-square-full"></i></span>
                                                 <span class="legend-text">Medicine</span>
                                             </span>
-                                            <span class="legend-item mr-3 px-3">
+                                    <span class="legend-item mr-3 px-3">
                                                 <span class="fa-xs mr-1 legend-tile" style="color: #D17905;"><i
                                                         class="fa fa-fw fa-square-full"></i></span>
                                                 <span class="legend-text">Covid Support</span>
                                             </span>
-                                             <span class="legend-item mr-3 px-3">
+                                    <span class="legend-item mr-3 px-3">
                                                 <span class="fa-xs mr-1 legend-tile" style="color: #453D3F;"><i
                                                         class="fa fa-fw fa-square-full"></i></span>
                                                 <span class="legend-text">Mental Health</span>
                                             </span>
-                                             <span class="legend-item mr-3 px-3">
+                                    <span class="legend-item mr-3 px-3">
                                                 <span class="fa-xs mr-1 legend-tile" style="color: #59922B;"><i
                                                         class="fa fa-fw fa-square-full"></i></span>
                                                 <span class="legend-text">Urology</span>
                                             </span>
-                                            <span class="legend-item mr-3 px-3">
+                                    <span class="legend-item mr-3 px-3">
                                                 <span class="fa-xs mr-1 legend-tile" style="color: #0544D3;"><i
                                                         class="fa fa-fw fa-square-full"></i></span>
                                                 <span class="legend-text">Eye</span>
                                             </span>
-                                            <span class="legend-item mr-3 px-3">
+                                    <span class="legend-item mr-3 px-3">
                                                 <span class="fa-xs mr-1 legend-tile" style="color: #6B0392;"><i
                                                         class="fa fa-fw fa-square-full"></i></span>
                                                 <span class="legend-text">Cardiology</span>
@@ -234,7 +241,7 @@
                         <div class="chart">
                             <div class="chart-grid">
                                 <div class="chart-grid-item">
-                                <span class="chart-bar januaryChartBar mb-3" th:text="${januaryEarn}">0</span>
+                                    <span class="chart-bar januaryChartBar mb-3" th:text="${januaryEarn}">0</span>
                                     <span class="chart-label">Jan</span>
                                 </div>
                                 <div class="chart-grid-item">
@@ -242,43 +249,43 @@
                                     <span class="chart-label">Feb</span>
                                 </div>
                                 <div class="chart-grid-item">
-                                    <span class="chart-bar marchChartBar mb-3"  th:text="${marchEarn}">0</span>
+                                    <span class="chart-bar marchChartBar mb-3" th:text="${marchEarn}">0</span>
                                     <span class="chart-label">Mar</span>
                                 </div>
                                 <div class="chart-grid-item">
-                                    <span class="chart-bar aprilChartBar mb-3"  th:text="${aprilEarn}">0</span>
+                                    <span class="chart-bar aprilChartBar mb-3" th:text="${aprilEarn}">0</span>
                                     <span class="chart-label">Apr</span>
                                 </div>
                                 <div class="chart-grid-item">
-                                    <span class="chart-bar mayChartBar mb-3"  th:text="${mayEarn}">0</span>
+                                    <span class="chart-bar mayChartBar mb-3" th:text="${mayEarn}">0</span>
                                     <span class="chart-label">May</span>
                                 </div>
                                 <div class="chart-grid-item">
-                                    <span class="chart-bar juneChartBar mb-3"  th:text="${juneEarn}">0</span>
+                                    <span class="chart-bar juneChartBar mb-3" th:text="${juneEarn}">0</span>
                                     <span class="chart-label">Jun</span>
                                 </div>
                                 <div class="chart-grid-item">
-                                    <span class="chart-bar julyChartBar mb-3"  th:text="${julyEarn}">0</span>
+                                    <span class="chart-bar julyChartBar mb-3" th:text="${julyEarn}">0</span>
                                     <span class="chart-label">Jul</span>
                                 </div>
                                 <div class="chart-grid-item">
-                                    <span class="chart-bar augustChartBar mb-3"  th:text="${augustEarn}">0</span>
+                                    <span class="chart-bar augustChartBar mb-3" th:text="${augustEarn}">0</span>
                                     <span class="chart-label">Aug</span>
                                 </div>
                                 <div class="chart-grid-item">
-                                    <span class="chart-bar septemberChartBar mb-3"  th:text="${septemberEarn}">0</span>
+                                    <span class="chart-bar septemberChartBar mb-3" th:text="${septemberEarn}">0</span>
                                     <span class="chart-label">Sep</span>
                                 </div>
                                 <div class="chart-grid-item">
-                                    <span class="chart-bar octoberChartBar mb-3"  th:text="${octoberEarn}">0</span>
+                                    <span class="chart-bar octoberChartBar mb-3" th:text="${octoberEarn}">0</span>
                                     <span class="chart-label">Oct</span>
                                 </div>
                                 <div class="chart-grid-item">
-                                    <span class="chart-bar novemberChartBar mb-3"  th:text="${novemberEarn}">0</span>
+                                    <span class="chart-bar novemberChartBar mb-3" th:text="${novemberEarn}">0</span>
                                     <span class="chart-label">Nov</span>
                                 </div>
                                 <div class="chart-grid-item">
-                                    <span class="chart-bar decemberChartBar mb-3"  th:text="${decemberEarn}">0</span>
+                                    <span class="chart-bar decemberChartBar mb-3" th:text="${decemberEarn}">0</span>
                                     <span class="chart-label">Dec</span>
                                 </div>
                             </div>
@@ -315,18 +322,18 @@
                     </style>
 
                     <script th:inline="javascript">
-                        [...document.querySelectorAll(".januaryChartBar")].map(bar => bar.style.height = `${[[${januaryEarn}]]/100 + 19}px`),
-                        [...document.querySelectorAll(".februaryChartBar")].map(bar => bar.style.height = `${[[${februaryEarn}]]/100 + 19}px`),
-                        [...document.querySelectorAll(".marchChartBar")].map(bar => bar.style.height = `${[[${marchEarn}]]/100 + 19}px`),
-                        [...document.querySelectorAll(".aprilChartBar")].map(bar => bar.style.height =  `${[[${aprilEarn}]]/100 + 19}px`),
-                        [...document.querySelectorAll(".mayChartBar")].map(bar => bar.style.height =  `${[[${mayEarn}]]/100 + 19}px`),
-                        [...document.querySelectorAll(".juneChartBar")].map(bar => bar.style.height =  `${[[${juneEarn}]]/100 + 19}px`),
-                        [...document.querySelectorAll(".julyChartBar")].map(bar => bar.style.height =  `${[[${julyEarn}]]/100 + 19}px`),
-                        [...document.querySelectorAll(".augustChartBar")].map(bar => bar.style.height =  `${[[${augustEarn}]]/100 + 19}px`),
-                        [...document.querySelectorAll(".septemberChartBar")].map(bar => bar.style.height =  `${[[${septemberEarn}]]/100 + 19}px`),
-                        [...document.querySelectorAll(".octoberChartBar")].map(bar => bar.style.height =  `${[[${octoberEarn}]]/100 + 19}px`),
-                        [...document.querySelectorAll(".novemberChartBar")].map(bar => bar.style.height =  `${[[${novemberEarn}]]/100 + 19}px`),
-                        [...document.querySelectorAll(".decemberChartBar")].map(bar => bar.style.height =  `${[[${decemberEarn}]]/100 + 19}px`),
+                        [...document.querySelectorAll(".januaryChartBar")].map(bar => bar.style.height = `${[[${januaryEarn}]] / 100 + 19}px`),
+                            [...document.querySelectorAll(".februaryChartBar")].map(bar => bar.style.height = `${[[${februaryEarn}]] / 100 + 19}px`),
+                            [...document.querySelectorAll(".marchChartBar")].map(bar => bar.style.height = `${[[${marchEarn}]] / 100 + 19}px`),
+                            [...document.querySelectorAll(".aprilChartBar")].map(bar => bar.style.height = `${[[${aprilEarn}]] / 100 + 19}px`),
+                            [...document.querySelectorAll(".mayChartBar")].map(bar => bar.style.height = `${[[${mayEarn}]] / 100 + 19}px`),
+                            [...document.querySelectorAll(".juneChartBar")].map(bar => bar.style.height = `${[[${juneEarn}]] / 100 + 19}px`),
+                            [...document.querySelectorAll(".julyChartBar")].map(bar => bar.style.height = `${[[${julyEarn}]] / 100 + 19}px`),
+                            [...document.querySelectorAll(".augustChartBar")].map(bar => bar.style.height = `${[[${augustEarn}]] / 100 + 19}px`),
+                            [...document.querySelectorAll(".septemberChartBar")].map(bar => bar.style.height = `${[[${septemberEarn}]] / 100 + 19}px`),
+                            [...document.querySelectorAll(".octoberChartBar")].map(bar => bar.style.height = `${[[${octoberEarn}]] / 100 + 19}px`),
+                            [...document.querySelectorAll(".novemberChartBar")].map(bar => bar.style.height = `${[[${novemberEarn}]] / 100 + 19}px`),
+                            [...document.querySelectorAll(".decemberChartBar")].map(bar => bar.style.height = `${[[${decemberEarn}]] / 100 + 19}px`),
                         [...document.querySelectorAll(".chart-bar")].map(bar => bar.style.backgroundColor = '#' + `${Math.floor(Math.random() * (15777215 - 10000000) + 10000000).toString(16)}`) + '20';
                     </script>
 
@@ -388,11 +395,14 @@
         var adminUserPercent = [[${adminUserPercent}]];
 
         var chart = new Chartist.Pie('.ct-chart-category', {
-            series: [{value: patientUserPercent, className: 'stroke-blue'}, {value: doctorUserPercent, className: 'stroke-green'}, {
+            series: [{value: patientUserPercent, className: 'stroke-blue'}, {
+                value: doctorUserPercent,
+                className: 'stroke-green'
+            }, {
                 value: adminUserPercent,
                 className: 'stroke-yellow'
             }],
-            labels: [patientUserPercent+'%', doctorUserPercent+'%', adminUserPercent+'%']
+            labels: [patientUserPercent + '%', doctorUserPercent + '%', adminUserPercent + '%']
         }, {
             donut: true,
             showLabel: true,
@@ -454,9 +464,9 @@
 
         var chart2 = new Chartist.Pie('.ct-chart-category-2', {
             series: [pediatricsDoctorPercent, skinDoctorPercent, medicineDoctorPercent, covidSupportDoctorPercent, mentalHealthDoctorPercent,
-                    urologyDoctorPercent, eyeDoctorPercent, cardiologyDoctorPercent],
-            labels: [pediatricsDoctorPercent+'%', skinDoctorPercent+"%", medicineDoctorPercent+"%", covidSupportDoctorPercent+"%", mentalHealthDoctorPercent+"%",
-                    urologyDoctorPercent+"%", eyeDoctorPercent+"%", cardiologyDoctorPercent+"%"]
+                urologyDoctorPercent, eyeDoctorPercent, cardiologyDoctorPercent],
+            labels: [pediatricsDoctorPercent + '%', skinDoctorPercent + "%", medicineDoctorPercent + "%", covidSupportDoctorPercent + "%", mentalHealthDoctorPercent + "%",
+                urologyDoctorPercent + "%", eyeDoctorPercent + "%", cardiologyDoctorPercent + "%"]
         }, {
             donut: true,
             showLabel: true,

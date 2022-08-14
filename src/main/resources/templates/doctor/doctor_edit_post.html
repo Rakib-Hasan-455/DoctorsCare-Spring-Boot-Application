@@ -8,30 +8,30 @@
 <section>
     <div class="container-fluid main-container pt-3 pb-5">
         <form th:action="@{/doctor/process-save-editedpost}" method="post" id="doEditForm">
-    <div class="modal-body">
-        <div class="my-1 p-1">
-            <div class="d-flex flex-column">
-                <!-- name -->
-                <div class="d-flex align-items-center mb-3">
-                    <div class="p-2">
-                        <img
-                                th:src="${user.getImageURL()}"
-                                alt="from fb"
-                                class="rounded-circle"
-                                style="
+            <div class="modal-body">
+                <div class="my-1 p-1">
+                    <div class="d-flex flex-column">
+                        <!-- name -->
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="p-2">
+                                <img
+                                        th:src="${user.getImageURL()}"
+                                        alt="from fb"
+                                        class="rounded-circle"
+                                        style="
                                   width: 38px;
                                   height: 38px;
                                   object-fit: cover;
                                 "
-                        />
-                    </div>
-                    <div>
-                        <p class="m-0 fw-bold" th:text="${user.getName()}"></p>
+                                />
+                            </div>
+                            <div>
+                                <p class="m-0 fw-bold" th:text="${user.getName()}"></p>
 
-                    </div>
-                </div>
+                            </div>
+                        </div>
 
-                <div>
+                        <div>
                             <input type="text" hidden name="postId" th:value="${post.getId()}">
                             <textarea id="textareaa"
                                       name="postContent"
@@ -43,30 +43,32 @@
                                       maxlength="5000"
                                       th:text="${post.getPostContent()}"
                             ></textarea>
+                        </div>
+                        <p class="mt-4 text-center">Uploaded Cover Photo</p>
+                        <div class="mb-2 text-center">
+                            <img
+                                    th:src="${post.getCoverPhoto()}"
+                                    alt="post image"
+                                    class="img-fluid rounded mb-3"
+                            /></div>
+
+                    </div>
                 </div>
-                <p class="mt-4 text-center">Uploaded Cover Photo</p>
-                <div class="mb-2 text-center">
-                    <img
-                            th:src="${post.getCoverPhoto()}"
-                            alt="post image"
-                            class="img-fluid rounded mb-3"
-                    />                </div>
 
+                <!-- end -->
             </div>
-        </div>
-
-        <!-- end -->
-    </div>
-    <!-- footer -->
-    <div class="container text-center">
-        <button type="submit" class="btn btn-success w-50">
-            Save Post
-        </button>
-    </div>
+            <!-- footer -->
+            <div class="container text-center">
+                <button type="submit" class="btn btn-success w-50">
+                    Save Post
+                </button>
+            </div>
         </form>
     </div>
     <!-- Script  tinymce -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.1.0/tinymce.min.js" integrity="sha512-dr3qAVHfaeyZQPiuN6yce1YuH7YGjtUXRFpYK8OfQgky36SUfTfN3+SFGoq5hv4hRXoXxAspdHw4ITsSG+Ud/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.1.0/tinymce.min.js"
+            integrity="sha512-dr3qAVHfaeyZQPiuN6yce1YuH7YGjtUXRFpYK8OfQgky36SUfTfN3+SFGoq5hv4hRXoXxAspdHw4ITsSG+Ud/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         const editForm = document.querySelector('#doEditForm');
 
@@ -91,7 +93,7 @@
             statusbar: false,
             height: 500,
             plugins: 'wordcount',
-            init_instance_callback : function(editor) {
+            init_instance_callback: function (editor) {
                 var freeTiny = document.querySelector('.tox .tox-notification--in');
                 freeTiny.style.display = 'none';
             }

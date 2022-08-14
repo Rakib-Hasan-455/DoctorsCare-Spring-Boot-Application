@@ -11,38 +11,41 @@
     </div>
 
     <div th:if="${noDoctor != true}">
-        <h3 class="text-center mb-3 mt-3"> <u>Doctors List</u> </h3>
+        <h3 class="text-center mb-3 mt-3"><u>Doctors List</u></h3>
         <table class="table mt-5">
             <thead>
             <tr>
-                <th class="text-center"  scope="col">Doctor ID</th>
-                <th class="text-center"  scope="col">Doctor Name</th>
-                <th  class="text-center" scope="col">Doctor Email</th>
-                <th class="text-center"  scope="col">Doctor Type</th>
-                <th class="text-center"  scope="col">Doctor Fee</th>
-                <th class="text-center"  scope="col">Action</th>
+                <th class="text-center" scope="col">Doctor ID</th>
+                <th class="text-center" scope="col">Doctor Name</th>
+                <th class="text-center" scope="col">Doctor Email</th>
+                <th class="text-center" scope="col">Doctor Type</th>
+                <th class="text-center" scope="col">Doctor Fee</th>
+                <th class="text-center" scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
-            <div  th:each="doctor : ${doctorList}">
+            <div th:each="doctor : ${doctorList}">
                 <tr class="d-none" th:id="'deleteAlertId-'+${doctor.id}">
                     <td colspan="6" class="p-3"></td>
                 </tr>
                 <tr th:id="'deleteRowId-'+${doctor.id}">
-                <td class="text-center p-3" th:text="${doctor.id}"></td>
-                <td class="text-center p-3" th:text="${doctor.name}"></td>
-                <td class="text-center p-3"  th:text="${doctor.email}"></td>
-                <td class="text-center p-3"  th:text="${doctor.getDoctorsAdditionalInfo().doctortype}"></td>
-                <td class="text-center p-3"  th:text="${doctor.getDoctorsAdditionalInfo().appointmentfee}"></td>
-                <td class="text-center d-flex justify-content-center gap-3 p-3">
-                    <form th:action="@{/admin/edit-doctor-details}" method="post" th:id="'editFormId-'+${doctor.id}">
-                        <input name="pageNo" th:value="${currentPage}" hidden>
-                        <input name="userId" th:value="${doctor.id}" hidden>
-                        <i class='bx bx-edit' type="submit" th:onclick="'javascript:editDoctorCalled(\'editFormId-' + ${doctor.id} + '\')'"></i>
-                    </form>
-                    <i class='bx bx-trash' type="button" th:onclick="'javascript:deleteDoctorCalled(\'' + ${doctor.id} + '\', \'deleteAlertId-' + ${doctor.id} + '\', \'deleteRowId-' + ${doctor.id} + '\')'"></i>
-                </td>
-            </tr>
+                    <td class="text-center p-3" th:text="${doctor.id}"></td>
+                    <td class="text-center p-3" th:text="${doctor.name}"></td>
+                    <td class="text-center p-3" th:text="${doctor.email}"></td>
+                    <td class="text-center p-3" th:text="${doctor.getDoctorsAdditionalInfo().doctortype}"></td>
+                    <td class="text-center p-3" th:text="${doctor.getDoctorsAdditionalInfo().appointmentfee}"></td>
+                    <td class="text-center d-flex justify-content-center gap-3 p-3">
+                        <form th:action="@{/admin/edit-doctor-details}" method="post"
+                              th:id="'editFormId-'+${doctor.id}">
+                            <input name="pageNo" th:value="${currentPage}" hidden>
+                            <input name="userId" th:value="${doctor.id}" hidden>
+                            <i class='bx bx-edit' type="submit"
+                               th:onclick="'javascript:editDoctorCalled(\'editFormId-' + ${doctor.id} + '\')'"></i>
+                        </form>
+                        <i class='bx bx-trash' type="button"
+                           th:onclick="'javascript:deleteDoctorCalled(\'' + ${doctor.id} + '\', \'deleteAlertId-' + ${doctor.id} + '\', \'deleteRowId-' + ${doctor.id} + '\')'"></i>
+                    </td>
+                </tr>
             </div>
             </tbody>
         </table>
@@ -53,15 +56,19 @@
                     <li th:if="${currentPage-1 > 0}" class="page-item">
                         <a class="page-link" th:href="@{'/admin/doctors-list/'+${currentPage-1}}">Previous</a>
                     </li>
-                    <li th:if="${currentPage-1 > 0}" class="page-item"><a class="page-link" th:href="@{'/admin/doctors-list/'+${currentPage-1}}">
+                    <li th:if="${currentPage-1 > 0}" class="page-item"><a class="page-link"
+                                                                          th:href="@{'/admin/doctors-list/'+${currentPage-1}}">
                         <span th:text="${currentPage-1}"></span>
                     </a></li>
                     <li class="page-item active"><span class="page-link" th:text="${currentPage}"><span class="sr-only">(current)</span></span>
                     </li>
-                    <li th:if="${currentPage < totalPages}"  class="page-item"><a class="page-link" th:href="@{'/admin/doctors-list/'+${currentPage+1}}">
+                    <li th:if="${currentPage < totalPages}" class="page-item"><a class="page-link"
+                                                                                 th:href="@{'/admin/doctors-list/'+${currentPage+1}}">
                         <span th:text="${currentPage+1}"></span>
                     </a></li>
-                    <li  th:if="${currentPage < totalPages}" class="page-item"> <a class="page-link" th:href="@{'/admin/doctors-list/'+${currentPage+1}}">Next</a></li>
+                    <li th:if="${currentPage < totalPages}" class="page-item"><a class="page-link"
+                                                                                 th:href="@{'/admin/doctors-list/'+${currentPage+1}}">Next</a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -92,16 +99,16 @@
                         success: function (result) {
                             if (result.status == "success") {
                                 $("#" + deletedRowAlertId).removeClass("d-none");
-                                $("#" + deletedRowAlertId+' td').html("Doctor Deleted Successfully!!");
-                                $("#" + deletedRowAlertId+' td').addClass("text-center bg-success bg-opacity-25");
+                                $("#" + deletedRowAlertId + ' td').html("Doctor Deleted Successfully!!");
+                                $("#" + deletedRowAlertId + ' td').addClass("text-center bg-success bg-opacity-25");
                                 $("#" + deleteRowId).remove()
                             }
                             console.log(result);
                         },
                         error: function (e) {
                             $("#" + deletedRowAlertId).removeClass("d-none");
-                            $("#" + deletedRowAlertId+' td').html("Doctor Delete Unsuccessful!")
-                            $("#" + deletedRowAlertId+' td').addClass("text-center bg-danger bg-opacity-25");
+                            $("#" + deletedRowAlertId + ' td').html("Doctor Delete Unsuccessful!")
+                            $("#" + deletedRowAlertId + ' td').addClass("text-center bg-danger bg-opacity-25");
                             console.log("ERROR: ", e);
                         }
                     });

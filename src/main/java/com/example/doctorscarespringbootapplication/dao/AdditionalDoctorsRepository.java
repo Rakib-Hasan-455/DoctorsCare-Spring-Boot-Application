@@ -8,8 +8,6 @@ import java.util.List;
 public interface AdditionalDoctorsRepository extends JpaRepository<DoctorsAdditionalInfo, Integer> {
     List<DoctorsAdditionalInfo> findDoctorsAdditionalInfoByDoctortype(String doctorsType);
 
-//    List<DoctorsAdditionalInfo> findDoctorsAdditionalInfoByUser_id(int userID);
-
     DoctorsAdditionalInfo findDoctorsAdditionalInfoByUser_id(int userID);
 
     int countByDoctortype(String doctorType);

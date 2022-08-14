@@ -66,7 +66,7 @@ public class DoctorPrescription {
             model.addAttribute("patientUser", patientUser);
         } else {
             // If you don't have current appointment then you can't give prescription
-             model.addAttribute("noAppointment", "true");
+            model.addAttribute("noAppointment", "true");
         }
         model.addAttribute("prescriptionSaved", "true");
         addCommonData(model, principal);

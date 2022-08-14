@@ -23,62 +23,63 @@
     </div>
 
     <div th:if="${noDoctorAppointment != 'true'}">
-    <div id="container" class="text-center mt-5 pt-5 d-none">
-        <h1> 🕖 Appointment Countdown: <br>
-            <span id="time"> --:-- </span>
-            Minutes left </h1>
-    </div>
-    <div class="container d-none" id="messengerclass">
-        <div class="chat">
-            <div class="card">
-                <div class="card-header msg_head">
-                    <div class="d-flex bd-highlight">
-                        <div class="img_cont">
-                            <img th:src="${patientUser.getImageURL()}"
-                                 class="rounded-circle user_img" style="object-fit: cover">
-                            <span class="online_icon"></span>
-                        </div>
-                        <div class="user_info">
-                            <span th:text="${patientUser.getName()}"></span>
+        <div id="container" class="text-center mt-5 pt-5 d-none">
+            <h1> 🕖 Appointment Countdown: <br>
+                <span id="time"> --:-- </span>
+                Minutes left </h1>
+        </div>
+        <div class="container d-none" id="messengerclass">
+            <div class="chat">
+                <div class="card">
+                    <div class="card-header msg_head">
+                        <div class="d-flex bd-highlight">
+                            <div class="img_cont">
+                                <img th:src="${patientUser.getImageURL()}"
+                                     class="rounded-circle user_img" style="object-fit: cover">
+                                <span class="online_icon"></span>
+                            </div>
+                            <div class="user_info">
+                                <span th:text="${patientUser.getName()}"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="card-body msg_card_body" id="msg_card_body">
-<!--                    Messages-->
-                </div>
+                    <div class="card-body msg_card_body" id="msg_card_body">
+                        <!--                    Messages-->
+                    </div>
 
-                <div class="card-footer">
-                    <div class="input-group">
-                        <div class="input-group-append">
-                            <span class="input-group-text attach_btn"><i class='bx bx-chat'></i></span>
-                        </div>
-                        <input type="text" id="message-value" name="" class="form-control type_msg"
-                               placeholder="Type your message...">
-                        <div class="input-group-append">
-                            <span class="input-group-text send_btn" id="send-btn"><i class="fas fa-location-arrow"></i></span>
+                    <div class="card-footer">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text attach_btn"><i class='bx bx-chat'></i></span>
+                            </div>
+                            <input type="text" id="message-value" name="" class="form-control type_msg"
+                                   placeholder="Type your message...">
+                            <div class="input-group-append">
+                                <span class="input-group-text send_btn" id="send-btn"><i
+                                        class="fas fa-location-arrow"></i></span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="container mt-3 text-center">
-            <form th:action="@{/doctor/give-prescription}" method="post" target="_blank">
-            <input type="hidden" th:value="${appointmentID}" th:name="appointmentID">
-<!--                <button class="btn btn-lg btn-info rounded-pill border-dark">Give Prescriptions</button>-->
-                <button class="btn btn-lg btn-success">Give Prescription</button>
-            </form>
+            <div class="container mt-3 text-center">
+                <form th:action="@{/doctor/give-prescription}" method="post" target="_blank">
+                    <input type="hidden" th:value="${appointmentID}" th:name="appointmentID">
+                    <!--                <button class="btn btn-lg btn-info rounded-pill border-dark">Give Prescriptions</button>-->
+                    <button class="btn btn-lg btn-success">Give Prescription</button>
+                </form>
+            </div>
         </div>
     </div>
-    </div>
 
-<style>
+    <style>
 
-</style>
+    </style>
 
 
-<!--    Javascript Part -->
+    <!--    Javascript Part -->
     <script th:inline="javascript">
         var stompClient = null
 
@@ -107,7 +108,7 @@
                 let senderName = [[${senderEmailDoctor}]];
                 console.log('sendername = ' + senderName)
                 //subscribe
-                stompClient.subscribe("/user/"+senderName+"/private", function (response) {
+                stompClient.subscribe("/user/" + senderName + "/private", function (response) {
 
                     showMessage(JSON.parse(response.body))
 
@@ -120,7 +121,7 @@
 
         function showMessage(message) {
             // $("#message-container-table").prepend(`<tr><td><b style="color: lightcoral"> ${message.senderName} :</b> ${message.message}</td></tr>`)
-            const currentTime = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+            const currentTime = new Date().toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})
             let patientImage = [[${patientProfileImage}]]
 
             $("#msg_card_body").append(`
@@ -145,10 +146,10 @@
         }
 
         function showMyMessage() {
-             let myMessage = document.getElementById('message-value').value;
-             console.log(myMessage)
+            let myMessage = document.getElementById('message-value').value;
+            console.log(myMessage)
 
-            const currentTime = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+            const currentTime = new Date().toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true})
             let doctorImage = [[${doctorProfileImage}]]
 
             $("#msg_card_body").append(`
@@ -182,7 +183,6 @@
 
         var secondsRemaining;
         var intervalHandle;
-
 
 
         function tick() {

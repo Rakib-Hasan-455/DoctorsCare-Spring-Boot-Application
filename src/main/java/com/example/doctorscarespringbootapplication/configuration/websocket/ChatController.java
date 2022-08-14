@@ -13,8 +13,8 @@ public class ChatController {
     private SimpMessagingTemplate simpMessagingTemplate;
 
     @MessageMapping("/private-message")
-    public MessageModel recMessage(@Payload MessageModel message){
-        simpMessagingTemplate.convertAndSendToUser(message.getReceiverName(),"/private",message);
+    public MessageModel recMessage(@Payload MessageModel message) {
+        simpMessagingTemplate.convertAndSendToUser(message.getReceiverName(), "/private", message);
         return message;
     }
 }

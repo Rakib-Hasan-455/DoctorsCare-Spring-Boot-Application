@@ -1,4 +1,4 @@
-package com.example.doctorscarespringbootapplication.configuration;
+package com.example.doctorscarespringbootapplication.configuration.springSecurity;
 
 import com.example.doctorscarespringbootapplication.dao.UserRepository;
 import com.example.doctorscarespringbootapplication.entity.User;
@@ -24,7 +24,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
                                         Authentication authentication) throws ServletException, IOException {
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         User user = this.userRepository.getUserByEmailNative(customUserDetails.getUsername());
-        String redirectURL = request.getContextPath()+"/login";
+        String redirectURL = request.getContextPath() + "/login";
         if (user.getRole().toLowerCase(Locale.ROOT).equals("role_admin")) {
             redirectURL = "/admin/index";
         } else if (user.getRole().toLowerCase(Locale.ROOT).equals("role_doctor")) {

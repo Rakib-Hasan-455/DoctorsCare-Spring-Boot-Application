@@ -35,6 +35,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     User findById(int doctorID);
 
     long countByRole(String role_patient);
+
     long countByRoleAndEnabled(String role_patient, Boolean enabled);
 
     @Query(value = "SELECT next_val FROM hibernate_sequence Limit 1", nativeQuery = true)

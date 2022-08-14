@@ -2,8 +2,8 @@ package com.example.doctorscarespringbootapplication.dto;
 
 public class ServiceResponse<T> {
 
-        private String status;
-        private T data;
+    private String status;
+    private T data;
 
     public ServiceResponse(String status, T data) {
         this.status = status;

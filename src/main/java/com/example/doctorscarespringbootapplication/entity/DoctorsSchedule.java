@@ -8,10 +8,8 @@ public class DoctorsSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
-
     @Column(columnDefinition = "boolean default true")
-    private boolean _10_00 ;
+    private boolean _10_00;
     @Column(columnDefinition = "boolean default true")
     private boolean _10_30;
     @Column(columnDefinition = "boolean default true")

@@ -10,27 +10,19 @@ public class Posts {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
     private Date postDate;
-
     private Time postTime;
-
     @Column(length = 10000)
     private String coverPhoto;
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "posts")
     private List<Likes> likesList;
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "posts")
     private List<Comments> commentsList;
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "posts")
     private List<SavedPosts> savedPostsList;
-
     @ManyToOne
     private User user;
-
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "TEXT")
     private String postContent;
 
     public Posts(int id, Date postDate, Time postTime, String coverPhoto, List<Likes> likesList, String postContent) {
@@ -43,7 +35,6 @@ public class Posts {
     }
 
     public Posts(Date postDate, Time postTime, String coverPhoto, String postContent) {
-
         this.postDate = postDate;
         this.postTime = postTime;
         this.coverPhoto = coverPhoto;
@@ -77,7 +68,6 @@ public class Posts {
     public void setId(int id) {
         this.id = id;
     }
-
 
 
     public Date getPostDate() {

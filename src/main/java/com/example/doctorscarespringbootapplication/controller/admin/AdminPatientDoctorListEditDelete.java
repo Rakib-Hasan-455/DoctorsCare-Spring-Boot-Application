@@ -65,7 +65,7 @@ public class AdminPatientDoctorListEditDelete {
         user.setAbout(adminPatientEditDTO.getAbout());
         user.setEnabled(adminPatientEditDTO.isEnabled());
         userRepository.save(user);
-        return "redirect:/admin/patients-list/"+adminPatientEditDTO.getPage();
+        return "redirect:/admin/patients-list/" + adminPatientEditDTO.getPage();
     }
 
     @PostMapping("/process-doctor-edit")
@@ -84,7 +84,7 @@ public class AdminPatientDoctorListEditDelete {
         user.getDoctorsAdditionalInfo().setMedicalcollege(adminDoctorEditDTO.getMedicalcollege());
         user.getDoctorsAdditionalInfo().setAppointmentfee(adminDoctorEditDTO.getAppointmentfee());
         userRepository.save(user);
-        return "redirect:/admin/doctors-list/"+adminDoctorEditDTO.getPage();
+        return "redirect:/admin/doctors-list/" + adminDoctorEditDTO.getPage();
     }
 
     @ModelAttribute

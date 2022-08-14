@@ -12,11 +12,11 @@ public class DoctorGivePrescriptionDTO {
     private String medicines = "";
 
     public DoctorGivePrescriptionDTO(String appointmentID, String symptoms, String tests, String advice, String medicines) {
-        this.appointmentID = appointmentID+"";
-        this.symptoms = symptoms+"";
-        this.tests = tests+"";
-        this.advice = advice+"";
-        this.medicines = medicines+"";
+        this.appointmentID = appointmentID + "";
+        this.symptoms = symptoms + "";
+        this.tests = tests + "";
+        this.advice = advice + "";
+        this.medicines = medicines + "";
     }
 
     public DoctorGivePrescriptionDTO(String symptoms, String tests, String advice, String medicines) {
@@ -31,42 +31,42 @@ public class DoctorGivePrescriptionDTO {
     }
 
     public String getAppointmentID() {
-        return appointmentID+"";
+        return appointmentID + "";
     }
 
     public void setAppointmentID(String appointmentID) {
-        this.appointmentID = appointmentID+"";
+        this.appointmentID = appointmentID + "";
     }
 
     public String getSymptoms() {
-        return symptoms+"";
+        return symptoms + "";
     }
 
     public void setSymptoms(String symptoms) {
-        this.symptoms = symptoms+"";
+        this.symptoms = symptoms + "";
     }
 
     public String getTests() {
-        return tests+"";
+        return tests + "";
     }
 
     public void setTests(String tests) {
-        this.tests = tests+"";
+        this.tests = tests + "";
     }
 
     public String getAdvice() {
-        return advice+"";
+        return advice + "";
     }
 
     public void setAdvice(String advice) {
-        this.advice = advice+"";
+        this.advice = advice + "";
     }
 
     public String getMedicines() {
-        return medicines+"";
+        return medicines + "";
     }
 
     public void setMedicines(String medicines) {
-        this.medicines = medicines+"";
+        this.medicines = medicines + "";
     }
 }

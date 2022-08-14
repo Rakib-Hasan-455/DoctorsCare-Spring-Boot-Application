@@ -5,53 +5,65 @@
     <title>Title</title>
 </head>
 <body>
-    <section>
-        <div class="container mb-5 pb-5">
+<section>
+    <div class="container mb-5 pb-5">
         <h2 class="text-center mt-3"> Appoint Doctor </h2>
-        <div class="card 1 mb-5 pb-5" >
+        <div class="card 1 mb-5 pb-5">
             <div class="card_image">
-                <img th:src="${userList.getImageURL()}" /> </div>
+                <img th:src="${userList.getImageURL()}"/></div>
             <div class="card_title title-white">
                 <span th:text="${userList.name}"></span>
-                <h6> <span th:text="${userList.getDoctorsAdditionalInfo().degrees}"></span> </h6>
-                <h6> Graducated From <span th:text="${userList.getDoctorsAdditionalInfo().medicalcollege}"></span> </h6>
-                <h6> Email: <span th:text="${userList.email}"></span> </h6>
-                <h6> Contact No: <span th:text="${userList.phone}"></span> </h6>
-                <h6> Address: <span th:text="${userList.address}"></span> </h6>
+                <h6><span th:text="${userList.getDoctorsAdditionalInfo().degrees}"></span></h6>
+                <h6> Graducated From <span th:text="${userList.getDoctorsAdditionalInfo().medicalcollege}"></span></h6>
+                <h6> Email: <span th:text="${userList.email}"></span></h6>
+                <h6> Contact No: <span th:text="${userList.phone}"></span></h6>
+                <h6> Address: <span th:text="${userList.address}"></span></h6>
 
-                <h5>  Appoinement Fee: <span th:text="${userList.getDoctorsAdditionalInfo().appointmentfee}"></span> tk </h5>
+                <h5> Appoinement Fee: <span th:text="${userList.getDoctorsAdditionalInfo().appointmentfee}"></span> tk
+                </h5>
                 <h4 class="px-5 py-3" th:if="${currentHour >= 15}" style="color: rgba(255,255,90,0.94)">
-                    Sorry, doctor is not available at this time. Please try to get appointment within 12:00 AM to 2:00 PM.
+                    Sorry, doctor is not available at this time. Please try to get appointment within 12:00 AM to 2:00
+                    PM.
                 </h4>
 
                 <div th:if="${currentHour < 15}">
-                <form th:action="@{/patient/appoint-doctor/attempt-payment}" method="post">
-                    <input type="hidden" name="doctorID" th:value="${userList.id}"/>
-                    <input type="hidden" name="doctorFee" th:value="${userList.getDoctorsAdditionalInfo().appointmentfee}"/>
+                    <form th:action="@{/patient/appoint-doctor/attempt-payment}" method="post">
+                        <input type="hidden" name="doctorID" th:value="${userList.id}"/>
+                        <input type="hidden" name="doctorFee"
+                               th:value="${userList.getDoctorsAdditionalInfo().appointmentfee}"/>
 
-                    <div class="mb-1 px-3">
-                    <label class="form-label h6 mt-3 mb-4"> Get Appointment at
-                        <select required name="appointmentTime" class="form-select">
-                        <option disabled>(select time)</option>
-                        <option th:if="${userList.getDoctorsSchedule()._10_00}" value="10:00:00">10:00 AM</option>
-                        <option th:if="${userList.getDoctorsSchedule()._10_30}" value="10:30:00">10:30 AM</option>
-                        <option th:if="${userList.getDoctorsSchedule()._11_00}" value="11:00:00">11:00 AM</option>
-                        <option th:if="${userList.getDoctorsSchedule()._11_30}" value="11:30:00">11:30 AM</option>
-                        <option th:if="${userList.getDoctorsSchedule()._12_00}" value="12:00:00">12:00 PM</option>
-                        <option th:if="${userList.getDoctorsSchedule()._2_00}" value="14:00:00">2:00 PM</option>
-                        <option th:if="${userList.getDoctorsSchedule()._2_30}" value="14:30:00">2:30 PM</option>
-                        <option th:if="${userList.getDoctorsSchedule()._3_00}" value="15:00:00">3:00 PM</option>
-                        <option th:if="${userList.getDoctorsSchedule()._3_30}" value="15:30:00">3:30 PM</option>
-                    </select>
-                    </label>
-                </div>
+                        <div class="mb-1 px-3">
+                            <label class="form-label h6 mt-3 mb-4"> Get Appointment at
+                                <select required name="appointmentTime" class="form-select">
+                                    <option disabled>(select time)</option>
+                                    <option th:if="${userList.getDoctorsSchedule()._10_00}" value="10:00:00">10:00 AM
+                                    </option>
+                                    <option th:if="${userList.getDoctorsSchedule()._10_30}" value="10:30:00">10:30 AM
+                                    </option>
+                                    <option th:if="${userList.getDoctorsSchedule()._11_00}" value="11:00:00">11:00 AM
+                                    </option>
+                                    <option th:if="${userList.getDoctorsSchedule()._11_30}" value="11:30:00">11:30 AM
+                                    </option>
+                                    <option th:if="${userList.getDoctorsSchedule()._12_00}" value="12:00:00">12:00 PM
+                                    </option>
+                                    <option th:if="${userList.getDoctorsSchedule()._2_00}" value="14:00:00">2:00 PM
+                                    </option>
+                                    <option th:if="${userList.getDoctorsSchedule()._2_30}" value="14:30:00">2:30 PM
+                                    </option>
+                                    <option th:if="${userList.getDoctorsSchedule()._3_00}" value="15:00:00">3:00 PM
+                                    </option>
+                                    <option th:if="${userList.getDoctorsSchedule()._3_30}" value="15:30:00">3:30 PM
+                                    </option>
+                                </select>
+                            </label>
+                        </div>
 
-                <button type="submit" class="text-center mb-4 btn btn-lg btn-success"> Get Appointment </button>
-                </form>
+                        <button type="submit" class="text-center mb-4 btn btn-lg btn-success"> Get Appointment</button>
+                    </form>
                 </div>
             </div>
         </div>
-        </div>
-    </section>
+    </div>
+</section>
 </body>
 </html>

@@ -198,7 +198,7 @@
                                                 <div>
                                                     <img th:src="${user.getImageURL()}"
 
-                                                                             alt="avatar"
+                                                         alt="avatar"
                                                          class="rounded-circle me-2"
                                                          style="width: 38px; height: 38px;  object-fit: cover;                                "
                                                     />
@@ -263,15 +263,19 @@
                     <li th:if="${currentPage-1 > 0}" class="page-item">
                         <a class="page-link" th:href="@{'/patient/post-homepage/'+${currentPage-1}}">Previous</a>
                     </li>
-                    <li th:if="${currentPage-1 > 0}" class="page-item"><a class="page-link" th:href="@{'/patient/post-homepage/'+${currentPage-1}}">
+                    <li th:if="${currentPage-1 > 0}" class="page-item"><a class="page-link"
+                                                                          th:href="@{'/patient/post-homepage/'+${currentPage-1}}">
                         <span th:text="${currentPage-1}"></span>
                     </a></li>
                     <li class="page-item active"><span class="page-link" th:text="${currentPage}"><span class="sr-only">(current)</span></span>
                     </li>
-                    <li th:if="${currentPage < totalPages}"  class="page-item"><a class="page-link" th:href="@{'/patient/post-homepage/'+${currentPage+1}}">
+                    <li th:if="${currentPage < totalPages}" class="page-item"><a class="page-link"
+                                                                                 th:href="@{'/patient/post-homepage/'+${currentPage+1}}">
                         <span th:text="${currentPage+1}"></span>
                     </a></li>
-                    <li  th:if="${currentPage < totalPages}" class="page-item"> <a class="page-link" th:href="@{'/patient/post-homepage/'+${currentPage+1}}">Next</a></li>
+                    <li th:if="${currentPage < totalPages}" class="page-item"><a class="page-link"
+                                                                                 th:href="@{'/patient/post-homepage/'+${currentPage+1}}">Next</a>
+                    </li>
                 </ul>
             </nav>
         </div>

@@ -10,10 +10,15 @@ import java.util.List;
 
 public interface PrescriptionRepository extends JpaRepository<Prescription, Integer> {
     String countAllByAppointDoctorPatientID(String patientId);
+
     String countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNullAndAppointDoctorPatientID(Date todaysDate, String patientId);
+
     List<Prescription> findByAppointDoctorPatientIDOrderByIdDesc(String patientIDEmail);
+
     Page<Prescription> findByAppointDoctorPatientIDAndSymptomsNotNullOrderByIdDesc(String patientIDEmail, Pageable pageable);
+
     List<Prescription> findByAppointDoctorDoctorIDOrderByIdDesc(String doctorID);
+
     Page<Prescription> findByAppointDoctorDoctorIDAndSymptomsNotNullOrderByIdDesc(String doctorID, Pageable pageable);
 
     List<Prescription> findAllByOrderByIdDesc();

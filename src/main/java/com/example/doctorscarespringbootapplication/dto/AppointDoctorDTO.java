@@ -4,9 +4,7 @@ import java.sql.Time;
 
 public class AppointDoctorDTO {
     private Time appointmentTime;
-
     private String doctorID;
-
     private String doctorFee;
 
     public AppointDoctorDTO() {

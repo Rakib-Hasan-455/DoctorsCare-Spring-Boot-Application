@@ -1,4 +1,4 @@
-package com.example.doctorscarespringbootapplication.configuration;
+package com.example.doctorscarespringbootapplication.configuration.springSecurity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

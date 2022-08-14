@@ -13,11 +13,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
-//    @NotBlank(message = "Field Can't be blank")
-//    @Size(min = 3, max = 30, message = "Username must be within 3 - 20 characters!")
     private String name;
-
     @Valid
     @Column(unique = true)
     @NotBlank(message = "Email can't be blank")

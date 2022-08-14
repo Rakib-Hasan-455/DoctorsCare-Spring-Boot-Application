@@ -54,22 +54,22 @@ public class PatientMainController {
         model.addAttribute("title", "Patient Dashboard");
         User user = userRepository.getUserByEmailNative(principal.getName());
 //        Three cards data
-        DateTimeFormatter dtfDate =  DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         LocalDateTime now = LocalDateTime.now();
         String todayDate = dtfDate.format(now);
         String todaysAppointmentCount = appointDoctorRepository.countAllByAppointmentDateAndPatientID(java.sql.Date.valueOf(todayDate), principal.getName());
-        String todaysCompletedAppointment = prescriptionRepository.countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNullAndAppointDoctorPatientID(java.sql.Date.valueOf(todayDate), user.getId()+"");
+        String todaysCompletedAppointment = prescriptionRepository.countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNullAndAppointDoctorPatientID(java.sql.Date.valueOf(todayDate), user.getId() + "");
         model.addAttribute("todaysAppointment", todaysAppointmentCount);
         model.addAttribute("todaysCompletedAppointment", todaysCompletedAppointment);
 
-        String todaysGivenPrescriptions = prescriptionRepository.countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNullAndAppointDoctorPatientID(java.sql.Date.valueOf(todayDate), user.getId()+"");
-        String totalPrescriptions = prescriptionRepository.countAllByAppointDoctorPatientID(user.getId()+"");
+        String todaysGivenPrescriptions = prescriptionRepository.countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNullAndAppointDoctorPatientID(java.sql.Date.valueOf(todayDate), user.getId() + "");
+        String totalPrescriptions = prescriptionRepository.countAllByAppointDoctorPatientID(user.getId() + "");
         model.addAttribute("todaysGivenPrescriptions", todaysGivenPrescriptions);
         model.addAttribute("totalGivenPrescriptions", totalPrescriptions);
 
         long totalPosts = postsRepository.count();
-        long totalSavedPosts = savedPostsRepository.countBySaverId(user.getId()+"");
+        long totalSavedPosts = savedPostsRepository.countBySaverId(user.getId() + "");
         model.addAttribute("totalPosts", totalPosts);
         model.addAttribute("totalSavedPosts", totalSavedPosts);
 //        Upcoming Appointments
@@ -159,7 +159,7 @@ public class PatientMainController {
     public String patientTodayAppointment(Model model, Principal principal) {
         model.addAttribute("title", "Today's Appointment");
 
-        DateTimeFormatter dtfDate  = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         LocalDateTime now = LocalDateTime.now();
         String todayDate = dtfDate.format(now);
@@ -180,7 +180,7 @@ public class PatientMainController {
     @GetMapping("/view-prescriptions/{page}")
     public String viewPrescriptions(@PathVariable("page") Integer page, Model model, Principal principal) {
         model.addAttribute("title", "View Prescriptions");
-        Pageable pageable = PageRequest.of(page-1, 8);
+        Pageable pageable = PageRequest.of(page - 1, 8);
         Page<Prescription> prescriptionList = prescriptionRepository.findByAppointDoctorPatientIDAndSymptomsNotNullOrderByIdDesc(principal.getName(), pageable);
         if (prescriptionList.getTotalElements() == 0) {
             model.addAttribute("noPrescription", "true");
@@ -208,7 +208,7 @@ public class PatientMainController {
 
     @GetMapping(value = "/uploadedImages/{filename}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<byte[]> download(@PathVariable String filename) throws IOException {
-        var data = Files.readAllBytes(Paths.get(  "upload/" + filename));
+        var data = Files.readAllBytes(Paths.get("upload/" + filename));
         return ResponseEntity.ok()
                 .contentLength(data.length)
                 .body(data);
@@ -225,7 +225,7 @@ public class PatientMainController {
         java.util.Date date1 = format.parse(currentTime);
         java.util.Date date2 = format.parse(appointmentTimeStr);
         long difference = date2.getTime() - date1.getTime();
-        long countDownTime = (difference/1000)/60;
+        long countDownTime = (difference / 1000) / 60;
         if (countDownTime <= 0) {
             countDownTime = 0;
         }

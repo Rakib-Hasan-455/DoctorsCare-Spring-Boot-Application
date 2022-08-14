@@ -11,9 +11,10 @@
 
         <div class="row">
             <div class="col-md-6 offset-md-3">
-                <div class="my-card mt-4 mb-3  p-5 rounded-3  bg-gray bg-opacity-10"  >
+                <div class="my-card mt-4 mb-3  p-5 rounded-3  bg-gray bg-opacity-10">
                     <div class=" image d-flex flex-column justify-content-center align-items-center mb-3">
-                        <img th:src="${doctorUser.imageURL}" height="150" width="150" style="object-fit: cover" class="rounded-circle bg-dark" />
+                        <img th:src="${doctorUser.imageURL}" height="150" width="150" style="object-fit: cover"
+                             class="rounded-circle bg-dark"/>
                     </div>
                     <form th:action="@{/admin/process-doctor-edit}" method="post" th:object="${doctorUser}">
                         <input name="page" th:value="${page}" hidden>
@@ -31,34 +32,41 @@
                         <!--                        name-->
                         <div class="mb-3">
                             <label class="form-label">Full Name</label>
-                            <input name="name" th:value="${doctorUser.name}" required placeholder="Enter here" type="text" class="form-control">
+                            <input name="name" th:value="${doctorUser.name}" required placeholder="Enter here"
+                                   type="text" class="form-control">
                         </div>
                         <!--                        DOB-->
                         <div class="mb-3">
                             <label class="form-label">Date Of Birth</label>
-                            <input name="DOB" th:value="${doctorUser.DOB}" required placeholder="Enter here" type="date" class="form-control">
+                            <input name="DOB" th:value="${doctorUser.DOB}" required placeholder="Enter here" type="date"
+                                   class="form-control">
                         </div>
                         <!--                        email -->
                         <div class="mb-3">
                             <label class="form-label">Email address</label>
-                            <input name="email" th:value="${doctorUser.email}" placeholder="Enter here" type="email" class="form-control"
+                            <input name="email" th:value="${doctorUser.email}" placeholder="Enter here" type="email"
+                                   class="form-control"
                                    th:classappend="${(emailError == 'yes')?'is-invalid':''}">
-                            <div th:if="${emailError == 'yes'}" th:text="${emailErrorMsg}" class="invalid-feedback"></div>
+                            <div th:if="${emailError == 'yes'}" th:text="${emailErrorMsg}"
+                                 class="invalid-feedback"></div>
                         </div>
                         <!--                        Phone Number-->
                         <div class="mb-3">
                             <label class="form-label">Phone Number</label>
-                            <input name="phone" th:value="${doctorUser.phone}" required minlength="11" maxlength="11" placeholder="Enter here" type="text" class="form-control">
+                            <input name="phone" th:value="${doctorUser.phone}" required minlength="11" maxlength="11"
+                                   placeholder="Enter here" type="text" class="form-control">
                         </div>
                         <!--                        Current Address-->
                         <div class="mb-3">
                             <label class="form-label">Current Address</label>
-                            <input name="address" th:value="${doctorUser.address}" required placeholder="Enter here" type="text" class="form-control">
+                            <input name="address" th:value="${doctorUser.address}" required placeholder="Enter here"
+                                   type="text" class="form-control">
                         </div>
                         <!--                        about -->
                         <div class="form-group mb-3">
                             <label class="form-label">About</label>
-                            <textarea required placeholder="Enter something about yourself" name="about" cols="30" rows="5" class="form-control" th:text="${doctorUser.about}"></textarea>
+                            <textarea required placeholder="Enter something about yourself" name="about" cols="30"
+                                      rows="5" class="form-control" th:text="${doctorUser.about}"></textarea>
                         </div>
 
                         <!--                        DOCTOR TYPE INFOS -->
@@ -68,38 +76,67 @@
                         <!--                        NID Number -->
                         <div class="mb-3">
                             <label class="form-label">NID Card Number</label>
-                            <input name="nid" th:value="${doctorUser.getDoctorsAdditionalInfo().nid}" minlength="9" maxlength="15" placeholder="Ex: 123 456 7890" type="number" class="form-control">
+                            <input name="nid" th:value="${doctorUser.getDoctorsAdditionalInfo().nid}" minlength="9"
+                                   maxlength="15" placeholder="Ex: 123 456 7890" type="number" class="form-control">
                         </div>
                         <!--                        Specialist At -->
                         <div class="mb-3">
                             <label class="form-label"> Specialist at </label>
-                            <select name="doctortype" th:value="${doctorUser.getDoctorsAdditionalInfo().doctortype}" class="form-select" aria-label="Default select example">
+                            <select name="doctortype" th:value="${doctorUser.getDoctorsAdditionalInfo().doctortype}"
+                                    class="form-select" aria-label="Default select example">
                                 <option selected disabled>(select one)</option>
-                                <option value="pediatrics" th:selected="${doctorUser.getDoctorsAdditionalInfo().doctortype == 'pediatrics'}">Pediatrics</option>
-                                <option value="Skin" th:selected="${doctorUser.getDoctorsAdditionalInfo().doctortype == 'Skin'}">Skin</option>
-                                <option value="Medicine" th:selected="${doctorUser.getDoctorsAdditionalInfo().doctortype == 'Medicine'}">Medicine</option>
-                                <option value="Covid Support" th:selected="${doctorUser.getDoctorsAdditionalInfo().doctortype == 'Covid Support'}">Covid Support</option>
-                                <option value="Mental Health" th:selected="${doctorUser.getDoctorsAdditionalInfo().doctortype == 'Mental Health'}">Mental Health</option>
-                                <option value="Urology" th:selected="${doctorUser.getDoctorsAdditionalInfo().doctortype == 'Urology'}">Urology</option>
-                                <option value="Eye" th:selected="${doctorUser.getDoctorsAdditionalInfo().doctortype == 'Eye'}">Eye</option>
-                                <option value="Cardiology" th:selected="${doctorUser.getDoctorsAdditionalInfo().doctortype == 'Cardiology'}">Cardiology</option>
+                                <option value="pediatrics"
+                                        th:selected="${doctorUser.getDoctorsAdditionalInfo().doctortype == 'pediatrics'}">
+                                    Pediatrics
+                                </option>
+                                <option value="Skin"
+                                        th:selected="${doctorUser.getDoctorsAdditionalInfo().doctortype == 'Skin'}">Skin
+                                </option>
+                                <option value="Medicine"
+                                        th:selected="${doctorUser.getDoctorsAdditionalInfo().doctortype == 'Medicine'}">
+                                    Medicine
+                                </option>
+                                <option value="Covid Support"
+                                        th:selected="${doctorUser.getDoctorsAdditionalInfo().doctortype == 'Covid Support'}">
+                                    Covid Support
+                                </option>
+                                <option value="Mental Health"
+                                        th:selected="${doctorUser.getDoctorsAdditionalInfo().doctortype == 'Mental Health'}">
+                                    Mental Health
+                                </option>
+                                <option value="Urology"
+                                        th:selected="${doctorUser.getDoctorsAdditionalInfo().doctortype == 'Urology'}">
+                                    Urology
+                                </option>
+                                <option value="Eye"
+                                        th:selected="${doctorUser.getDoctorsAdditionalInfo().doctortype == 'Eye'}">Eye
+                                </option>
+                                <option value="Cardiology"
+                                        th:selected="${doctorUser.getDoctorsAdditionalInfo().doctortype == 'Cardiology'}">
+                                    Cardiology
+                                </option>
                             </select>
                         </div>
                         <!--                        Degrees -->
                         <div class="mb-3">
                             <label class="form-label">Degrees</label>
-                            <input name="degrees" th:value="${doctorUser.getDoctorsAdditionalInfo().degrees}" placeholder="Ex: Mbbs, FCPS, Surgeon" type="text" class="form-control">
+                            <input name="degrees" th:value="${doctorUser.getDoctorsAdditionalInfo().degrees}"
+                                   placeholder="Ex: Mbbs, FCPS, Surgeon" type="text" class="form-control">
                         </div>
                         <!--                        College Name -->
                         <div class="mb-3">
                             <label class="form-label">Medical College Name</label>
-                            <input name="medicalcollege" th:value="${doctorUser.getDoctorsAdditionalInfo().medicalcollege}" placeholder="Ex: Rajshahi Medical College" type="text" class="form-control">
+                            <input name="medicalcollege"
+                                   th:value="${doctorUser.getDoctorsAdditionalInfo().medicalcollege}"
+                                   placeholder="Ex: Rajshahi Medical College" type="text" class="form-control">
                         </div>
 
                         <!--                        Appointment Fee -->
                         <div class="mb-5">
                             <label class="form-label">Appointment Fee (TK)</label>
-                            <input name="appointmentfee" th:value="${doctorUser.getDoctorsAdditionalInfo().appointmentfee}" placeholder="Ex: 100" type="number" min="0" max="10000" class="form-control">
+                            <input name="appointmentfee"
+                                   th:value="${doctorUser.getDoctorsAdditionalInfo().appointmentfee}"
+                                   placeholder="Ex: 100" type="number" min="0" max="10000" class="form-control">
                         </div>
                         <!--                        buttons -->
                         <div class="container text-center d-grid gap-2">

@@ -7,9 +7,7 @@ public class SavedPosts {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
     private String saverId;
-
     @ManyToOne
     private Posts posts;
 

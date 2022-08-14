@@ -70,7 +70,7 @@ public class PatientAppointDoctorController {
         Random rnd = new Random();
         int max = 10;
         int min = 5;
-        while (sb.length() < (int)(Math.random() * ((max - min) + 1)) + min) {
+        while (sb.length() < (int) (Math.random() * ((max - min) + 1)) + min) {
             int index = (int) (rnd.nextFloat() * CHARS.length());
             sb.append(CHARS.charAt(index));
         }
@@ -134,8 +134,6 @@ public class PatientAppointDoctorController {
         redirectView.setUrl(url);
         return redirectView;
     }
-
-
 
 
     private void updateDoctorsAvailableTimeDB(String doctorID, Time appointTime) {

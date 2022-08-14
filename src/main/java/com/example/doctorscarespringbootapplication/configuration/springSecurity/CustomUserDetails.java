@@ -1,4 +1,4 @@
-package com.example.doctorscarespringbootapplication.configuration;
+package com.example.doctorscarespringbootapplication.configuration.springSecurity;
 
 import com.example.doctorscarespringbootapplication.entity.User;
 import org.springframework.security.core.GrantedAuthority;

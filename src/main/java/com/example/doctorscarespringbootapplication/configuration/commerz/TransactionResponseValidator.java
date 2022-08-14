@@ -9,11 +9,9 @@ import java.util.Map;
  */
 public class TransactionResponseValidator {
     /**
-     *
      * @param request
      * @return
-     * @throws Exception
-     * Send Received params from your success resoponse (POST ) in this Map</>
+     * @throws Exception Send Received params from your success resoponse (POST ) in this Map</>
      */
     public boolean receiveSuccessResponse(Map<String, String> request) throws Exception {
 

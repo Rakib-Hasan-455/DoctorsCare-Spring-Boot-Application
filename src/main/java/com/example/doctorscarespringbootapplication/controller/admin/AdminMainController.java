@@ -1,7 +1,7 @@
 package com.example.doctorscarespringbootapplication.controller.admin;
 
 
-import com.example.doctorscarespringbootapplication.configuration.EmailSenderServiceJava;
+import com.example.doctorscarespringbootapplication.configuration.emailSender.EmailSenderServiceJava;
 import com.example.doctorscarespringbootapplication.dao.*;
 import com.example.doctorscarespringbootapplication.entity.AppointDoctor;
 import com.example.doctorscarespringbootapplication.entity.Prescription;
@@ -113,9 +113,9 @@ public class AdminMainController {
 
     @PostMapping("/process-email-send")
     public String emailServiceProcess(@RequestParam("sendMailTo") String sendMailTo,
-            @RequestParam("emailSubject") String emailSubject,
-            @RequestParam("emailBody") String emailBody,
-            Model model, Principal principal) throws MessagingException {
+                                      @RequestParam("emailSubject") String emailSubject,
+                                      @RequestParam("emailBody") String emailBody,
+                                      Model model, Principal principal) throws MessagingException {
         System.out.println(sendMailTo);
         System.out.println(emailSubject);
         System.out.println(emailBody);
@@ -143,7 +143,7 @@ public class AdminMainController {
     private void sendMailToAllPatients(String emailSubject, String emailBody) throws MessagingException {
         List<User> allPatientEmailList = userRepository.findByRoleAndEnabled("ROLE_PATIENT", true);
         for (User user : allPatientEmailList) {
-            emailSenderServiceJava.sendEmail(user.getEmail(), emailSubject , emailBody);
+            emailSenderServiceJava.sendEmail(user.getEmail(), emailSubject, emailBody);
         }
 
     }
@@ -151,21 +151,21 @@ public class AdminMainController {
     private void sendMailToAllDoctors(String emailSubject, String emailBody) throws MessagingException {
         List<User> allDoctorEmailList = userRepository.findByRoleAndEnabled("ROLE_DOCTOR", true);
         for (User user : allDoctorEmailList) {
-            emailSenderServiceJava.sendEmail(user.getEmail(), emailSubject , emailBody);
+            emailSenderServiceJava.sendEmail(user.getEmail(), emailSubject, emailBody);
         }
     }
 
     private void sendMailToAllPatientsAndDoctors(String emailSubject, String emailBody) throws MessagingException {
         List<User> allPatientAndDoctorEmailList = userRepository.findByRoleAndEnabledNative("ROLE_PATIENT", "ROLE_DOCTOR");
         for (User user : allPatientAndDoctorEmailList) {
-            emailSenderServiceJava.sendEmail(user.getEmail(), emailSubject , emailBody);
+            emailSenderServiceJava.sendEmail(user.getEmail(), emailSubject, emailBody);
         }
     }
 
     @GetMapping("/appointment-logs/{page}")
     public String patientTodayAppointment(@PathVariable("page") Integer page, Model model, Principal principal) {
         model.addAttribute("title", "Appointment Logs");
-        Pageable pageable = PageRequest.of(page-1, 8);
+        Pageable pageable = PageRequest.of(page - 1, 8);
         Page<AppointDoctor> appointDoctorList = appointDoctorRepository.findAllByOrderByIdDesc(pageable);
         System.out.println(appointDoctorList.getTotalElements());
         if (appointDoctorList.getTotalElements() != 0) {
@@ -182,7 +182,7 @@ public class AdminMainController {
     @GetMapping("/prescription-logs/{page}")
     public String prescriptionLogs(@PathVariable("page") Integer page, Model model, Principal principal) {
         model.addAttribute("title", "Appointment Logs");
-        Pageable pageable = PageRequest.of(page-1, 8);
+        Pageable pageable = PageRequest.of(page - 1, 8);
         Page<Prescription> prescriptionList = prescriptionRepository
                 .findAllByMedicinesNotNullOrderByIdDesc(pageable);
         if (prescriptionList.getTotalElements() == 0) {
@@ -212,7 +212,7 @@ public class AdminMainController {
     @GetMapping("/patients-list/{page}")
     public String patientsList(@PathVariable("page") Integer page, Model model, Principal principal) {
         model.addAttribute("title", "Patients List");
-        Pageable pageable = PageRequest.of(page-1, 8);
+        Pageable pageable = PageRequest.of(page - 1, 8);
         Page<User> patientList = userRepository.findByRoleOrderByIdDesc("ROLE_PATIENT", pageable);
         if (patientList.getTotalElements() == 0) {
             model.addAttribute("noPatient", true);
@@ -227,7 +227,7 @@ public class AdminMainController {
     @GetMapping("/doctors-list/{page}")
     public String doctorsList(@PathVariable("page") Integer page, Model model, Principal principal) {
         model.addAttribute("title", "Doctors List");
-        Pageable pageable = PageRequest.of(page-1, 8);
+        Pageable pageable = PageRequest.of(page - 1, 8);
         Page<User> doctorList = userRepository.findByRoleOrderByIdDesc("ROLE_DOCTOR", pageable);
         if (doctorList.getTotalElements() == 0) {
             model.addAttribute("noDoctor", true);
@@ -238,7 +238,6 @@ public class AdminMainController {
         addCommonData(model, principal);
         return "admin/admin_doctor_list";
     }
-
 
 
     @ModelAttribute

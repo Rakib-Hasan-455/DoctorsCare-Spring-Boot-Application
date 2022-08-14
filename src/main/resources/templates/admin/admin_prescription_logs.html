@@ -12,7 +12,7 @@
     </div>
 
     <div th:if="${noPrescription != 'true'}">
-        <h3 class="text-center mb-3 mt-3"> <u>Prescription Logs</u> </h3>
+        <h3 class="text-center mb-3 mt-3"><u>Prescription Logs</u></h3>
         <table class="table mt-5">
             <thead>
             <tr>
@@ -20,7 +20,7 @@
                 <th class="text-center" scope="col">Appoint ID</th>
                 <th class="text-center" scope="col">Date</th>
                 <th class="text-center" scope="col">Time</th>
-                <th class="text-center" scope="col">Dr.  ID</th>
+                <th class="text-center" scope="col">Dr. ID</th>
                 <th class="text-center" scope="col">Symptoms</th>
                 <th class="text-center" scope="col">Action</th>
             </tr>
@@ -36,7 +36,8 @@
                 <td class="text-center p-3" th:text="${prescription.getSymptoms()}"></td>
                 <td class="text-center p-3">
                     <form method="post" th:action="@{/admin/view-single-prescription}" target="_blank">
-                        <input th:name="appointmentID"  type="hidden" th:value="${prescription.getAppointDoctor().getId()}">
+                        <input th:name="appointmentID" type="hidden"
+                               th:value="${prescription.getAppointDoctor().getId()}">
                         <button type="submit" class="btn btn-sm btn-primary">View</button>
                     </form>
                 </td>
@@ -44,22 +45,26 @@
             </tr>
             </tbody>
         </table>
-<!--        pagination -->
+        <!--        pagination -->
         <div class="container justify-content-center d-flex">
             <nav aria-label="...">
                 <ul class="pagination">
                     <li th:if="${currentPage-1 > 0}" class="page-item">
                         <a class="page-link" th:href="@{'/admin/prescription-logs/'+${currentPage-1}}">Previous</a>
                     </li>
-                    <li th:if="${currentPage-1 > 0}" class="page-item"><a class="page-link" th:href="@{'/admin/prescription-logs/'+${currentPage-1}}">
+                    <li th:if="${currentPage-1 > 0}" class="page-item"><a class="page-link"
+                                                                          th:href="@{'/admin/prescription-logs/'+${currentPage-1}}">
                         <span th:text="${currentPage-1}"></span>
                     </a></li>
                     <li class="page-item active"><span class="page-link" th:text="${currentPage}"><span class="sr-only">(current)</span></span>
                     </li>
-                    <li th:if="${currentPage < totalPages}"  class="page-item"><a class="page-link" th:href="@{'/admin/prescription-logs/'+${currentPage+1}}">
+                    <li th:if="${currentPage < totalPages}" class="page-item"><a class="page-link"
+                                                                                 th:href="@{'/admin/prescription-logs/'+${currentPage+1}}">
                         <span th:text="${currentPage+1}"></span>
                     </a></li>
-                    <li  th:if="${currentPage < totalPages}" class="page-item"> <a class="page-link" th:href="@{'/admin/prescription-logs/'+${currentPage+1}}">Next</a></li>
+                    <li th:if="${currentPage < totalPages}" class="page-item"><a class="page-link"
+                                                                                 th:href="@{'/admin/prescription-logs/'+${currentPage+1}}">Next</a>
+                    </li>
                 </ul>
             </nav>
         </div>

@@ -23,60 +23,66 @@
                                             Admin Emailing Service
                                         </h5>
                                     </div>
-                                    <h5 th:if="${emailSent == true}" class="alert alert-success px-lg-5 mx-lg-5 text-center"> Email Sent Successfully! </h5>
+                                    <h5 th:if="${emailSent == true}"
+                                        class="alert alert-success px-lg-5 mx-lg-5 text-center"> Email Sent
+                                        Successfully! </h5>
                                     <div class="d-flex align-items-center mb-3">
-                                            <div class="px-2">
-                                                Sender Name:
-                                            </div>
+                                        <div class="px-2">
+                                            Sender Name:
+                                        </div>
                                         <div>
                                             <p class="m-0 fw-bold" th:text="${user.getName()}"></p>
                                         </div>
                                     </div>
 
-                                         <div class="form-group mb-3">
-                                            <label for="exampleFormControlSelect1" class="m-2">Send Email to</label>
-                                            <select class="form-control" id="exampleFormControlSelect1" name="sendMailTo" required>
-                                                <option selected disabled>(select one)</option>
-                                                <option value="All Patients">All Patients</option>
-                                                <option value="All Doctors">All Doctors</option>
-                                                <option value="All Patients & Doctors">All Patients & Doctors</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <label class="m-2">Email Subject</label>
-                                            <input type="text" class="form-control" name="emailSubject" placeholder="Subject">
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <label class="m-2">Email Body</label>
-                                            <textarea id="textareaa"
-                                                      name="emailBody"
-                                                      cols="50"
-                                                      rows="10"
-                                                      class="form-control border-0"
-                                                      placeholder="Body"
-                                                      minlength="10"
-                                                      maxlength="5000"
-                                            ></textarea>
+                                    <div class="form-group mb-3">
+                                        <label for="exampleFormControlSelect1" class="m-2">Send Email to</label>
+                                        <select class="form-control" id="exampleFormControlSelect1" name="sendMailTo"
+                                                required>
+                                            <option selected disabled>(select one)</option>
+                                            <option value="All Patients">All Patients</option>
+                                            <option value="All Doctors">All Doctors</option>
+                                            <option value="All Patients & Doctors">All Patients & Doctors</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label class="m-2">Email Subject</label>
+                                        <input type="text" class="form-control" name="emailSubject"
+                                               placeholder="Subject">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label class="m-2">Email Body</label>
+                                        <textarea id="textareaa"
+                                                  name="emailBody"
+                                                  cols="50"
+                                                  rows="10"
+                                                  class="form-control border-0"
+                                                  placeholder="Body"
+                                                  minlength="10"
+                                                  maxlength="5000"
+                                        ></textarea>
 
-                                            <!-- Script  tinymce -->
-                                            <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.1.0/tinymce.min.js" integrity="sha512-dr3qAVHfaeyZQPiuN6yce1YuH7YGjtUXRFpYK8OfQgky36SUfTfN3+SFGoq5hv4hRXoXxAspdHw4ITsSG+Ud/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-                                            <script>
-                                                tinymce.init({
-                                                    selector: '#textareaa',
-                                                    branding: false,
-                                                    elementpath: false,
-                                                    content_style: "body { line-height: 1.4; }",
-                                                    statusbar: false,
-                                                    resize: true,
-                                                    plugins: 'wordcount',
+                                        <!-- Script  tinymce -->
+                                        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.1.0/tinymce.min.js"
+                                                integrity="sha512-dr3qAVHfaeyZQPiuN6yce1YuH7YGjtUXRFpYK8OfQgky36SUfTfN3+SFGoq5hv4hRXoXxAspdHw4ITsSG+Ud/g=="
+                                                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                                        <script>
+                                            tinymce.init({
+                                                selector: '#textareaa',
+                                                branding: false,
+                                                elementpath: false,
+                                                content_style: "body { line-height: 1.4; }",
+                                                statusbar: false,
+                                                resize: true,
+                                                plugins: 'wordcount',
 
-                                                    init_instance_callback : function(editor) {
-                                                        /* var freeTiny = document.querySelector('.tox .tox-notification--in');
-                                                         freeTiny.style.display = "none";*/
-                                                    }
-                                                });
-                                            </script>
-                                        </div>
+                                                init_instance_callback: function (editor) {
+                                                    /* var freeTiny = document.querySelector('.tox .tox-notification--in');
+                                                     freeTiny.style.display = "none";*/
+                                                }
+                                            });
+                                        </script>
+                                    </div>
                                     <div class="container text-center mt-3">
                                         <button type="submit" class="btn btn-success w-50">
                                             Send Email
@@ -84,7 +90,7 @@
                                     </div>
                                 </div>
                             </div>
-                         </div>
+                        </div>
                     </form>
                 </div>
             </div>

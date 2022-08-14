@@ -1,5 +1,3 @@
-
-
 var stompClient = null
 
 function sendMessage() {

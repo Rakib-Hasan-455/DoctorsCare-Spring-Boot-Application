@@ -97,8 +97,12 @@
                                             </div>
                                             <div class="mb-2 mt-4">
                                                 <label class="form-label">Upload Cover Photo</label>
-                                                <input name="coverPhoto" id="image-uploader" type="hidden" data-accepted="image/*" data-maxFileSize="1" data-width="350" data-height="150" class="simple-file-upload">
-                                                <p class="form-label" style="font-size: 10px; color: red"> Please Note That You Won't be able to change this picture in the future. So Upload Image Carefully* </p>
+                                                <input name="coverPhoto" id="image-uploader" type="hidden"
+                                                       data-accepted="image/*" data-maxFileSize="1" data-width="350"
+                                                       data-height="150" class="simple-file-upload">
+                                                <p class="form-label" style="font-size: 10px; color: red"> Please Note
+                                                    That You Won't be able to change this picture in the future. So
+                                                    Upload Image Carefully* </p>
                                             </div>
                                         </div>
                                     </div>
@@ -116,9 +120,12 @@
                     </div>
                 </div>
                 <hr class="mt-4"/>
-                <p th:if="${posted == true}" class="text-center alert alert-success  alert-dismissible ">Successfully Posted!</p>
-                <p th:if="${posted == false}" class="text-center alert alert-danger  alert-dismissible ">Posting Failed... Please Upload Images to Post!</p>
-                <p th:if="${postsaved == 'true'}" class="text-center alert alert-success  alert-dismissible ">Post Was Updated!</p>
+                <p th:if="${posted == true}" class="text-center alert alert-success  alert-dismissible ">Successfully
+                    Posted!</p>
+                <p th:if="${posted == false}" class="text-center alert alert-danger  alert-dismissible ">Posting
+                    Failed... Please Upload Images to Post!</p>
+                <p th:if="${postsaved == 'true'}" class="text-center alert alert-success  alert-dismissible ">Post Was
+                    Updated!</p>
 
                 <!-- posts -->
                 <!-- p 1 -->
@@ -165,40 +172,44 @@
                         justify-content-around
                         align-items-center
                         fs-7
-                      " role="button" th:onclick="'javascript:sendSavePostParam(\'' + ${post.getId()} + '\', \'savedPost-'+ ${post.getId()} + '\');'"
+                      " role="button"
+                                         th:onclick="'javascript:sendSavePostParam(\'' + ${post.getId()} + '\', \'savedPost-'+ ${post.getId()} + '\');'"
                                     ><i class='bx bx-heart'></i>
-                                        Save Post</div>
-                                </li>
-                               <div th:if="${post.getUser().getId() == user.getId()}">
-                                <form th:action="@{/doctor/edit-post}" method="post" id="editPostForm">
-                                <li class="d-flex align-items-center">
-                                    <input name="postId" th:value="${post.getId()}" hidden>
-                                    <div class="
-                        dropdown-item
-                        d-flex
-                        justify-content-around
-                        align-items-center
-                        fs-7
-                      "
-                                         role="button" th:onclick="'javascript:editPostClicked()'"
-                                    ><i class='bx bx-edit'></i>
-                                        Edit Post
+                                        Save Post
                                     </div>
                                 </li>
-                                </form>
-
-                                <li class="d-flex align-items-center">
-                                    <div
-                                            class="
+                                <div th:if="${post.getUser().getId() == user.getId()}">
+                                    <form th:action="@{/doctor/edit-post}" method="post" id="editPostForm">
+                                        <li class="d-flex align-items-center">
+                                            <input name="postId" th:value="${post.getId()}" hidden>
+                                            <div class="
                         dropdown-item
                         d-flex
                         justify-content-around
                         align-items-center
                         fs-7
                       "
-                                            role="button"  th:onclick="'javascript:sendDeletePostParam(\'' + ${post.getId()} + '\', \'deletePostLabel-'+ ${post.getId()} + '\', \'postIdDiv-'+${post.getId()}+'\');'"
-                                    ><i class='bx bx-trash'></i> Cut Post</div>
-                                </li>
+                                                 role="button" th:onclick="'javascript:editPostClicked()'"
+                                            ><i class='bx bx-edit'></i>
+                                                Edit Post
+                                            </div>
+                                        </li>
+                                    </form>
+
+                                    <li class="d-flex align-items-center">
+                                        <div
+                                                class="
+                        dropdown-item
+                        d-flex
+                        justify-content-around
+                        align-items-center
+                        fs-7
+                      "
+                                                role="button"
+                                                th:onclick="'javascript:sendDeletePostParam(\'' + ${post.getId()} + '\', \'deletePostLabel-'+ ${post.getId()} + '\', \'postIdDiv-'+${post.getId()}+'\');'"
+                                        ><i class='bx bx-trash'></i> Cut Post
+                                        </div>
+                                    </li>
                                 </div>
                             </ul>
                         </div>
@@ -207,31 +218,34 @@
                             <!-- content -->
                             <div>
                                 <div class="mb-2">
-                                <div th:id="'dots-'+${post.getId()}" th:utext="${#strings.substring(post.getPostContent(), 0, 120)+'. . .'}"></div>
-                                <div th:id="'more-'+${post.getId()}" style="display: none">
-                                    <p th:utext="${post.getPostContent()}"></p>
-                                </div>
-                                <div class="fs-6" style="color: #0D6EFD" role="button" th:onclick="'javascript:myReadMoreFunction(\'dots-' + ${post.getId()} + '\', \'more-' + ${post.getId()} + '\', \'myReadMoreBtn-' + ${post.getId()} + '\');'"
-                                        th:id="'myReadMoreBtn-'+${post.getId()}">Read more</div>
-                                <script>
-                                    function myReadMoreFunction(dotsId, moreId, myReadMoreBtnId) {
-                                        var dots = document.getElementById(dotsId);
-                                        var moreText = document.getElementById(moreId);
-                                        var btnText = document.getElementById(myReadMoreBtnId);
+                                    <div th:id="'dots-'+${post.getId()}"
+                                         th:utext="${#strings.substring(post.getPostContent(), 0, 120)+'. . .'}"></div>
+                                    <div th:id="'more-'+${post.getId()}" style="display: none">
+                                        <p th:utext="${post.getPostContent()}"></p>
+                                    </div>
+                                    <div class="fs-6" style="color: #0D6EFD" role="button"
+                                         th:onclick="'javascript:myReadMoreFunction(\'dots-' + ${post.getId()} + '\', \'more-' + ${post.getId()} + '\', \'myReadMoreBtn-' + ${post.getId()} + '\');'"
+                                         th:id="'myReadMoreBtn-'+${post.getId()}">Read more
+                                    </div>
+                                    <script>
+                                        function myReadMoreFunction(dotsId, moreId, myReadMoreBtnId) {
+                                            var dots = document.getElementById(dotsId);
+                                            var moreText = document.getElementById(moreId);
+                                            var btnText = document.getElementById(myReadMoreBtnId);
 
-                                        if (dots.style.display === "none") {
-                                            dots.style.display = "inline";
-                                            btnText.innerHTML = "Read more";
-                                            btnText.style.color = "#0D6EFD"
-                                            moreText.style.display = "none";
-                                        } else {
-                                            dots.style.display = "none";
-                                            btnText.innerHTML = "Read less";
-                                            btnText.style.color = "#B72D47"
-                                            moreText.style.display = "inline";
+                                            if (dots.style.display === "none") {
+                                                dots.style.display = "inline";
+                                                btnText.innerHTML = "Read more";
+                                                btnText.style.color = "#0D6EFD"
+                                                moreText.style.display = "none";
+                                            } else {
+                                                dots.style.display = "none";
+                                                btnText.innerHTML = "Read less";
+                                                btnText.style.color = "#B72D47"
+                                                moreText.style.display = "inline";
+                                            }
                                         }
-                                    }
-                                </script>
+                                    </script>
                                 </div>
                                 <img
                                         th:src="${post.getCoverPhoto()}"
@@ -254,7 +268,9 @@
                                     <div class="me-2">
                                         <i class="text-primary fas fa-thumbs-up"></i>
                                     </div>
-                                    <p class="m-0 text-muted fs-7"><span th:id="'likedCount-'+${post.getId()}" th:text="${#lists.size(post.getLikesList())}"></span> liked this</p>
+                                    <p class="m-0 text-muted fs-7"><span th:id="'likedCount-'+${post.getId()}"
+                                                                         th:text="${#lists.size(post.getLikesList())}"></span>
+                                        liked this</p>
                                 </div>
                                 <!-- comments start-->
                                 <div class="accordion" id="accordionExample">
@@ -274,14 +290,16 @@
                                                     aria-expanded="false"
                                                     aria-controls="collapsePost1"
                                             >
-                                                <p class="m-0"><span th:id="'commentscount-'+${post.getId()}" th:text="${#lists.size(post.getCommentsList())}"></span> Comments</p>
+                                                <p class="m-0"><span th:id="'commentscount-'+${post.getId()}"
+                                                                     th:text="${#lists.size(post.getCommentsList())}"></span>
+                                                    Comments</p>
                                             </div>
                                         </h2>
                                         <hr/>
                                         <!-- comment & like bar -->
                                         <div class="d-flex justify-content-around">
-                                        <div th:id="'process-like-btn-'+${post.getId()}"
-          th:onclick="'javascript:sendLikeParam(\'' + ${post.getId()} + '\', \'likedCount-' + ${post.getId()} + '\', \'process-like-btn-' + ${post.getId()} + '\');'"
+                                            <div th:id="'process-like-btn-'+${post.getId()}"
+                                                 th:onclick="'javascript:sendLikeParam(\'' + ${post.getId()} + '\', \'likedCount-' + ${post.getId()} + '\', \'process-like-btn-' + ${post.getId()} + '\');'"
                                                  class="
                             dropdown-item
                             rounded
@@ -292,7 +310,7 @@
                             text-muted
                             p-1
                           ">
-<!--                                                <input th:value="${post.getId()}" name="postId" id="postId" hidden>-->
+                                                <!--                                                <input th:value="${post.getId()}" name="postId" id="postId" hidden>-->
                                                 <input th:value="${user.getId()}" name="likerId" id="likerId" hidden>
                                                 <i class="fas fa-thumbs-up me-3"></i>
                                                 <p class="m-0">Like</p>
@@ -329,10 +347,10 @@
                                                 <div class="d-flex my-2" id="commentForm">
                                                     <!-- avatar -->
                                                     <div>
-                                                        <img    th:src="${user.getImageURL()}"
-                                                                alt="avatar"
-                                                                class="rounded-circle me-2"
-                                                                style="width: 38px; height: 38px;  object-fit: cover;                                "
+                                                        <img th:src="${user.getImageURL()}"
+                                                             alt="avatar"
+                                                             class="rounded-circle me-2"
+                                                             style="width: 38px; height: 38px;  object-fit: cover;                                "
                                                         />
                                                     </div>
                                                     <!-- input -->
@@ -341,32 +359,35 @@
                                                             class="form-control border-0 rounded-pill bg-gray"
                                                             placeholder="Write a comment"
                                                             th:id="'comment-input-'+${post.getId()}"
-th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \'comment-div-'+${post.getId()} + '\', \'comment-input-'+${post.getId()}  + '\', \'commentscount-'+${post.getId()} + '\');'"
+                                                            th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \'comment-div-'+${post.getId()} + '\', \'comment-input-'+${post.getId()}  + '\', \'commentscount-'+${post.getId()} + '\');'"
                                                     />
                                                 </div>
                                                 <!-- comment 1 -->
                                                 <div th:id="'comment-div-'+${post.getId()}">
 
-                                                <div class="d-flex align-items-center my-1" th:each="comment : ${post.getCommentsList()}">
-                                                    <!-- avatar -->
-                                                    <img
-                                                            th:src="${comment.getCommenterImage()}"
-                                                            alt="avatar"
-                                                            class="rounded-circle me-2"
-                                                            style="
+                                                    <div class="d-flex align-items-center my-1"
+                                                         th:each="comment : ${post.getCommentsList()}">
+                                                        <!-- avatar -->
+                                                        <img
+                                                                th:src="${comment.getCommenterImage()}"
+                                                                alt="avatar"
+                                                                class="rounded-circle me-2"
+                                                                style="
                                 width: 38px;
                                 height: 38px;
                                 object-fit: cover;
                               "
-                                                    />
-                                                    <!-- comment text -->
-                                                    <div class="p-3 rounded comment__input w-100">
-                                                        <p class="fw-bold m-0" th:text="${comment.getCommenterName()}"></p>
-                                                        <p class="m-0 fs-7 bg-gray p-2 rounded" th:text="${comment.getComment()}">
-                                                        </p>
+                                                        />
+                                                        <!-- comment text -->
+                                                        <div class="p-3 rounded comment__input w-100">
+                                                            <p class="fw-bold m-0"
+                                                               th:text="${comment.getCommenterName()}"></p>
+                                                            <p class="m-0 fs-7 bg-gray p-2 rounded"
+                                                               th:text="${comment.getComment()}">
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <!-- comment 2 -->
+                                                    <!-- comment 2 -->
 
 
                                                 </div>
@@ -393,15 +414,19 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
                     <li th:if="${currentPage-1 > 0}" class="page-item">
                         <a class="page-link" th:href="@{'/doctor/post-homepage/'+${currentPage-1}}">Previous</a>
                     </li>
-                    <li th:if="${currentPage-1 > 0}" class="page-item"><a class="page-link" th:href="@{'/doctor/post-homepage/'+${currentPage-1}}">
+                    <li th:if="${currentPage-1 > 0}" class="page-item"><a class="page-link"
+                                                                          th:href="@{'/doctor/post-homepage/'+${currentPage-1}}">
                         <span th:text="${currentPage-1}"></span>
                     </a></li>
                     <li class="page-item active"><span class="page-link" th:text="${currentPage}"><span class="sr-only">(current)</span></span>
                     </li>
-                    <li th:if="${currentPage < totalPages}"  class="page-item"><a class="page-link" th:href="@{'/doctor/post-homepage/'+${currentPage+1}}">
+                    <li th:if="${currentPage < totalPages}" class="page-item"><a class="page-link"
+                                                                                 th:href="@{'/doctor/post-homepage/'+${currentPage+1}}">
                         <span th:text="${currentPage+1}"></span>
                     </a></li>
-                    <li  th:if="${currentPage < totalPages}" class="page-item"> <a class="page-link" th:href="@{'/doctor/post-homepage/'+${currentPage+1}}">Next</a></li>
+                    <li th:if="${currentPage < totalPages}" class="page-item"><a class="page-link"
+                                                                                 th:href="@{'/doctor/post-homepage/'+${currentPage+1}}">Next</a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -417,7 +442,7 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
             // prevent the form from submitting
             e.preventDefault();
             const totalLength = tinymce.activeEditor.plugins.wordcount.body.getCharacterCount();
-             if (totalLength < 150) {
+            if (totalLength < 150) {
                 alert('Minimum character should be 150! current text length is ' + totalLength);
             } else if (totalLength > 50000) {
                 alert('maximum character should be 50000! current text length is ' + totalLength)
@@ -440,13 +465,13 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
         }
 
         function waitforenterandcomment(postId, addCommentDivId, commentInputFieldId, commentsCountId) {
-             if (event.key == 'Enter') {
-                 if (+$('#'+commentInputFieldId).val().length != 0) {
-                     $.commentAjaxFunction(postId, addCommentDivId, commentInputFieldId, commentsCountId);
-                     $('#'+commentInputFieldId).removeClass("text-bg-danger bg-opacity-10 text-success");
-                 } else {
-                     $('#'+commentInputFieldId).addClass("text-bg-danger bg-opacity-10 text-success");
-                 }
+            if (event.key == 'Enter') {
+                if (+$('#' + commentInputFieldId).val().length != 0) {
+                    $.commentAjaxFunction(postId, addCommentDivId, commentInputFieldId, commentsCountId);
+                    $('#' + commentInputFieldId).removeClass("text-bg-danger bg-opacity-10 text-success");
+                } else {
+                    $('#' + commentInputFieldId).addClass("text-bg-danger bg-opacity-10 text-success");
+                }
             }
         }
 
@@ -457,7 +482,7 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
 
         $(document).ready(
             function () {
-                $.postDeleteAjaxFunction  = function (postId, deletePostLabelId, postIdDiv) {
+                $.postDeleteAjaxFunction = function (postId, deletePostLabelId, postIdDiv) {
                     var formData = {
                         postId: postId
                     }
@@ -471,7 +496,7 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
                         success: function (result) {
                             if (result.status == "success") {
                                 $("#" + deletePostLabelId).html(result.data).addClass("alert alert-success");
-                                $("#"+postIdDiv).remove()
+                                $("#" + postIdDiv).remove()
                             }
                             console.log(result);
                         },
@@ -511,7 +536,7 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
 
                 }
 
-                $.likeAjaxFunction  = function ajaxPost(postId, likeCntId, likeBtnId) {
+                $.likeAjaxFunction = function ajaxPost(postId, likeCntId, likeBtnId) {
                     // PREPARE FORM DATA
                     var formData = {
                         postId: postId,
@@ -534,13 +559,13 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
                                 $("#" + likeCntId).html(result.data);
                                 console.log(resultData.includes('You'))
                                 if (resultData.includes('You')) {
-                                    $("#"+likeBtnId).addClass("bg-opacity-10 bg-info rounded-pill");
+                                    $("#" + likeBtnId).addClass("bg-opacity-10 bg-info rounded-pill");
                                 } else {
-                                    $("#"+likeBtnId).removeClass("bg-opacity-10 bg-info rounded-pill");
+                                    $("#" + likeBtnId).removeClass("bg-opacity-10 bg-info rounded-pill");
                                 }
 
                             } else {
-                                $("#"+likeCntId).html("<strong>Error!</strong>");
+                                $("#" + likeCntId).html("<strong>Error!</strong>");
                             }
                             console.log(result);
                         },
@@ -558,12 +583,11 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
                         commenterId: [[${user.getId()}]],
                         commenterName: [[${user.getName()}]],
                         commenterImage: [[${user.getImageURL()}]],
-                        comment: $('#'+commentInputFieldId).val()
+                        comment: $('#' + commentInputFieldId).val()
                     }
 
-                    console.log('Comment: ' +$('#'+commentInputFieldId).val())
+                    console.log('Comment: ' + $('#' + commentInputFieldId).val())
                     document.getElementById(commentInputFieldId).value = ""
-
 
 
                     $.ajax({
@@ -577,7 +601,7 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
                                 console.log(result.data);
                                 var commenterImage = [[${user.getImageURL()}]];
                                 $("#" + commentsCountId).html(result.data);
-                                $("#"+addCommentDivId).prepend(`
+                                $("#" + addCommentDivId).prepend(`
                     <div class="d-flex align-items-center my-1">
                                                     <!-- avatar -->
                                                     <img
@@ -600,13 +624,13 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
                     `)
 
                             } else {
-                                $('#'+commentInputFieldId).addClass("text-bg-danger bg-opacity-10 text-success");
+                                $('#' + commentInputFieldId).addClass("text-bg-danger bg-opacity-10 text-success");
                                 console.log("ERROR! Not success returned");
                             }
                             console.log(result);
                         },
                         error: function (e) {
-                            $('#'+commentInputFieldId).addClass("text-bg-danger bg-opacity-10 text-success");
+                            $('#' + commentInputFieldId).addClass("text-bg-danger bg-opacity-10 text-success");
                             console.log("ERROR: ", e);
                         }
                     });
@@ -614,20 +638,22 @@ th:onkeypress="'javascript:waitforenterandcomment(\'' + ${post.getId()} + '\', \
             })
     </script>
     <!-- Script  tinymce -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.1.0/tinymce.min.js" integrity="sha512-dr3qAVHfaeyZQPiuN6yce1YuH7YGjtUXRFpYK8OfQgky36SUfTfN3+SFGoq5hv4hRXoXxAspdHw4ITsSG+Ud/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.1.0/tinymce.min.js"
+            integrity="sha512-dr3qAVHfaeyZQPiuN6yce1YuH7YGjtUXRFpYK8OfQgky36SUfTfN3+SFGoq5hv4hRXoXxAspdHw4ITsSG+Ud/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-         tinymce.init({
+        tinymce.init({
             selector: '#textareaa',
             branding: false,
             elementpath: false,
             content_style: "body { line-height: 1.4; }",
             statusbar: false,
             resize: true,
-             plugins: 'wordcount',
+            plugins: 'wordcount',
 
-             init_instance_callback : function(editor) {
-               /* var freeTiny = document.querySelector('.tox .tox-notification--in');
-                freeTiny.style.display = "none";*/
+            init_instance_callback: function (editor) {
+                /* var freeTiny = document.querySelector('.tox .tox-notification--in');
+                 freeTiny.style.display = "none";*/
             }
         });
     </script>

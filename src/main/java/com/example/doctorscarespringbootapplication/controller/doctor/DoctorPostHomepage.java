@@ -46,7 +46,7 @@ public class DoctorPostHomepage {
     @GetMapping("/post-homepage/{page}")
     public String postHomepage(@PathVariable("page") Integer page, Model model, Principal principal) {
         model.addAttribute("title", "Doctor Tips Homepage");
-        Pageable pageable = PageRequest.of(page-1, 5);
+        Pageable pageable = PageRequest.of(page - 1, 5);
         Page<Posts> postsList = postsRepository.findAllByOrderByIdDesc(pageable);
         model.addAttribute("postsList", postsList);
         model.addAttribute("currentPage", page);
@@ -83,7 +83,7 @@ public class DoctorPostHomepage {
         model.addAttribute("title", "Doctor Tips Homepage");
         Pageable pageable = PageRequest.of(0, 5);
         Page<Posts> postsListSelect = postsRepository.findAllByOrderByIdDesc(pageable);
-        System.out.println("Total Post = " +postsListSelect.getTotalElements());
+        System.out.println("Total Post = " + postsListSelect.getTotalElements());
         model.addAttribute("postsListSize", postsListSelect.getTotalElements());
         model.addAttribute("postsList", postsListSelect);
         model.addAttribute("currentPage", 1);
@@ -91,7 +91,6 @@ public class DoctorPostHomepage {
         addCommonData(model, principal);
         return "doctor/doctor_post_homepage";
     }
-
 
 
     @PostMapping("/process-like")
@@ -112,7 +111,7 @@ public class DoctorPostHomepage {
         commentsList.add(new Comments(commentsDTO.getCommenterId(), commentsDTO.getCommenterName(), commentsDTO.getCommenterImage(), commentsDTO.getComment(), posts));
         posts.setCommentsList(commentsList);
         postsRepository.save(posts);
-        ServiceResponse<String> response = new ServiceResponse<String>("success", commentsList.size()+"");
+        ServiceResponse<String> response = new ServiceResponse<String>("success", commentsList.size() + "");
         return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
@@ -163,8 +162,8 @@ public class DoctorPostHomepage {
         String userEmail = principal.getName();
         User user = userRepository.getUserByEmailNative(userEmail);
         model.addAttribute("user", user);
-        Pageable pageable = PageRequest.of(page-1, 5);
-        Page<SavedPosts> savedPostsList = savedPostsRepository.findBySaverId(user.getId()+"", pageable);
+        Pageable pageable = PageRequest.of(page - 1, 5);
+        Page<SavedPosts> savedPostsList = savedPostsRepository.findBySaverId(user.getId() + "", pageable);
         System.out.println(savedPostsList);
         model.addAttribute("postsListLength", savedPostsList.getTotalElements());
         model.addAttribute("postsList", savedPostsList);

@@ -16,9 +16,11 @@ public interface AppointDoctorRepository extends JpaRepository<AppointDoctor, In
     String countAllByAppointmentDateAndPatientID(Date todaysDate, String patientId);
 
     List<AppointDoctor> findAllByAppointmentDateAndPatientIDAndAppointmentTimeGreaterThanOrderByAppointmentTimeAsc(Date appointmentDate, String patientID, Time currentTime);
+
     List<AppointDoctor> findAllByAppointmentDateAndPatientIDOrderByAppointmentTimeAsc(Date appointmentDate, String patientID);
 
     List<AppointDoctor> findAllByAppointmentDateAndDoctorIDAndAppointmentTimeGreaterThanOrderByAppointmentTimeAsc(Date appointmentDate, String doctorID, Time currentTime);
+
     List<AppointDoctor> findAllByAppointmentDateAndDoctorIDOrderByAppointmentTimeAsc(Date appointmentDate, String doctorID);
 
     Page<AppointDoctor> findAllByOrderByIdDesc(Pageable pageable);
@@ -41,6 +43,7 @@ public interface AppointDoctorRepository extends JpaRepository<AppointDoctor, In
 
     @Query(value = "SELECT sum(doctor_fee) FROM appoint_doctor where appointment_date >= :m and appointment_date <= :n", nativeQuery = true)
     String sumWeeklyEarningNative(@Param("m") Date fromDate, @Param("n") Date toDate);
+
     @Query(value = "SELECT sum(doctor_fee) FROM appoint_doctor where appointment_date >= :m and appointment_date <= :n", nativeQuery = true)
     String summonthlyEarningNative(@Param("m") Date fromDate, @Param("n") Date toDate);
 

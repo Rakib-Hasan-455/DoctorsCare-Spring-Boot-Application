@@ -12,16 +12,17 @@
 
         <div class="row ">
             <div class="col-md-6 offset-md-3">
-                <div class="my-card mt-4 mb-3 p-5 rounded-3 bg-gray bg-opacity-10" >
+                <div class="my-card mt-4 mb-3 p-5 rounded-3 bg-gray bg-opacity-10">
 
                     <form th:action="@{/admin/process-patient-edit}" method="post" th:object="${patientUser}">
 
                         <div class=" image d-flex flex-column justify-content-center align-items-center mb-3">
-                             <img th:src="${patientUser.imageURL}" height="150" width="150" style="object-fit: cover" class="rounded-circle bg-dark" />
+                            <img th:src="${patientUser.imageURL}" height="150" width="150" style="object-fit: cover"
+                                 class="rounded-circle bg-dark"/>
                         </div>
                         <input name="page" th:value="${page}" hidden>
                         <input name="id" th:value="${patientUser.id}" hidden>
-<!--                        Account Enabled? -->
+                        <!--                        Account Enabled? -->
                         <div class="mb-3">
                             <label class="form-label">Account is Enabled?</label>
                             <select name="enabled" class="form-select" th:value="${patientUser.enabled}">
@@ -30,20 +31,23 @@
                             </select>
 
                         </div>
-                            <!--                        name-->
+                        <!--                        name-->
                         <div class="mb-3">
                             <label class="form-label">Full Name</label>
-                            <input name="name" th:value="${patientUser.name}" required placeholder="Enter here" type="text" class="form-control">
+                            <input name="name" th:value="${patientUser.name}" required placeholder="Enter here"
+                                   type="text" class="form-control">
                         </div>
                         <!--                        DOB-->
                         <div class="mb-3">
                             <label class="form-label">Date Of Birth</label>
-                            <input name="DOB" th:value="${patientUser.DOB}" required placeholder="Enter here" type="date" class="form-control">
+                            <input name="DOB" th:value="${patientUser.DOB}" required placeholder="Enter here"
+                                   type="date" class="form-control">
                         </div>
                         <!--                        email -->
                         <div class="mb-3">
                             <label class="form-label">Email address</label>
-                            <input name="email" th:value="${patientUser.email}" placeholder="Enter here" type="email" class="form-control"
+                            <input name="email" th:value="${patientUser.email}" placeholder="Enter here" type="email"
+                                   class="form-control"
                                    th:classappend="${#fields.hasErrors('email')?'is-invalid':''}">
                             <div th:each="e : ${#fields.errors('email')}" th:text="${e}" class="invalid-feedback">
                             </div>
@@ -51,23 +55,26 @@
                         <!--                        Phone Number-->
                         <div class="mb-3">
                             <label class="form-label">Phone Number</label>
-                            <input name="phone" th:value="${patientUser.phone}" required minlength="11" maxlength="11" placeholder="Enter here" type="text" class="form-control">
+                            <input name="phone" th:value="${patientUser.phone}" required minlength="11" maxlength="11"
+                                   placeholder="Enter here" type="text" class="form-control">
                         </div>
                         <!--                        Current Address-->
                         <div class="mb-3">
                             <label class="form-label">Current Address</label>
-                            <input name="address" th:value="${patientUser.address}" required placeholder="Enter here" type="text" class="form-control">
+                            <input name="address" th:value="${patientUser.address}" required placeholder="Enter here"
+                                   type="text" class="form-control">
                         </div>
                         <!--                        about -->
                         <div class="form-group mb-3">
                             <label class="form-label">About</label>
-                            <textarea required placeholder="Enter something about yourself" name="about" cols="30" rows="5" class="form-control" th:text="${patientUser.about}"></textarea>
+                            <textarea required placeholder="Enter something about yourself" name="about" cols="30"
+                                      rows="5" class="form-control" th:text="${patientUser.about}"></textarea>
                         </div>
 
                         <!--                        buttons -->
                         <div class="container text-center d-grid gap-2">
                             <button type="submit" class="btn btn-outline-success btn-block mb-1">Save</button>
-                         </div>
+                        </div>
                     </form>
                 </div>
             </div>
