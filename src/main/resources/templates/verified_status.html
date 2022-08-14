@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  th:replace="base::layout(~{::section})">
+<html lang="en" th:replace="base::layout(~{::section})">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,10 +8,14 @@
 <section>
     <h3 class="pt-5 p-5 rounded-pill">
         <div class="p-5 text-center rounded-4 alert alert-success">
-            <h3 th:if="${emailVerified  == true}"> Your account has been verified. Please <a th:href="@{/login}" style="text-decoration: none">Log In..</a> </h3>
-            <h3 th:if="${emailVerified  == false}"> Your account has been verified already. Please <a th:href="@{/login}" style="text-decoration: none">Log In..</a> </h3>
-            <h3 th:if="${accountDisabled == true}"> Your account is disabled by our administrator. Currently, you can't active your account with this link. If you think
-                                                    it's wrong then contact doctorscaremail@gmail.com.</h3>
+            <h3 th:if="${emailVerified  == true}"> Your account has been verified. Please <a th:href="@{/login}"
+                                                                                             style="text-decoration: none">Log
+                In..</a></h3>
+            <h3 th:if="${emailVerified  == false}"> Your account has been verified already. Please <a
+                    th:href="@{/login}" style="text-decoration: none">Log In..</a></h3>
+            <h3 th:if="${accountDisabled == true}"> Your account is disabled by our administrator. Currently, you can't
+                active your account with this link. If you think
+                it's wrong then contact doctorscaremail@gmail.com.</h3>
             <h3 th:if="${invalidToken == true}"> Your token is invalid! </h3>
         </div>
     </h3>

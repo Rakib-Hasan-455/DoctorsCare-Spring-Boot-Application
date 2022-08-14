@@ -1,76 +1,95 @@
 <!DOCTYPE html>
-<html lang="en"  xlms:th="http://thymeleaf.org" xmlns:xlms="http://www.w3.org/1999/xhtml"  th:replace="base::layout(~{::section})">
+<html lang="en" xlms:th="http://thymeleaf.org" xmlns:xlms="http://www.w3.org/1999/xhtml"
+      th:replace="base::layout(~{::section})">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <section>
-     <div class="container">
+    <div class="container">
         <div class="row ">
             <div class="col-md-6 offset-md-3">
-                <div class="my-card mt-4 mb-3 p-5 rounded-3" >
+                <div class="my-card mt-4 mb-3 p-5 rounded-3">
 
-                    <div th:if="${successMsgType == 'alert-success'}" th:classappend="${successMsgType}" th:text="${successMsg}" class="alert text-center"></div>
-                    <div th:if="${imageUpload == false}" style="font-size: 20px; color: lightcoral" class="alert alert-danger text-center">Please Upload Images to Signup!</div>
-                    <div th:if="${tokenGenerateFail == false}" style="font-size: 20px; color: lightcoral" class="alert alert-danger text-center">An Error Occurred During Token Generation!</div>
+                    <div th:if="${successMsgType == 'alert-success'}" th:classappend="${successMsgType}"
+                         th:text="${successMsg}" class="alert text-center"></div>
+                    <div th:if="${imageUpload == false}" style="font-size: 20px; color: lightcoral"
+                         class="alert alert-danger text-center">Please Upload Images to Signup!
+                    </div>
+                    <div th:if="${tokenGenerateFail == false}" style="font-size: 20px; color: lightcoral"
+                         class="alert alert-danger text-center">An Error Occurred During Token Generation!
+                    </div>
 
                     <h2 class="text-center"> Patient Signup !</h2>
 
                     <form th:action="@{/process-patient-signup}" method="post" th:object="${user}">
-<!--                        name-->
+                        <!--                        name-->
                         <div class="mb-3">
                             <label class="form-label">Full Name</label>
-                            <input name="name" th:value="${user.name}" required placeholder="Enter here" type="text" class="form-control">
-                         </div>
+                            <input name="name" th:value="${user.name}" required placeholder="Enter here" type="text"
+                                   class="form-control">
+                        </div>
                         <!--                        DOB-->
                         <div class="mb-3">
                             <label class="form-label">Date Of Birth</label>
-                            <input name="DOB" th:value="${user.DOB}" required placeholder="Enter here" type="date" class="form-control">
+                            <input name="DOB" th:value="${user.DOB}" required placeholder="Enter here" type="date"
+                                   class="form-control">
                         </div>
-<!--                        email -->
+                        <!--                        email -->
                         <div class="mb-3">
                             <label class="form-label">Email address</label>
-                            <input name="email" th:value="${user.email}" placeholder="Enter here" type="email" class="form-control"
+                            <input name="email" th:value="${user.email}" placeholder="Enter here" type="email"
+                                   class="form-control"
                                    th:classappend="${#fields.hasErrors('email')?'is-invalid':''}">
                             <div th:each="e : ${#fields.errors('email')}" th:text="${e}" class="invalid-feedback">
                             </div>
                         </div>
-<!--                        password -->
+                        <!--                        password -->
                         <div class="mb-3">
                             <label class="form-label">Password</label>
                             <input name="password" placeholder="Enter here" type="password" class="form-control"
                                    th:classappend="${#fields.hasErrors('password')?'is-invalid':''}">
-                            <div th:each="e : ${#fields.errors('password')}" th:text="${e}" class="invalid-feedback"></div>
+                            <div th:each="e : ${#fields.errors('password')}" th:text="${e}"
+                                 class="invalid-feedback"></div>
                         </div>
                         <!--                        Phone Number-->
                         <div class="mb-3">
                             <label class="form-label">Phone Number</label>
-                            <input name="phone" th:value="${user.phone}" required minlength="11" maxlength="11" placeholder="Enter here" type="text" class="form-control">
+                            <input name="phone" th:value="${user.phone}" required minlength="11" maxlength="11"
+                                   placeholder="Enter here" type="text" class="form-control">
                         </div>
                         <!--                        Current Address-->
                         <div class="mb-3">
                             <label class="form-label">Current Address</label>
-                            <input name="address" th:value="${user.address}" required placeholder="Enter here" type="text" class="form-control">
+                            <input name="address" th:value="${user.address}" required placeholder="Enter here"
+                                   type="text" class="form-control">
                         </div>
-<!--                        about -->
+                        <!--                        about -->
                         <div class="form-group mb-3">
                             <label class="form-label">About</label>
-                            <textarea required placeholder="Enter something about yourself" name="about" cols="30" rows="5" class="form-control" th:text="${user.about}"></textarea>
+                            <textarea required placeholder="Enter something about yourself" name="about" cols="30"
+                                      rows="5" class="form-control" th:text="${user.about}"></textarea>
                         </div>
                         <!--                        Upload Image -->
-                        <div th:if="${imageUploaded == false}" th:text="Image Upload Unsuccessful!" class="alert alert-danger"></div>
+                        <div th:if="${imageUploaded == false}" th:text="Image Upload Unsuccessful!"
+                             class="alert alert-danger"></div>
                         <div class="form-group mb-3">
                             <label class="form-label"> Upload Your Image </label>
-                            <input name="imageURL" id="image-uploader" type="hidden" data-accepted="image/*" data-maxFileSize="1" data-width="250" data-height="150" class="simple-file-upload" required>
-                            <p class="form-label" style="font-size: 10px; color: red"> Please Note That You Won't be able to change this picture in the future. So Upload Image Carefully* </p>
+                            <input name="imageURL" id="image-uploader" type="hidden" data-accepted="image/*"
+                                   data-maxFileSize="1" data-width="250" data-height="150" class="simple-file-upload"
+                                   required>
+                            <p class="form-label" style="font-size: 10px; color: red"> Please Note That You Won't be
+                                able to change this picture in the future. So Upload Image Carefully* </p>
                         </div>
-<!--                        check term -->
+                        <!--                        check term -->
                         <div class="form-group form-check text-center mt-3 mb-3">
-                            <label class="form-check-label">  <input type="checkbox" class="form-check-input" required> Agree <a th:href="@{/terms-and-conditions}" target="_blank">Terms and Conditions</a></label>
+                            <label class="form-check-label"> <input type="checkbox" class="form-check-input" required>
+                                Agree <a th:href="@{/terms-and-conditions}" target="_blank">Terms and
+                                    Conditions</a></label>
                         </div>
 
-<!--                        buttons -->
+                        <!--                        buttons -->
                         <div class="container text-center d-grid gap-2">
                             <button type="submit" class="btn btn-outline-success btn-block mb-1">Submit</button>
                             <button type="reset" class="btn btn-outline-dark btn-block mb-2">Reset</button>
