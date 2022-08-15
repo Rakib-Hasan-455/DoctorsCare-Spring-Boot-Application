@@ -15,15 +15,15 @@ public interface PrescriptionRepository extends JpaRepository<Prescription, Inte
 
     List<Prescription> findByAppointDoctorPatientIDOrderByIdDesc(String patientIDEmail);
 
-    Page<Prescription> findByAppointDoctorPatientIDAndSymptomsNotNullOrderByIdDesc(String patientIDEmail, Pageable pageable);
+    Page<Prescription> findByAppointDoctorPatientIDAndSymptomsIsNotOrderByIdDesc(String patientIDEmail, Pageable pageable, String symptoms);
 
     List<Prescription> findByAppointDoctorDoctorIDOrderByIdDesc(String doctorID);
 
-    Page<Prescription> findByAppointDoctorDoctorIDAndSymptomsNotNullOrderByIdDesc(String doctorID, Pageable pageable);
+    Page<Prescription> findByAppointDoctorDoctorIDAndSymptomsIsNotOrderByIdDesc(String doctorID, Pageable pageable, String symptoms);
 
     List<Prescription> findAllByOrderByIdDesc();
 
-    Page<Prescription> findAllByMedicinesNotNullOrderByIdDesc(Pageable pageable);
+    Page<Prescription> findAllBySymptomsIsNotOrderByIdDesc(Pageable pageable, String symptoms);
 
     String countAllByAppointDoctorAppointmentDateAndMedicinesIsNotNullAndAppointDoctorDoctorID(Date todayDate, String s);
 

@@ -181,7 +181,7 @@ public class PatientMainController {
     public String viewPrescriptions(@PathVariable("page") Integer page, Model model, Principal principal) {
         model.addAttribute("title", "View Prescriptions");
         Pageable pageable = PageRequest.of(page - 1, 8);
-        Page<Prescription> prescriptionList = prescriptionRepository.findByAppointDoctorPatientIDAndSymptomsNotNullOrderByIdDesc(principal.getName(), pageable);
+        Page<Prescription> prescriptionList = prescriptionRepository.findByAppointDoctorPatientIDAndSymptomsIsNotOrderByIdDesc(principal.getName(), pageable, "");
         if (prescriptionList.getTotalElements() == 0) {
             model.addAttribute("noPrescription", "true");
         }

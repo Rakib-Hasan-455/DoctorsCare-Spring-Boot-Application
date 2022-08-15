@@ -22,9 +22,6 @@ public class DoctorsCareSpringBootApplication {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private EmailSenderServiceJava senderService;
-
     public static void main(String[] args) {
         SpringApplication.run(DoctorsCareSpringBootApplication.class, args);
     }

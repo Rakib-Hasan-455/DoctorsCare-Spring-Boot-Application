@@ -165,7 +165,7 @@ public class DoctorMainController {
         Pageable pageable = PageRequest.of(page - 1, 8);
         User user = this.userRepository.getUserByEmailNative(principal.getName());
         Page<Prescription> prescriptionList = prescriptionRepository
-                .findByAppointDoctorDoctorIDAndSymptomsNotNullOrderByIdDesc(user.getId() + "", pageable);
+                .findByAppointDoctorDoctorIDAndSymptomsIsNotOrderByIdDesc(user.getId() + "", pageable, "");
         if (prescriptionList.getTotalElements() == 0) {
             model.addAttribute("noPrescription", "true");
         }
