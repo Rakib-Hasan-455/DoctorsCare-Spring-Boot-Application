@@ -24,7 +24,7 @@ Password: (Secret. Please Mail Me to Have it)
 
 ## Watch Overview Video
 
-[![Watch the video](https://drive.google.com/uc?export=view&id=1jgaxmo0ZAqchSeg18WDbi5i0u7Yn3LpP "Watch Video")](https://www.youtube.com/watch?v=_UOMsHpJSeg)
+[![Watch the video](https://drive.google.com/uc?export=view&id=1jgaxmo0ZAqchSeg18WDbi5i0u7Yn3LpP "Watch Video")](https://youtu.be/vntkXjHCAFU)
 
 ## Screenshots:
 <div align = "center">
