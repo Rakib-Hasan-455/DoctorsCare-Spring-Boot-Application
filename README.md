@@ -91,6 +91,7 @@ Admin Earnings Statistics <br>
 
 <br>
 <b> Library & Resources was used</b>
+<li> SSL Wireless Sandbox (Payment Gateway)</li>
 <li> Simple Image Upload (Heroku Plugins)</li>
 <li> ClearDB for MySQL Database (Heroku Plugins)</li>
 <li> TinyMCE (TextField Editor) </li>
