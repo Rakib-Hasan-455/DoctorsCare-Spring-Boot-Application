@@ -29,6 +29,10 @@ Password: (Secret. Please Mail Me to Have it)
 ## Screenshots:
 <div align = "center">
 
+## `ERD`
+
+![Doctors Care ERD](https://drive.google.com/uc?export=view&id=1iBeHPxAKtWuYHxyjWOvb9MfSi4PU0W8w "Doctors Care ERD")
+
 ## `Home Window`
 
 Default Page <br>
