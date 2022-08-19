@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+            crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+<div id="ajaxTimer" class="text-center h2"></div>
+<div id="dataSent"></div>
+<script>
+
+    function thirtySecAjaxReq() {
+        $.ajaxTest30SecSendData();
+        var timeLeft = 10;
+        var elem = document.getElementById('ajaxTimer');
+
+        var timerId = setInterval(countdown, 1000);
+
+        function countdown() {
+            if (timeLeft == -1) {
+                clearTimeout(timerId);
+            } else {
+                elem.innerHTML = timeLeft + ' seconds remaining';
+                timeLeft--;
+            }
+        }
+    }
+    $(document).ready(function(){
+        setInterval(thirtySecAjaxReq, 10000);
+
+        $.ajaxTest30SecSendData = function () {
+            timeLeft = 10;
+            var formData = {
+                sentAt: Date.now()+"",
+                message: "Random Msg"
+            }
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/patient/Ajax-Req-Test",
+                data: JSON.stringify(formData),
+                dataType: 'json',
+                success: function (result) {
+                    if (result.status == "success") {
+                        $("#dataSent").append(`<p class="alert alert-success"> data sent </p>`)
+                    } else {
+                        $("#dataSent").append(`<p class="alert alert-success"> data sent </p>`)
+                    }
+                    console.log(result);
+                },
+                error: function (e) {
+                    $("#dataSent").append(`<p class="alert alert-danger"> data wasn't sent </p>`)
+                    console.log("ERROR: ", e);
+                }
+            });
+        }
+    });
+</script>
+
+
+</body>
+</html>

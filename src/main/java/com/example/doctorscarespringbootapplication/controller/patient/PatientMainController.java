@@ -1,6 +1,8 @@
 package com.example.doctorscarespringbootapplication.controller.patient;
 
 import com.example.doctorscarespringbootapplication.dao.*;
+import com.example.doctorscarespringbootapplication.dto.ServiceResponse;
+import com.example.doctorscarespringbootapplication.dto.test.AjaxTestDTO;
 import com.example.doctorscarespringbootapplication.entity.AppointDoctor;
 import com.example.doctorscarespringbootapplication.entity.Prescription;
 import com.example.doctorscarespringbootapplication.entity.User;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -230,6 +233,18 @@ public class PatientMainController {
             countDownTime = 0;
         }
         model.addAttribute("appointCountdownTime", countDownTime);
+    }
+
+    @GetMapping("/Ajax-Req-Page")
+    public String ajaxReqPage() {
+        return "/patient/test/ajax_test";
+    }
+
+    @PostMapping("/Ajax-Req-Test")
+    public ResponseEntity<Object> ajaxReqTest(@RequestBody AjaxTestDTO ajaxTestDTO) {
+        System.out.println("Sent at: "+ajaxTestDTO.getSentAt()+" and received message: "+ajaxTestDTO.getMessage());
+        ServiceResponse<String> response = new ServiceResponse<String>("success",  "success");
+        return new ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
 

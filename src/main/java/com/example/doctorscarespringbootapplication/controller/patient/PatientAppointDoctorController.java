@@ -7,6 +7,7 @@ import com.example.doctorscarespringbootapplication.dao.AppointDoctorRepository;
 import com.example.doctorscarespringbootapplication.dao.AppointDoctorTransactionRepository;
 import com.example.doctorscarespringbootapplication.dao.UserRepository;
 import com.example.doctorscarespringbootapplication.dto.AppointDoctorDTO;
+import com.example.doctorscarespringbootapplication.dto.test.AjaxTestDTO;
 import com.example.doctorscarespringbootapplication.entity.AppointDoctor;
 import com.example.doctorscarespringbootapplication.entity.AppointDoctorTransaction;
 import com.example.doctorscarespringbootapplication.entity.Prescription;
