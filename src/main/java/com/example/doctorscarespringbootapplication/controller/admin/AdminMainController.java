@@ -184,7 +184,7 @@ public class AdminMainController {
         model.addAttribute("title", "Appointment Logs");
         Pageable pageable = PageRequest.of(page - 1, 8);
         Page<Prescription> prescriptionList = prescriptionRepository
-                .findAllByMedicinesNotNullOrderByIdDesc(pageable);
+                .findAllBySymptomsIsNotOrderByIdDesc(pageable, "");
         if (prescriptionList.getTotalElements() == 0) {
             model.addAttribute("noPrescription", "true");
         }

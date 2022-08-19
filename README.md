@@ -24,10 +24,14 @@ Password: (Secret. Please Mail Me to Have it)
 
 ## Watch Overview Video
 
-[![Watch the video](https://drive.google.com/uc?export=view&id=1jgaxmo0ZAqchSeg18WDbi5i0u7Yn3LpP "Watch Video")](https://www.youtube.com/watch?v=_UOMsHpJSeg)
+[![Watch the video](https://drive.google.com/uc?export=view&id=1jgaxmo0ZAqchSeg18WDbi5i0u7Yn3LpP "Watch Video")](https://youtu.be/vntkXjHCAFU)
 
 ## Screenshots:
 <div align = "center">
+
+## `ERD`
+
+![Doctors Care ERD](https://drive.google.com/uc?export=view&id=1iBeHPxAKtWuYHxyjWOvb9MfSi4PU0W8w "Doctors Care ERD")
 
 ## `Home Window`
 
@@ -91,6 +95,7 @@ Admin Earnings Statistics <br>
 
 <br>
 <b> Library & Resources was used</b>
+<li> SSLCOMMERZ Sandbox (Payment Gateway)</li>
 <li> Simple Image Upload (Heroku Plugins)</li>
 <li> ClearDB for MySQL Database (Heroku Plugins)</li>
 <li> TinyMCE (TextField Editor) </li>
