@@ -235,18 +235,6 @@ public class PatientMainController {
         model.addAttribute("appointCountdownTime", countDownTime);
     }
 
-    @GetMapping("/Ajax-Req-Page")
-    public String ajaxReqPage() {
-        return "/patient/ajax_test";
-    }
-
-    @PostMapping("/Ajax-Req-Test")
-    public ResponseEntity<Object> ajaxReqTest(@RequestBody AjaxTestDTO ajaxTestDTO) {
-        System.out.println("Sent at: "+ajaxTestDTO.getSentAt()+" and received message: "+ajaxTestDTO.getMessage());
-        ServiceResponse<String> response = new ServiceResponse<String>("success",  "success");
-        return new ResponseEntity<Object>(response, HttpStatus.OK);
-    }
-
 
     @ModelAttribute
     public void addCommonData(Model model, Principal principal) {
