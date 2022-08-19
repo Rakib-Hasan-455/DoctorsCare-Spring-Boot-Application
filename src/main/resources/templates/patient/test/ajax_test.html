@@ -17,7 +17,7 @@
 
     function thirtySecAjaxReq() {
         $.ajaxTest30SecSendData();
-        var timeLeft = 10;
+        var timeLeft = 30;
         var elem = document.getElementById('ajaxTimer');
 
         var timerId = setInterval(countdown, 1000);
@@ -32,10 +32,9 @@
         }
     }
     $(document).ready(function(){
-        setInterval(thirtySecAjaxReq, 10000);
+        setInterval(thirtySecAjaxReq, 30000);
 
         $.ajaxTest30SecSendData = function () {
-            timeLeft = 10;
             var formData = {
                 sentAt: Date.now()+"",
                 message: "Random Msg"
