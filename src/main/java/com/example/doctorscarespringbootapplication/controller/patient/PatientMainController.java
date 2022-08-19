@@ -237,7 +237,7 @@ public class PatientMainController {
 
     @GetMapping("/Ajax-Req-Page")
     public String ajaxReqPage() {
-        return "/patient/test/ajax_test";
+        return "/patient/ajax_test";
     }
 
     @PostMapping("/Ajax-Req-Test")
