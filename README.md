@@ -1,5 +1,9 @@
 # `DoctorsCare SpringBoot Application`<br>
 
+![](https://img.shields.io/github/last-commit/rakib-hasan-455/DoctorsCare-Spring-Boot-Application)
+![](https://tokei.rs/b1/github/rakib-hasan-455/DoctorsCare-Spring-Boot-Application?category=files)
+![](https://img.shields.io/tokei/lines/github/rakib-hasan-455/DoctorsCare-Spring-Boot-Application)
+![](https://img.shields.io/github/repo-size/rakib-hasan-455/DoctorsCare-Spring-Boot-Application)
 ## Introduction:
 
 DoctorsCare is an application that helps its patients to have health care and aids online. It's a website that helps its users to have medical services from their homes. As technology has changed a lot over the last decade, people are trying to cope with new technology and new services. DoctorsCare is one of them which has bright opportunities both for patients and doctors in the future. Because people are updating themselves with technology and becoming more aware of their time. DoctorsCare is a project which values people's time and cost.
